@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Ventas</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1>ADMINISTRADOR <small>Reporte de Ventas</small></h1>
+            </div>
+
+            <!-- Formulario de Filtro de Fechas -->
+            <form th:action="@{/admin/ventas}" method="get" class="mb-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Local</label>
+                        <select name="local" class="form-control">
+                            <option value="">Todos los Locales</option>
+                            <option th:each="localItem : ${locales}" 
+                                    th:value="${localItem.nombre}"
+                                    th:text="${localItem.nombre}"
+                                    th:selected="${localItem.nombre == localSeleccionado}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Fecha Inicio</label>
+                        <input type="date" name="fechaInicio" class="form-control" 
+                               th:value="${#dates.format(fechaInicio, 'yyyy-MM-dd')}">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Fecha Fin</label>
+                        <input type="date" name="fechaFin" class="form-control"
+                               th:value="${#dates.format(fechaFin, 'yyyy-MM-dd')}">
+                    </div>
+                    <div class="col-md-3 align-self-end">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary">Filtrar</button>
+                            <a th:href="@{/admin/ventas/pdf(local=${localSeleccionado}, fechaInicio=${#dates.format(fechaInicio, 'yyyy-MM-dd')}, fechaFin=${#dates.format(fechaFin, 'yyyy-MM-dd')})}" 
+                               class="btn btn-success">
+                                Generar PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <!-- Resumen de Ventas -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Total de Ventas</h5>
+                            <p class="h3" th:text="'S/ ' + ${#numbers.formatDecimal(totales.totalVentas, 0, 'COMMA', 2, 'POINT')}">S/ 0.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Total de Productos Vendidos</h5>
+                            <p class="h3" th:text="${totales.totalProductos}">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de Ventas -->
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Total</th>
+                            <th>Fecha Venta</th>
+                            <th>Cliente</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="venta : ${ventas}">
+                            <td th:text="${venta.id}"></td>
+                            <td th:text="${venta.producto.nombreProducto}"></td>
+                            <td th:text="${venta.cantidad}"></td>
+                            <td th:text="'S/' + ${#numbers.formatDecimal(venta.precio, 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="'S/' + ${#numbers.formatDecimal(venta.total, 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#dates.format(venta.pedido.fechaCreacion, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${venta.pedido.usuario.username}"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a th:href="@{'/admin/detalles-pago/' + ${venta.id}}" class="btn-view ml-2">
+                                        Ver Detalles
+                                    </a>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+
+        </div>
+    </body>
+</html>

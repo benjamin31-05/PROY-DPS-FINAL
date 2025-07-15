@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Pedidos</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+
+
+        <!-- Contenido principal -->
+        <div class="main-content"> 
+            <div class="page-header">
+                <h1>ADMIN <small>Todos los Pedidos</small></h1>
+            </div>
+
+            <form th:action="@{/admin/allPedidos}" method="get">
+                <div class="filter-container">
+                    <select name="local">
+                        <option value="">Todos los Locales</option>
+                        <option value="Open Plaza">OPEN PLAZA</option>
+                        <option value="UDEP">UDEP</option>
+                    </select>
+
+                    <select name="usuario">
+                        <option value="">Todos los Usuarios</option>
+                        <option th:each="user : ${usuarios}" 
+                                th:value="${user.username}" 
+                                th:text="${user.username}"></option>
+                    </select>
+
+                    <button type="submit">Filtrar</button>
+                </div>
+            </form>
+
+
+            <br> <!-- Salto de línea -->
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Total</th>
+
+                            <th>Fecha Creación</th>
+                            <th>Local</th>
+                            <th>Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="detalle : ${detallesPedidos}">
+                            <td th:text="${detalle.id}"></td>
+                            <td th:text="${detalle.producto.nombreProducto}"></td>
+                            <td th:text="${detalle.cantidad}"></td>
+                            <td th:text="'S/' + ${#numbers.formatDecimal(detalle.precio, 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="'S/' + ${#numbers.formatDecimal(detalle.total, 0, 'COMMA', 2, 'POINT')}"></td>
+
+                            <td th:text="${#dates.format(detalle.pedido.fechaCreacion, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${detalle.local != null ? detalle.local.nombre : 'No asignado'}"></td>
+                            <td th:text="${detalle.pedido.usuario.username}"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <!-- Si el pedido está pendiente -->
+                                    <a th:if="${detalle.estadoPago == null || detalle.estadoPago == 'PENDIENTE'}" 
+                                       class="btn-edit" 
+                                       th:href="@{'/admin/procesar/' + ${detalle.id}}">Procesar</a>
+                                    
+                                       <!-- Si el pedido está procesando (específico de Yape) -->
+                                    <a th:if="${detalle.estadoPago == 'PROCESANDO'}" 
+                                       class="btn-warning" 
+                                       th:href="@{'/admin/verificar/' + ${detalle.id}}">Verificar Pago Yape</a>
+
+
+                                    <!-- Si el pedido está pagado -->
+                                    <div th:if="${detalle.estadoPago == 'PAGADO'}" class="badge bg-success">
+                                        PAGADO
+                                        <a th:href="@{'/admin/detalles-pago/' + ${detalle.id}}" class="btn-view ml-2">
+                                            Ver Detalles
+                                        </a>
+                                        <a class="btn-delete" href="#"
+                                           onclick="return confirm('¿Estás seguro de eliminar este pedido?')">Eliminar</a>
+                                    </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${detallesPedidos.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{/admin/allPedidos(page=${detallesPedidos.number - 1})}">Anterior</a>
+                    </li>
+                    <li class="page-item" th:classappend="${detallesPedidos.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{/admin/allPedidos(page=${detallesPedidos.number + 1})}">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div th:if="${#lists.isEmpty(detallesPedidos)}" class="alert-info">
+                No hay pedidos disponibles en este momento.
+            </div>
+
+        </div> 
+
+    </body>
+</html>

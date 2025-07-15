@@ -1,0 +1,66 @@
+<!-- usuarios.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Usuarios</title>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+       <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+    </head>
+    <body>
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"></div>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <h1>Listado de Clientes</h1>
+            
+             <div class="table-container">
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente : ${clientes}">
+                        <td th:text="${cliente.id}">1</td>
+                        <td th:text="${cliente.nombre}">John Doe</td>
+                        <td th:text="${cliente.email}">email@example.com</td>
+                        <td th:text="${cliente.telefono ?: 'No disponible'}">123456789</td>
+                        <td th:text="${cliente.direccion ?: 'No disponible'}">Dirección</td>
+
+                    </tr>
+                </tbody>
+            </table>
+             </div>
+            
+         
+            
+               <div th:if="${#lists.isEmpty(clientes)}" class="alert-info">
+                No hay usuarios disponibles en este momento.
+            </div>
+
+
+ 
+        </div>
+    </body>
+
+
+</html>

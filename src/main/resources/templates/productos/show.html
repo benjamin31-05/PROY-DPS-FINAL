@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Productos</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+         <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+
+
+        <!-- Contenido principal -->
+        <div class="main-content"> 
+            <div class="page-header">
+                <h1>ADMIN <small>Productos</small></h1>
+            </div>
+
+            <a class="btn-create" th:href="@{/productos1/create}">Crear Producto</a>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Stock Actual</th>
+                            <th>Subcategoría</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="producto : ${productos}">
+                            <td th:text="${producto.id}"></td>
+                            <td th:text="${producto.nombreProducto}"></td>
+                            <td th:text="${producto.descripcion}"></td>
+                            <td th:text="'S/' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}"></td>
+                             <td th:text="${producto.stockActual}"></td>
+                            <td th:text="${producto.subcategoria != null ? producto.subcategoria.nombre : '--'}"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn-edit" th:href="@{/productos1/edit/{id}(id=${producto.id})}">Editar</a>
+                                    <a class="btn-delete" th:href="@{/productos1/delete/{id}(id=${producto.id})}"
+                                       onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${productos.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{/productos1/products(page=${productos.number - 1})}">Anterior</a>
+                    </li>
+                    <li class="page-item" th:classappend="${productos.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{/productos1/products(page=${productos.number + 1})}">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div th:if="${#lists.isEmpty(productos)}" class="alert-info">
+                No hay productos disponibles en este momento.
+            </div>
+
+        </div> 
+
+
+    </body>
+
+</html>

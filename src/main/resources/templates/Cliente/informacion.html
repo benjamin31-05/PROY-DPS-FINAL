@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información</title>
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+        <link th:href="@{/css/informacion.css}" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <!-- HEADER -->
+        <div th:include="cliente/template_header_footer.html::header" mb-3> </div>
+
+        <section id="contacto" class="contact">
+            <div class="container">
+                <div class="page-title">
+                    <h1>INFORMACIÓN</h1>
+                </div>
+                <div class="page-description">
+                    <p>
+                        ¡Gracias por visitarnos! En esta página puedes encontrar nuestra
+                        información de contacto para poder enviarnos un mensaje! :)
+                    </p>
+                </div>
+
+                <div class="row">
+                    <!-- Información de contacto -->
+                    <div class="contact-info">
+                        <h2>Información</h2>
+                        <div class="info-item">
+                            <span class="icon">&#x1F4CD;</span>
+                            <strong>Dirección:</strong>
+                            <p>Open Plaza - Udep - Piura</p>
+                        </div>
+                        <div class="info-item">
+                            <span class="icon">&#x2709;</span>
+                            <strong>Email:</strong>
+                            <p>Breeze@gmail.com</p>
+                        </div>
+                        <div class="info-item">
+                            <span class="icon">&#x1F4F1;</span>
+                            <strong>Teléfono:</strong>
+                            <p>+51 987654321</p>
+                        </div>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.5088149083554!2d-80.62479902548195!3d-5.1823831522956105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x904a10720d2480f3%3A0x33494e8ef4f0f111!2sOpen%20Plaza%20Piura!5e0!3m2!1ses-419!2spe!4v1733511095614!5m2!1ses-419!2spe"
+                            frameborder="0"
+                            allowfullscreen
+                            ></iframe>
+                    </div>
+
+                    <!-- Formulario de contacto -->
+                    <div class="contact-form">
+                        <h2>BREEZE</h2>
+                        <p>
+                            Si deseas enviarnos un mensaje, por favor regístrate o inicia sesión para poder contactarnos, gracias!.
+                        </p>
+                        <div class="store-icon">
+                            <img src="/imagenes/lgo.jpg" alt="Icono de la tienda" />
+                        </div>
+                        <div class="action-buttons">
+                            <form th:action="@{/login}" method="get">
+                                <button type="submit" class="register-button">Registrarse</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Pie de página -->
+        <!-- Footer -->
+        <div th:include="cliente/template_header_footer.html::footer"> </div>
+
+
+        <script th:src="@{/js/carrito.js}"></script>
+        <script th:src="@{/js/favoritos.js}"></script>
+
+    </body>
+</html>

@@ -1,0 +1,173 @@
+@import url('/css/header.css');
+@import url('/css/footer.css');
+@import url('/css/carrito.css');
+@import url('/css/favoritos.css');
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* TÃ­tulo y descripciÃ³n de la pÃ¡gina */
+.page-title h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.page-description p {
+    text-align: center;
+    color: #555;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* Estructura de filas y columnas */
+.row {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Contenedores de informaciÃ³n y formulario */
+.contact-info, .contact-form {
+    flex: 1;
+    min-height: 400px; /* Altura mÃ­nima */
+    max-height: 600px; /* Altura mÃ¡xima opcional */
+    height: auto; /* Ajusta automÃ¡ticamente segÃºn el contenido */
+    padding: 30px;
+    background-color: #fff;
+    border: 2px solid #ddd; /* Borde */
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+   
+    transition: transform 0.3s ease, border-color 0.3s ease; /* AnimaciÃ³n al hacer hover */
+}
+
+/* Efecto hover en contenedores */
+.contact-info:hover, .contact-form:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaÃ±o */
+    border-color: #007bff; /* Cambia el color del borde */
+}
+
+/* TÃ­tulos de secciones centrados */
+.contact-info h2, .contact-form h2 {
+    font-size: 1.8em;
+    color: #1aabe8;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* InformaciÃ³n de contacto */
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.icon {
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: #007bff;
+}
+
+.info-item p {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* Mapa */
+iframe {
+    width: 100%;
+    height: 320px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+
+  
+  .contact-form h2 {
+    color: #1aabe8;
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  
+  .contact-form p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+    line-height: 35px;
+  }
+  
+  .store-icon img {
+    width: 320px;
+    height: auto;
+    margin: 0 auto 20px; /* Centra la imagen y agrega margen inferior */
+    display: block; /* Hace que la imagen se comporte como un bloque */
+}
+  
+  .action-buttons {
+    margin-top: 20px;
+  }
+  
+  .register-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+  display: block;
+  margin: 20px auto; /* Esto centra el botÃ³n horizontalmente */
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+  
+/* TÃ­tulo principal con color y animaciÃ³n */
+.page-title h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #ff8800; /* Color naranja */
+    animation: fadeIn 1s ease-in-out; /* AnimaciÃ³n inicial */
+    transition: color 0.3s ease, transform 0.3s ease; /* AnimaciÃ³n al hacer hover */
+}
+
+/* Efecto de hover en el tÃ­tulo */
+.page-title h1:hover {
+    color: #dc9609; /* Cambia a un tono mÃ¡s oscuro de naranja */
+    transform: scale(1.1); /* Aumenta ligeramente el tamaÃ±o */
+}
+
+/* AnimaciÃ³n de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

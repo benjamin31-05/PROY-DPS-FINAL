@@ -1,0 +1,157 @@
+<div th:fragment="header"> 
+    <header >
+        <!-- PROYECTO ORIGINAL -->
+        <div class="header-container">
+            <!-- Logo -->
+            <div class="logo">
+                <img src="/imagenes/logo.png" alt="Logo de Arte Mistico" />
+                <h1><span>ArteMístico</span></h1>
+            </div>
+
+            <!-- Botón de categorías con menú desplegable -->
+            <div class="categories-menu">
+                <button class="categories-btn">
+                    <img src="https://img.icons8.com/ios-filled/20/menu.png" alt="Icono categorías">
+                    NUESTRAS CATEGORÍAS
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#pasteles-clasicos">Joyeria </a></li>
+                    <li><a href="#pasteles-personalizados">Orfebreria</a></li>
+                    <li><a href="#pasteles-de-boda">Ceramica</a></li>
+                    <li><a href="#pasteles-de-cumpleaños">Otros</a></li>
+                </ul>
+            </div>
+
+            <!-- Barra de búsqueda -->
+            <!-- Barra de búsqueda envuelta en un formulario -->
+            <form method="post" th:action="@{/search}">
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar productos..." name="nombre">
+                    <button class="search-icon">
+                        <img src="https://img.icons8.com/ios-filled/20/search.png" alt="Buscar">
+                    </button>
+
+                </div>
+            </form>
+
+            <!-- Opciones de navegación -->
+            <nav class="nav-links">
+                <a th:href="@{/artesaniamvc}">INICIO</a>
+                <a th:href="@{/nosotros}">NOSOTROS</a>
+
+                <!-- Enlace dinámico basado en autenticación -->
+                <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/contacto}">CONTACTO</a>
+                <a th:if="${#authorization.expression('!isAuthenticated()')}" th:href="@{/informacion}">INFORMACIÓN</a>
+
+
+
+                <a th:href="@{/index}">PRODUCTOS</a>
+            </nav>
+
+            <!-- Iconos de cuenta, carrito y favoritos -->
+            <div class="user-options">
+
+
+                <!-- Usuario NO autenticado -->
+                <div th:if="${#authorization.expression('!isAuthenticated()')}">
+                    <a th:href="@{/login}">
+                        <img src="https://img.icons8.com/ios-filled/20/user.png" alt="Cuenta"> 
+                        Iniciar Sesión
+                    </a>
+                </div>
+
+                <!-- Usuario autenticado -->
+                <div th:if="${#authorization.expression('isAuthenticated()')}" class="user-menu">
+                    <a href="#" class="user-dropdown-btn">
+                        <img src="https://img.icons8.com/ios-filled/20/user.png" alt="Cuenta">
+                        <span th:text="${#authentication.principal.username}"></span>
+                    </a>
+                    <div class="user-dropdown-content">
+                        <a th:if="${#authorization.expression('hasRole(''CLIENTE'')')}" 
+                           th:href="@{/pedidos/mis-pedidos}">Mis Pedidos</a>
+                        <a th:if="${#authorization.expression('hasRole(''CLIENTE'')')}" 
+                           th:href="@{/cliente/perfil}">Mi Perfil</a>
+                        <form th:action="@{/logout}" method="post" style="margin: 0;">
+                            <button type="submit" class="logout-btn">Cerrar Sesión</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Carrito y Favoritos -->
+                <a th:href="@{/getCart}" ><img src="https://img.icons8.com/ios-filled/20/shopping-cart.png" alt="Carrito"> Carrito</a>
+                <a href="#" onclick="mostrarFavoritos()"><img src="https://img.icons8.com/ios-filled/20/like.png" alt="Favoritos"> Favoritos</a>
+            </div>           
+        </div>
+
+    </header>
+
+    <div id="favoritos-panel" class="favoritos-panel">
+        <h2><b>Mis Favoritos</b></h2>
+        <ul id="favoritos-lista"></ul>
+        <div class="botones-favoritos">
+            <button id="cerrar-favoritos" onclick="cerrarFavoritos()">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="carrito-panel" class="carrito-panel"> 
+        <h2><b>Carrito de Compras</b></h2>
+        <ul id="carrito-lista"></ul>
+        <p>Total: S/ <span id="total">0.00</span></p>
+        <div class="botones-carrito">
+            <button id="comprar-carrito" onclick="comprar()">Comprar</button>
+            <button id="cerrar-carrito" onclick="cerrarCarrito()">Cerrar</button>
+        </div>
+    </div>
+
+</div> 
+
+
+<div th:fragment="footer"> 
+    <footer>
+        <div class="footer-container">
+            <!-- Información de contacto -->
+
+            <!-- Navegación rápida -->
+            <div class="footer-section quick-links">
+                <h3>Enlaces Rápidos</h3>
+                <a href="#inicio">Inicio</a>
+                <a href="#tiendas">Tiendas</a>
+                <a href="#blog">Blog</a>
+                <a href="#carta">Carta Salón</a>
+                <a href="#nosotros">Nosotros</a>
+            </div>
+
+            <!-- Horario de Atención -->
+            <div class="footer-section hours">
+                <h3>Horario de Atención</h3>
+                <p>Lunes a Viernes: 8:00 am - 8:00 pm</p>
+                <p>Sábado: 9:00 am - 6:00 pm</p>
+                <p>Domingo: 10:00 am - 4:00 pm</p>
+            </div>
+
+            <!-- Políticas de la Tienda -->
+            <div class="footer-section policies">
+                <h3>Políticas</h3>
+                <a href="#envios">Política de Envíos</a>
+                <a href="#devoluciones">Política de Devoluciones</a>
+                <a href="#privacidad">Política de Privacidad</a>
+                <a href="#terminos">Términos y Condiciones</a>
+            </div>
+        </div>
+
+        <!-- Redes sociales en una línea horizontal -->
+        <div class="social-media">
+            <h3>Síguenos</h3>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/30/facebook.png" alt="Facebook"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/30/instagram-new.png" alt="Instagram"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/30/whatsapp.png" alt="WhatsApp"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/30/gmail.png" alt="Gmail"></a>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Arte Místico. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</div> 
+

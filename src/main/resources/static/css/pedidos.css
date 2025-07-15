@@ -1,0 +1,174 @@
+
+.main-content {
+    flex: 1;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+
+/* Estilo para la sección sin pedidos */
+.no-orders-section {
+    text-align: center;
+    margin: 50px 0;
+    color: #555;
+}
+
+.no-orders-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.explore-button {
+    background: #ff4b4b;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.explore-button:hover {
+    background: #ff3333;
+}
+
+/* Estilo para la sección de pedidos */
+.orders-section {
+    margin: 30px auto;
+    max-width: 800px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -35px; /* Reduce el margen superior */
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilo de la tarjeta de pedido */
+.order-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado del pedido */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.order-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+}
+
+.order-date {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Resumen del pedido */
+.order-summary {
+    margin-bottom: 15px;
+}
+
+.total-amount {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.order-status {
+    font-size: 14px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Tabla de productos */
+.order-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.order-items-table thead th {
+    text-align: left;
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-size: 14px;
+    color: #555;
+}
+
+.order-items-table tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+}
+
+.order-items-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Estilo para la alerta personalizada */
+.alert-success {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724;           /* Verde oscuro para el texto */
+    border: 1px solid #c3e6cb; /* Borde verde */
+    padding: 15px;             /* Espaciado interno */
+    margin-bottom: 20px;       /* Separación inferior */
+    border-radius: 5px;        /* Bordes redondeados */
+    font-size: 16px;           /* Tamaño de fuente */
+    position: relative;        /* Para el botón de cierre */
+    padding-right: 28px;       /* Añadir espacio extra a la derecha */
+}
+
+/* Estilo para el botón de cierre */
+.alert-success .close-btn {
+    position: absolute;
+    top: 5px;            /* Ajuste para alejarlo un poco del borde superior */
+    right: 10px;         /* Separación adicional del borde derecho */
+    font-size: 20px;     /* Tamaño del ícono */
+    color: #155724;      /* Color de la "X" */
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .order-header, .order-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-date {
+        margin-top: 5px;
+    }
+
+    .orders-section {
+        padding: 10px;
+    }
+}

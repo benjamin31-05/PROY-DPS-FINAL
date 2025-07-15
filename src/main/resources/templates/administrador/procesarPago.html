@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Procesar Pago</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+        <style>
+            /* Estilos básicos */
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f9fa;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                background: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .card-header {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px;
+                border-radius: 8px 8px 0 0;
+                font-size: 1.5em;
+                text-align: center;
+            }
+            .card-body {
+                padding: 20px;
+            }
+            h4 {
+                margin-top: 0;
+                margin-bottom: 10px;
+                color: #333;
+            }
+            p {
+                margin: 5px 0;
+            }
+            .form-group {
+                margin-bottom: 15px;
+            }
+            .form-label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+            .input-group {
+                display: flex;
+                align-items: center;
+            }
+            .input-group span {
+                background-color: #e9ecef;
+                padding: 5px 10px;
+                border: 1px solid #ced4da;
+                border-right: 0;
+                border-radius: 4px 0 0 4px;
+            }
+            .input-group input {
+                width: 100%;
+                padding: 5px;
+                border: 1px solid #ced4da;
+                border-radius: 0 4px 4px 0;
+            }
+            .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 1em;
+            }
+            .btn-success {
+                background-color: #28a745;
+                color: #fff;
+            }
+            .btn-success:hover {
+                background-color: #218838;
+            }
+            .text-center {
+                text-align: center;
+            }
+            .alert {
+                padding: 10px;
+                border: 1px solid #bee5eb;
+                background-color: #d1ecf1;
+                color: #0c5460;
+                border-radius: 4px;
+            }
+            .form-text {
+                font-size: 0.9em;
+                color: #6c757d;
+            }
+
+        </style> 
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+
+        <div class="main-content"> 
+            <div class="page-header">
+                <h1>ADMIN <small>Procesar Pago</small></h1>
+            </div>
+
+            <br> <!-- Salto de línea -->
+
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        Procesar Pago
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/admin/procesar}" method="post">
+
+                            <div th:if="${error}" class="alert alert-danger">
+                                <span th:text="${error}"></span>
+                            </div>
+                            <input type="hidden" name="detallePedidoId" th:value="${detallePedido.id}">
+
+                            <div>
+                                <h4>Detalles del Pedido</h4>
+                                <p><strong>Producto:</strong> <span th:text="${detallePedido.producto.nombreProducto}">Nombre Producto</span></p>
+                                <p><strong>Cantidad:</strong> <span th:text="${detallePedido.cantidad}">0</span></p>
+                                <p><strong>Precio Unitario:</strong> S/ <span th:text="${#numbers.formatDecimal(detallePedido.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span></p>
+                            </div>
+
+                            <div>
+                                <h4>Resumen de Pago</h4>
+                                <div class="alert">
+                                    <strong>Total a Pagar:</strong> 
+                                    S/ <span th:text="${#numbers.formatDecimal(detallePedido.total, 0, 'COMMA', 2, 'POINT')}">0.00</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="montoPagado" class="form-label">Monto Recibido del Cliente</label>
+                                <div class="input-group">
+                                    <span>S/</span>
+                                    <input 
+                                        type="number" 
+                                        id="montoPagado" 
+                                        name="montoPagado" 
+                                        required 
+                                        step="0.01" 
+                                        th:min="${detallePedido.total}"
+                                        onchange="calcularVuelto()"
+                                        >
+                                </div>
+                                <small class="form-text">
+                                    Debe ingresar un monto igual o mayor al total
+                                </small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="vuelto" class="form-label">Vuelto</label>
+                                <div class="input-group">
+                                    <span>S/</span>
+                                    <input 
+                                        type="number" 
+                                        id="vuelto" 
+                                        name="vuelto" 
+                                        readonly 
+                                        step="0.01"
+                                        >
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-success"
+                                    >
+                                    Finalizar Pago
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <script th:inline="javascript">
+            function calcularVuelto() {
+                const totalAPagar = /*[[${detallePedido.total}]]*/ 0;
+                const montoRecibido = parseFloat(document.getElementById('montoPagado').value);
+                const vueltoInput = document.getElementById('vuelto');
+
+                if (montoRecibido >= totalAPagar) {
+                    const vuelto = (montoRecibido - totalAPagar).toFixed(2);
+                    vueltoInput.value = vuelto;
+                } else {
+                    vueltoInput.value = '0.00';
+                    alert('El monto debe ser mayor o igual al total a pagar');
+                    document.getElementById('montoPagado').value = totalAPagar;
+                }
+            }
+        </script>
+
+
+
+    </body>
+</html>

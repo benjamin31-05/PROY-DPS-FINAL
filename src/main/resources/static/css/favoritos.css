@@ -1,0 +1,182 @@
+/* Panel de favoritos */
+.favoritos-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    background-color: #f3efde;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.favoritos-panel.active {
+    transform: translateX(0);
+}
+
+.favoritos-panel h2 {
+    text-align: center;
+    font-size: 1.5em;
+    color: #8B4513;
+    margin-bottom: 20px;
+}
+
+/* Lista de favoritos */
+#favoritos-lista {
+    max-height: 510px;
+    overflow-y: auto;
+    margin-bottom: 50px;
+}
+
+.producto-en-favoritos {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #DEB887;
+    padding-bottom: 10px;
+}
+
+.producto-en-favoritos img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.producto-en-favoritos .producto-detalles {
+    flex-grow: 1;
+}
+
+.producto-en-favoritos .producto-detalles h4 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.producto-en-favoritos .producto-detalles .producto-precio {
+    color: #D2691E;
+}
+
+.producto-en-favoritos .eliminar-favorito {
+    color: #FF4500;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: color 0.2s;
+}
+
+.producto-en-favoritos .eliminar-favorito:hover {
+    color: #ff44009f;
+}
+
+/* Botón de añadir al carrito desde favoritos */
+.add-to-cart-from-favorites {
+    background-color: #e3b055;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 5px;
+}
+
+.add-to-cart-from-favorites:hover {
+    background-color: #c09d3d;
+}
+
+/* Botones del panel de favoritos */
+.botones-favoritos {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+#cerrar-favoritos {
+    background-color: #e3b055;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#cerrar-favoritos:hover {
+    background-color: #a0512dad;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Contador de favoritos */
+.favoritos-counter {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #FF4500;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8em;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* Estilo para el corazón cuando está activo */
+.heart-icon {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.heart-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    z-index: 1000;
+    animation: fadeIn 0.3s, fadeOut 0.3s 2.7s;
+}
+
+.toast-success {
+    background: #4CAF50;
+    color: white;
+}
+
+.toast-error {
+    background: #f44336;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .favoritos-panel {
+        width: 100%;
+    }
+}

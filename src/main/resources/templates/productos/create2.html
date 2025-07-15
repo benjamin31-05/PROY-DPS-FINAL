@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Crear Producto</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/crearProducto.css}" rel="stylesheet">
+
+         <!-- Icono -->
+        <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
+
+        <style>
+            .alert {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-radius: 0.25rem;
+            }
+
+            .alert-danger {
+                color: #721c24;
+                background-color: #f8d7da;
+                border: 1px solid #f5c6cb;
+            }
+
+            .alert-success {
+                color: #155724;
+                background-color: #d4edda;
+                border: 1px solid #c3e6cb;
+            }
+
+            .form-error {
+                color: #dc3545;
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
+            }
+
+            .is-invalid {
+                border-color: #dc3545 !important;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+
+        <main class="main-content">
+
+            <div class="container"> 
+
+                <div class="container mt-5"> 
+                    <h2>Registrar Nuevo Producto</h2>
+
+                    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                        <span th:text="${errorMessage}"></span>
+                    </div>
+
+                    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                        <span th:text="${successMessage}"></span>
+                    </div>
+
+                    <form th:action="@{/productos1/register}" method="post" enctype="multipart/form-data">
+                        <div class="form-group"> 
+                            <input type="text" class="form-control" id="nombre" name="nombreProducto" 
+                                   placeholder=" Ingrese el nombre del Producto" required > 
+                            <label class="form-label" for="nombreProducto">Nombre del Producto</label>      
+                        </div> 
+
+                        <div class="form-group">
+                            <textarea class="form-control" id="descripcion" name="descripcion" 
+                                      placeholder="Ingrese la descripcion del producto" required></textarea>
+                            <label class="form-label" for="descripcion">Descripción del Producto</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="precio" name="precio" step="any"
+                                   placeholder="Ingrese el precio del producto " min="0" required>
+                            <label class="form-label" for="precio">Precio del Producto</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="stockSHALOM" 
+                                   name="stockSHALOM" min="0" 
+                                   placeholder="Ingrese el stock para SHALOM" required>
+                            <label class="form-label" for="stockOpenPlaza">Stock SHALOM</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="stockOLVA" 
+                                   name="stockOLVA" min="0" 
+                                   placeholder="Ingrese el stock para Olva" required>
+                            <label class="form-label" for="stockUDEP">Stock OLVA</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="stockActual" 
+                                   name="stockActual" min="0" 
+                                   placeholder="Ingrese el stock actual" required>
+                            <label class="form-label" for="stockActual">Stock Total</label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="select-wrapper">
+                                <select class="form-control" id="subcategoriaId" name="subcategoria_id" required>
+                                    <option value="">Seleccione una subcategoria</option>
+                                    <option th:each="subcategoria : ${subcategorias}"
+                                            th:value="${subcategoria.id}"
+                                            th:text="${subcategoria.nombre}">
+                                    </option>
+                                </select>
+                                <label class="form-label" for="subcategoria_id">Subcategoría del Producto</label>
+                            </div>
+                        </div>
+
+                        <!-- Campo Disponible por Temporada -->
+                        <div class="form-group">
+                            <div class="select-wrapper">
+                                <select class="form-control" id="disponiblePorTemporada" 
+                                        name="disponiblePorTemporada" required>
+                                    <option value="">Seleccione disponibilidad</option>
+                                    <option value="true">Sí</option>
+                                    <option value="false">No</option>
+                                </select>
+                                <label class="form-label" for="disponiblePorTemporada">Disponible por Temporada</label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="file-upload">
+                                <label class="file-upload-label" for="file">
+                                    <i>📁</i>
+                                    <span>Arrastra una imagen o haz clic para seleccionar</span>
+                                </label>
+                                <input type="file" id="file" name="file">
+                                <div class="file-name"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <button type="submit" class="submit-btn">
+                                Guardar Producto
+                            </button>
+                        </div>
+
+                    </form>
+                </div> 
+            </div> 
+        </main> 
+
+        <script>
+            document.getElementById('file').addEventListener('change', function () {
+                const fileName = this.files[0]?.name;
+                const fileNameDiv = this.parentElement.querySelector('.file-name');
+                if (fileName) {
+                    fileNameDiv.textContent = fileName;
+                } else {
+                    fileNameDiv.textContent = '';
+                }
+            });
+        </script> 
+
+        <!-- Opcional: Agregar JavaScript para validación del lado del cliente -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.querySelector('form');
+                const precioInput = document.getElementById('precio');
+
+                form.addEventListener('submit', function (event) {
+                    if (precioInput.value < 0) {
+                        event.preventDefault();
+                        alert('El precio no puede ser negativo');
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            // Agregar este script en tu página de edición
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.querySelector('form');
+                const stockOpenPlazaInput = document.getElementById('stockOpenPlaza');
+                const stockUDEPInput = document.getElementById('stockUDEP');
+                const stockTotalInput = document.getElementById('stockActual');
+
+                // Función para validar stocks
+                function validateStocks() {
+                    const stockOpenPlaza = parseInt(stockOpenPlazaInput.value) || 0;
+                    const stockUDEP = parseInt(stockUDEPInput.value) || 0;
+                    const stockTotal = parseInt(stockTotalInput.value) || 0;
+
+                    // Validar números negativos
+                    if (stockOpenPlaza < 0 || stockUDEP < 0 || stockTotal < 0) {
+                        return 'Los valores de stock no pueden ser negativos';
+                    }
+
+                    // Validar suma de stocks
+                    if (stockOpenPlaza + stockUDEP !== stockTotal) {
+                        return 'El stock total debe ser igual a la suma del stock de OPEN PLAZA y UDEP';
+                    }
+
+                    return null; // Sin errores
+                }
+
+                // Validar al enviar el formulario
+                form.addEventListener('submit', function (e) {
+                    const error = validateStocks();
+                    if (error) {
+                        e.preventDefault();
+                        alert(error);
+                    }
+                });
+
+                // Actualizar stock total automáticamente
+                [stockOpenPlazaInput, stockUDEPInput].forEach(input => {
+                    input.addEventListener('input', function () {
+                        const stockOpenPlaza = parseInt(stockOpenPlazaInput.value) || 0;
+                        const stockUDEP = parseInt(stockUDEPInput.value) || 0;
+                        stockTotalInput.value = stockOpenPlaza + stockUDEP;
+                    });
+                });
+            });
+
+        </script> 
+
+    </body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nuestros Productos</title>
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <!-- Icono -->
+        <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
+        <!-- CSS -->
+        <link th:href="@{/css/categorias.css}" rel="stylesheet">
+
+        <link th:href="@{/css/carrito.css}" rel="stylesheet">
+
+        <link th:href="@{/css/favoritos.css}" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+        <!-- HEADER -->
+        <div th:include="cliente/template_header_footer.html::header" mb-3> </div>
+
+        <div class="wrap">
+            <h1>Nuestros Productos</h1>
+
+            <!-- Div para filtros y ordenamiento -->
+            <div class="controls-wrapper">
+                <div class="filter-icon">
+                    <i class="fas fa-filter"></i>
+                </div>
+                <div class="sort-dropdown">
+                    <select id="sort-select">
+                        <option value="default">Ordenar por</option>
+                        <option value="price-asc">Precio: Menor a Mayor</option>
+                        <option value="price-desc">Precio: Mayor a Menor</option>
+                        <option value="name-asc">Nombre: A-Z</option>
+                        <option value="name-desc">Nombre: Z-A</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="store-wrapper">
+                <div class="category_list">
+                    <h3 class="category-title">Categorías</h3>
+                    <br />
+                    <a href="#" class="category_item" onclick="filterByCategory(1);return false"><i class="fas fa-chevron-right"></i> Cerámica </a>
+                    <div class="subcategory_list" id="pasteles_subcategories" th:if="${categoriaId == 1}" style="display: block">
+                        <a href="#" class="subcategory_item" th:each="subcategoria : ${subcategoriasDeCategoria}" 
+                           th:onclick="'filterBySubcategory(' + ${subcategoria.id} + ')'">
+                            <span th:text="${subcategoria.nombre}"></span>
+                        </a>
+                    </div>
+
+                    <a href="#" class="category_item" onclick="filterByCategory(2)"><i class="fas fa-chevron-right"></i> Joyería Artesanal </a>
+                    <div class="subcategory_list" id="pies_subcategories" th:if="${categoriaId == 2}" style="display: block">
+                        <a href="#" class="subcategory_item" th:each="subcategoria : ${subcategoriasDeCategoria}" 
+                           th:onclick="'filterBySubcategory(' + ${subcategoria.id} + ')'">
+                            <span th:text="${subcategoria.nombre}"></span>
+                        </a>
+                    </div>
+
+                    <a href="#" class="category_item" onclick="filterByCategory(3)"><i class="fas fa-chevron-right"></i> Paja Toquilla </a>
+                    <div class="subcategory_list" id="cheesecakes_subcategories" th:if="${categoriaId == 3}" style="display: block">
+                        <a href="#" class="subcategory_item" th:each="subcategoria : ${subcategoriasDeCategoria}" 
+                           th:onclick="'filterBySubcategory(' + ${subcategoria.id} + ')'">
+                            <span th:text="${subcategoria.nombre}"></span>
+                        </a>
+                    </div>
+
+                    <a href="#" class="category_item" onclick="filterByCategory(4)"><i class="fas fa-chevron-right"></i> Arte y Decoración </a>
+                    <div class="subcategory_list" id="otros_subcategories" th:if="${categoriaId == 4}" style="display: block">
+                        <a href="#" class="subcategory_item" th:each="subcategoria : ${subcategoriasDeCategoria}" 
+                           th:onclick="'filterBySubcategory(' + ${subcategoria.id} + ')'">
+                            <span th:text="${subcategoria.nombre}"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <section class="products-list">
+                    <div class="product-card" th:each="producto : ${productos.content}" th:data-product-id="${producto.id}"
+                         th:data-category="${producto.subcategoria.nombre}">
+                        <div class="product-image" th:style="'background-image: url(' + ${producto.imageUrl} + ');'">
+                            <div class="icon-container">
+                                <span class="heart-icon" title="Añadir a favoritos">🤍</span>
+                                <a th:href="@{/productoHome/{id}(id=${producto.id})}" class="eye-icon-link">
+                                    <span class="eye-icon" title="Ver detalles">👁️</span>
+                                </a>
+                            </div>
+
+                            <!-- Mensaje de agotado -->
+                            <div class="agotado-badge" 
+                                 th:if="${producto.stockActual != null && producto.stockActual == 0}">
+                                Agotado
+                            </div>
+
+                            <!-- Mensaje de stock bajo -->
+                            <div class="bajo-stock-badge" 
+                                 th:if="${producto.stockActual != null && producto.stockActual > 0 && producto.stockActual <= 5}">
+                                ¡Últimas unidades!
+                            </div>
+
+                        </div>
+
+                        <div class="product-info">
+                            <h3 class="product-title" th:text="${producto.nombreProducto}"></h3>
+                            <p class="product-price" th:text="'S/' + ${producto.precio}"></p>
+
+                            <!-- Formulario con método GET -->
+                            <form th:action="@{/productoHome/{id} (id=${producto.id})}" method="get" style="display: inline;">
+                                <button type="submit" class="add-to-cart">
+                                    Ver más info
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${productos.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{/index(page=${productos.number - 1})}">Anterior</a>
+                    </li>
+                    <li class="page-item" th:classappend="${productos.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{/index(page=${productos.number + 1})}">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Modal para filtros en pantallas pequeñas -->
+        <div id="category-filter-modal" class="category-modal">
+            <div class="category-modal-content">
+                <span class="category-close">&times;</span>
+                <div class="category_list_mobile">
+                    <!-- Duplicar las categorías aquí -->
+                    <h3 class="category-title">Categorías</h3>
+                    <br />
+                    <a href="#" class="category_item" category="pasteles"><i class="fas fa-chevron-right" onclick="changeCategory(this, event)"></i> Pasteles</a>
+                    <div class="subcategory_list" id="pasteles_subcategories" style="display: none">
+                        <a href="#" class="subcategory_item" category_item="pasteles" subcategory_item="pasteles_clasicos">Pasteles Clásicos</a>
+                        <a href="#" class="subcategory_item" category_item="pasteles" subcategory_item="pasteles_tematicos">Pasteles Temáticos</a>
+                    </div>
+
+                    <a href="#" class="category_item" category="pies"><i class="fas fa-chevron-right" onclick="changeCategory(this, event)"></i> Pies</a>
+                    <div class="subcategory_list" id="pies_subcategories" style="display: none">
+                        <a href="#" class="subcategory_item" category_item="pies" subcategory_item="pies_clasicos">Pies Clásicos</a>
+                        <a href="#" class="subcategory_item" category_item="pies" subcategory_item="pies_gourmet">Pies Gourmet</a>
+                    </div>
+                    <a href="#" class="category_item" category="cheesecakes"><i class="fas fa-chevron-right"></i>
+                        Cheesecakes</a>
+
+                    <div class="subcategory_list" id="cheesecakes_subcategories" style="display: none">
+                        <a href="#" class="subcategory_item" category_item="cheesecakes"
+                           subcategory_item="cheesecakes_frios">Cheesecakes Fríos</a>
+                        <a href="#" class="subcategory_item" category_item="cheesecakes"
+                           subcategory_item="cheesecakes_horneados">Cheesecakes Horneados</a>
+                    </div>
+                    <a href="#" class="category_item" category="otros"><i class="fas fa-chevron-right"></i> Otros
+                        postres</a>
+
+                    <div class="subcategory_list" id="otros_subcategories" style="display: none">
+                        <a href="#" class="subcategory_item" category_item="otros"
+                           subcategory_item="tradicionales">Tradicionales</a>
+                        <a href="#" class="subcategory_item" category_item="otros" subcategory_item="dulceria">Dulceria</a>
+                        <a href="#" class="subcategory_item" category_item="otros" subcategory_item="frios">Postres
+                            Frios</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL PARA LAS ESPECIFICACIONES -->
+        <div class="modal">
+            <span class="close-modal">&times;</span>
+            <iframe id="modal-content" src=""></iframe>
+        </div>
+
+        <div class="toast"></div>
+
+        <script th:inline="javascript">
+            function addToCart(productId) {
+                fetch('/addCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `id=${productId}&cantidad=1`
+                })
+                        .then(response => {
+                            // Puedes agregar una notificación de que se agregó al carrito
+                            window.location.href = '/cart';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+            }
+        </script>
+
+        <script>
+            // Función para obtener parámetros de la URL
+            function getUrlParameter(name) {
+                const params = new URLSearchParams(window.location.search);
+                return params.get(name);
+            }
+
+            // Función que se ejecuta cuando la página carga
+            function setActiveStates() {
+                const categoriaId = getUrlParameter('categoriaId');
+                const subcategoriaId = getUrlParameter('subcategoriaId');
+
+                // Remover todas las clases activas primero
+                document.querySelectorAll('.category_item, .subcategory_item').forEach(item => {
+                    item.classList.remove('active-category', 'active-subcategory');
+                });
+
+                // Si hay una subcategoría activa
+                if (subcategoriaId) {
+                    const subcategory = document.querySelector(`.subcategory_item[onclick*="filterBySubcategory(${subcategoriaId})"]`);
+                    if (subcategory) {
+                        subcategory.classList.add('active-subcategory');
+                    }
+                }
+                // Si solo hay una categoría activa
+                else if (categoriaId) {
+                    const category = document.querySelector(`.category_item[onclick*="filterByCategory(${categoriaId})"]`);
+                    if (category) {
+                        category.classList.add('active-category');
+                    }
+                }
+            }
+
+            function toggleSubcategories(id) {
+                var subcategories = document.getElementById(id);
+                if (subcategories.style.display === "none") {
+                    subcategories.style.display = "block";
+                } else {
+                    subcategories.style.display = "none";
+                }
+            }
+
+            function filterBySubcategory(subcategoryId) {
+                document.querySelectorAll('.subcategory_list').forEach(list => {
+                    if (list.style.display === 'block') {
+                        list.style.display = 'none';
+                    }
+                });
+
+                document.querySelectorAll('.category_item, .subcategory_item').forEach(item => {
+                    item.classList.remove('active-category', 'active-subcategory');
+                });
+
+                const selectedSubcategory = document.querySelector(`.subcategory_item[onclick*="filterBySubcategory(${subcategoryId})"]`);
+                if (selectedSubcategory) {
+                    selectedSubcategory.classList.add('active-subcategory');
+                }
+
+                window.location.href = '/index?subcategoriaId=' + subcategoryId;
+            }
+
+            function filterByCategory(categoriaId) {
+                const subcategoriesList = document.getElementById('pasteles_subcategories');
+                if (subcategoriesList.style.display === 'none' || !subcategoriesList.style.display) {
+                    subcategoriesList.style.display = 'block';
+                }
+
+                document.querySelectorAll('.category_item, .subcategory_item').forEach(item => {
+                    item.classList.remove('active-category', 'active-subcategory');
+                });
+
+                const selectedCategory = document.querySelector(`.category_item[onclick*="filterByCategory(${categoriaId})"]`);
+                if (selectedCategory) {
+                    selectedCategory.classList.add('active-category');
+                }
+
+                window.location.href = '/index?categoriaId=' + categoriaId;
+            }
+
+            // Ejecutar cuando la página carga
+            document.addEventListener('DOMContentLoaded', setActiveStates);
+        </script>
+
+
+        <!-- JS DE CATEGORIAS -->
+
+        <script th:src="@{/js/categorias.js}"></script>
+
+
+        <script th:src="@{/js/favoritos.js}"></script>
+
+        <!-- FOOTER -->
+        <div th:include="cliente/template_header_footer.html::footer"> </div>
+
+    </body>
+</html>

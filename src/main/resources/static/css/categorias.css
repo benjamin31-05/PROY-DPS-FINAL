@@ -1,0 +1,553 @@
+@import url('/css/header.css');
+@import url('/css/footer.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+body {
+    background:white;
+    font-family: 'Open Sans', sans-serif;
+}
+.wrap {
+    max-width: 1100px;
+    width: 90%;
+    margin: auto;
+}
+.wrap > h1 {
+    color: #FF4500;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 15px 0px;
+}
+.wrap > h1:after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background: #C7C7C7;
+    margin: 20px 0;
+}
+.store-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+.category_list, .category_list_mobile {
+    display: flex;
+    flex-direction: column;
+    width: 18%;
+}
+.category_list .category_item,
+.category_list_mobile .category_item {
+    display: block;
+    width: 90%;
+    padding: 14px 0;
+    margin-bottom: 16px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.category_item i {
+    margin-right: 10px;
+    color: black;
+}
+
+.category_item:hover {
+    color: #E84C3D;
+
+}
+
+.category_item:hover i {
+    color: #E84C3D;
+}
+
+.category_list .ct_item-active,
+.category_list_mobile .ct_item-active {
+    color: #E84C3D;
+    font-weight: bold;
+}
+
+.category_list .ct_item-active {
+    color: #E84C3D;
+}
+.ct_item-active i {
+    color: #E84C3D;
+    font-weight: bold;
+}
+
+.subcategory_list {
+    margin-left: 25px;
+    margin-top: -20px; /* Elevar las subcategorÃ­as */
+    margin-bottom: 18px; /* Separar mÃ¡s las subcategorÃ­as de las categorÃ­as principales */
+    display: none;
+}
+
+.subcategory_item {
+    display: block;
+    padding: 14px 0;
+    color: #494B4D;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.subcategory_item:hover {
+    color: #E84C3D;
+}
+
+.products-list {
+    width: 82%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centrar los productos */
+    margin: 0 auto; /* Centrar la secciÃ³n en la pÃ¡gina */
+}
+
+/* Animacion de elevar la info del producto */
+.product-card {
+    width: 30%;
+    margin-left: 3%;
+    margin-bottom: 25px;
+    overflow: hidden;
+    transition: all .4s;
+}
+.product-card:hover .product-info {
+    transform: translateY(-50%);
+}
+.product-image {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+}
+.icon-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.heart-icon, .eye-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+
+.eye-icon {
+    opacity: 0;
+}
+.product-card:hover .eye-icon {
+    opacity: 1;
+}
+
+
+.heart-icon.active {
+    color: red;
+}
+.product-info {
+    background-color: white;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.4s ease;
+}
+.product-title {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+.product-card:hover .product-title {
+    color: red;
+}
+.product-price {
+    font-size: 16px;
+    color: red;
+    margin-bottom: 10px;
+}
+.add-to-cart {
+    display: none;
+    padding: 10px 20px;
+    background-color: #FFB347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 auto;
+}
+.product-card:hover .add-to-cart {
+    display: block;
+}
+.add-to-cart:hover {
+    background-color: #FFA500;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 660px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+.modal iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+}
+/*.toast {
+   position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2000;  Asegurar que esté por encima de otros elementos 
+    pointer-events: none;  Evitar que interfiera con clicks 
+}*/
+.blur-background {
+    filter: blur(5px);
+}
+
+
+/* NUEVOS ESTILOS */
+.controls-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.sort-dropdown select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+/* Estilos generales para el botón */
+.add-product-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #f4a582; /* Color beige/durazno */
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.add-product-btn:hover {
+    background-color: #e8956b; /* Color durazno más oscuro al hacer hover */
+}
+
+/* Estilos para el modal de categorÃ­as */
+.category-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.category-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.category-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.category-close:hover,
+.category-close:focus {
+    color: #E84C3D;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.active {
+    color: #E84C3D !important;
+    font-weight: bold;
+}
+
+.active i {
+    color: #E84C3D !important;
+}
+
+.category_item.active {
+    color: #E84C3D !important;
+}
+
+.subcategory_item.active {
+    color: #E84C3D !important;
+}
+
+/* Estilos para los items de categoría y subcategoría */
+/* Estilos base */
+.category_item, .subcategory_item {
+    color: #000;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Estilos para categoría activa */
+.active-category {
+    color: #ff0000 !important;
+    font-weight: bold;
+}
+
+/* Nuevo: hacer que el ícono dentro de la categoría activa también sea rojo */
+.active-category i {
+    color: #ff0000 !important;
+}
+
+/* Estilos para subcategoría activa */
+.active-subcategory {
+    color: #ff0000 !important;
+    font-weight: bold;
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 769px) {
+    .category_list {
+        width: 18%;
+    }
+
+    .products-list {
+        width: 82%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .product-card {
+        width: 30%;
+        margin-left: 3%;
+        margin-bottom: 25px;
+    }
+    .category_list_mobile .subcategory_list {
+        display: none;
+    }
+
+    .category_list_mobile .subcategory_list.active {
+        display: block;
+    }
+
+    /* Mantener los controles en línea en pantallas grandes */
+    .controls-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .controls-wrapper .filter-icon,
+    .controls-wrapper .sort-dropdown,
+    .controls-wrapper .boton {
+        display: inline-block;
+        margin-right: 10px; /* Espacio entre elementos */
+    }
+
+    .controls-wrapper .boton {
+        margin-right: 0; /* Quitar margen derecho del último elemento */
+    }
+}
+
+
+/* Estilos para pantallas pequeÃ±as */
+@media (max-width: 768px) {
+    .category_list {
+        display: none;
+    }
+
+    .products-list {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-card {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 25px;
+    }
+
+    .category_list_mobile {
+        width: 100%;
+    }
+
+    .category_list_mobile .subcategory_list {
+        display: none;
+    }
+
+    .category_list_mobile .subcategory_list.active {
+        display: block;
+    }
+
+    /* Organización en filas para controles en pantallas pequeñas */
+    .controls-wrapper {
+        flex-wrap: wrap;
+        gap: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+    }
+
+    /* En móvil, el filtro y sort-dropdown ocupan la primera fila */
+    .filter-icon,
+    .sort-dropdown {
+        display: flex;
+        align-items: center;
+    }
+
+    /* El botón ocupa el 100% del ancho en su propia fila */
+    .boton {
+        display:flex;
+        flex-basis: 100%;
+        margin-left: 0;
+        order: 2; /* Asegura que el botón aparezca después */
+        margin-top: 15px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn.add-product-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Contenedor para filtro y sort en móvil */
+    .filter-icon,
+    .sort-dropdown {
+        flex: 1;
+        order: 1;
+    }
+}
+
+/* Mantener visibles el icono de filtro y el dropdown en todas las pantallas */
+.filter-icon,
+.sort-dropdown {
+    display: block;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center; /* Centra la paginación horizontalmente */
+    list-style: none;
+    padding: 0;
+    margin: 20px 0; /* Añade un margen para separar la paginación del contenido */
+}
+
+.page-item {
+    margin: 0 5px; /* Espacio entre los elementos de paginación */
+}
+
+.page-link {
+    display: block;
+    padding: 8px 16px;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-link:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+
+
+.product-image {
+    position: relative;
+}
+
+.agotado-badge {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    background-color: #ff4444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9em;
+    z-index: 1;  /* Asegura que el badge esté por encima de la imagen */
+}
+
+.add-to-cart.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.bajo-stock-badge {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    background-color: #f8b133; /* Color ámbar/dorado más suave */
+    /* O podrías usar */
+    /* background-color: #f8b133; */ /* El tono dorado que ya usas en tu diseño */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1;  /* Asegura que el badge esté por encima de la imagen */
+}
+
+
+
+

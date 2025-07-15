@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Error</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+          <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+        <link th:href="@{/css/header.css}" rel="stylesheet">
+        <link th:href="@{/css/footer.css}" rel="stylesheet">
+        <link th:href="@{/css/carrito.css}" rel="stylesheet">
+        <link th:href="@{/css/favoritos.css}" rel="stylesheet">
+
+    </head>
+    <body>
+
+        <div th:include="cliente/template_header_footer.html::header"> </div>
+
+        <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-danger text-white">
+                            <h4 class="mb-0" th:text="${errorMessage}">Error</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" th:text="${errorDetails}">Detalles del error</p>
+                            <a href="/pasteleriamvc" class="btn btn-primary">Volver al inicio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:include="cliente/template_header_footer.html::footer"> </div>
+        <script th:src="@{/js/carrito.js}"></script>
+        <script th:src="@{/js/favoritos.js}"></script>
+    </body>
+</html>

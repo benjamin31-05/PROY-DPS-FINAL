@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>CARRITO (DPS) </title>
+
+        <link th:href="@{/css/cart.css}" rel="stylesheet">
+        <link th:href="@{/css/favoritos.css}" rel="stylesheet">
+
+        <!-- Icono -->
+        <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+        <!-- HEADER -->
+        <div th:include="cliente/template_header_footer.html::header" mb-3></div>
+
+        <!-- Page Content -->
+        <div class="container">
+            <!-- Page Heading/Breadcrumbs -->
+            <h1 class="mt-4 mb-3">
+                ArteMístico <small>Carrito</small>
+            </h1>
+
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/heladeriamvc}">Home</a></li>
+                <li class="breadcrumb-item active">Carrito</li>
+            </ol>
+
+            <!-- Verificar si el carrito está vacío -->
+            <div th:if="${#lists.isEmpty(cart)}">
+                <div class="alert alert-info text-center">
+                    <h3>Ups, tu carrito está vacío por el momento</h3>
+                    <p>¡Explora nuestros productos para encontrar algo delicioso!</p>
+                    <a th:href="@{/index}"  class="btn btn-primary">Ver productos</a>
+                </div>
+            </div>
+
+            <!-- Mostrar los productos del carrito -->
+            <div th:unless="${#lists.isEmpty(cart)}">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Imagen</th>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Precio</th>
+                                            <th scope="col">Envio</th>
+                                            <th scope="col">Tamaño</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="dpedido : ${cart}">
+                                            <td>
+                                                <!-- Mostrar la imagen del producto -->
+                                              <img th:src="${dpedido.producto.imageUrl}" alt="Producto" class="product-img">
+                                            </td>
+                                            <td th:text="${dpedido.nombre}">Nombre</td>
+                                            <td th:text="${dpedido.precio}">Precio</td>
+                                            <td th:text="${dpedido.local.nombre}">Local</td>
+                                            <td th:text="${dpedido.tamano.nombre}">Tamaño</td>
+                                            <td th:text="${dpedido.cantidad}">Cantidad</td>
+                                            <td th:text="${dpedido.total}">Total</td>
+                                            <td>
+                                                <a th:href="@{/delete/cart/{id} (id=${dpedido.producto.id})}" class="btn btn-danger">
+                                                    Quitar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <h2 class="card-title">SUBTOTAL</h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <h5 th:text="${pedido.total}"></h5>
+                                    </li>
+                                    <a th:href="@{/order}" class="btn btn-dark">Ver Orden</a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.container -->
+
+        <!-- Footer -->
+        <div th:include="cliente/template_header_footer.html::footer"></div>
+
+
+        <!-- Bootstrap core JavaScript -->
+        <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    </body>
+
+</html>

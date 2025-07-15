@@ -1,0 +1,60 @@
+@import url('/css/header.css');
+@import url('/css/footer.css');
+@import url('/css/carrito.css');
+@import url('/css/favoritos.css');
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.thank-you-message {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    margin-top: 50px;
+    animation: zoomIn 0.8s ease-out; /* Animación de zoom */
+}
+
+.thank-you-message h1 {
+    color: #ff6600;
+    font-size: 2em;
+    animation: zoomIn 1s ease-out 0.2s both; /* Ligeramente más lento */
+}
+
+.thank-you-message p {
+    font-size: 1.2em;
+    animation: zoomIn 1s ease-out 0.4s both; /* Aparición con retraso */
+}
+
+.back-to-home-btn button {
+    background-color: #ff6600;
+    color: white;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    animation: zoomIn 1s ease-out 0.6s both; /* Aparición con retraso */
+}
+
+.back-to-home-btn button:hover {
+    background-color: #e65c00;
+}

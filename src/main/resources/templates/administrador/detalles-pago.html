@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Detalles del Pago - Open Plaza</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                width: 90%;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .page-header {
+                margin: 20px 0;
+                text-align: center;
+            }
+
+            .payment-details {
+                max-width: 600px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .card-header {
+                background-color: #007bff;
+                color: #fff;
+                padding: 15px;
+                border-radius: 10px 10px 0 0;
+                font-size: 1.5rem;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .detail-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #e9ecef;
+            }
+
+            .detail-row:last-child {
+                border-bottom: none;
+            }
+
+            .card-footer {
+                padding: 15px;
+                text-align: center;
+                background-color: #f9f9f9;
+                border-radius: 0 0 10px 10px;
+            }
+
+            .btn {
+                display: inline-block;
+                padding: 10px 20px;
+                margin: 5px;
+                font-size: 1rem;
+                text-decoration: none;
+                border-radius: 5px;
+                color: #fff;
+                background-color: #007bff;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .btn-secondary {
+                background-color: #6c757d;
+            }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+
+            .text-success {
+                color: #28a745;
+            }
+
+            .text-info {
+                color: #17a2b8;
+            }
+        </style>
+    </head>
+    <body>
+        <div th:replace="administrador/template_header_footer.html::sidebarAdmin"></div>
+
+        <div class="main-content container">
+            <div class="page-header">
+                <h1>Detalles del Pago <small>Información Completa</small></h1>
+            </div>
+
+            <div class="payment-details">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Comprobante de Pago</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Información del Pedido -->
+                        <div class="detail-row">
+                            <strong>Producto:</strong>
+                            <span th:text="${pagoPedido.detallePedido.producto.nombreProducto}">Nombre del Producto</span>
+                        </div>
+                        <div class="detail-row">
+                            <strong>Cantidad:</strong>
+                            <span th:text="${pagoPedido.detallePedido.cantidad}">0</span>
+                        </div>
+                        <div class="detail-row">
+                            <strong>Precio Unitario:</strong>
+                            <span th:text="'S/ ' + ${#numbers.formatDecimal(pagoPedido.detallePedido.precio, 0, 'COMMA', 2, 'POINT')}">S/ 0.00</span>
+                        </div>
+
+                        <!-- Información del Pago -->
+                        <div class="detail-row">
+                            <strong>Fecha de Pago:</strong>
+                            <span th:text="${#dates.format(pagoPedido.fechaPago, 'dd/MM/yyyy HH:mm')}">Fecha</span>
+                        </div>
+                        <div class="detail-row">
+                            <strong>Total del Pedido:</strong>
+                            <span th:text="'S/ ' + ${#numbers.formatDecimal(pagoPedido.detallePedido.total, 0, 'COMMA', 2, 'POINT')}">S/ 0.00</span>
+                        </div>
+                        <div class="detail-row">
+                            <strong>Método de Pago:</strong>
+                            <span th:text="${metodoPago.descripcion}">Método de Pago</span>
+                        </div>
+                        <div class="detail-row">
+                            <strong>Monto Pagado:</strong>
+                            <span th:text="'S/ ' + ${#numbers.formatDecimal(pagoPedido.montoPagado, 0, 'COMMA', 2, 'POINT')}" class="text-success">S/ 0.00</span>
+                        </div>
+                        <div class="detail-row">
+                            <strong>Vuelto:</strong>
+                            <span th:text="'S/ ' + ${#numbers.formatDecimal(pagoPedido.vuelto, 0, 'COMMA', 2, 'POINT')}" class="text-info">S/ 0.00</span>
+                        </div>
+
+                        <!-- Información del Usuario -->
+                        <div class="detail-row">
+                            <strong>Usuario:</strong>
+                            <span th:text="${pagoPedido.detallePedido.pedido.usuario.username}">Nombre de Usuario</span>
+                        </div>
+                    </div>
+
+                    <!-- Acciones -->
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{'/admin/generarComprobantePDF/' + ${pagoPedido.id}}" 
+                               class="btn btn-primary">
+                                <i class="fas fa-file-pdf"></i> Descargar PDF
+                            </a>
+                            <a th:href="@{/admin/allPedidos}" class="btn btn-secondary">
+                                Volver a Pedidos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>

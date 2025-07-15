@@ -1,0 +1,188 @@
+@import url('/css/headerAdmin.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+/* Content Styles (Pagina - Productos) */
+ .main-content {
+    margin-left: 280px;
+    padding: 30px;
+    background-color: #fff;
+    min-height: 100vh;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #FF9933;
+    padding-bottom: 1rem;
+}
+
+.page-header h1 {
+    color: #333;
+    font-size: 2rem;
+}
+
+.page-header small {
+    color: #666;
+    font-size: 1.2rem;
+}
+
+.btn-create {
+    background: #FFB366;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.btn-create:hover {
+    background: #FF9933;
+    transform: translateY(-2px);
+}
+
+/* Estilos para la tabla */
+.table-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: #FFB366;
+    color: #333;
+    padding: 15px;
+    text-align: left;
+}
+
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.table tr:hover {
+    background-color: #fff5eb;
+}
+
+/* Estilos para los botones de acción */
+.btn-group {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-edit {
+    background: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-delete {
+    background: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* Estilos para la paginación */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-link {
+    background: #FFB366;
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background: #FF9933;
+}
+
+.pagination .disabled .page-link {
+    background: #eee;
+    cursor: not-allowed;
+}
+
+/* Mensaje de no productos */
+.alert-info {
+    background: #e3f2fd;
+    color: #0d47a1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+ /* Responsive */
+ @media (max-width: 768px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-content {
+        margin-left: 220px;
+        padding: 20px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 70px;
+    }
+
+    .main-content {
+        margin-left: 70px;
+        padding: 15px;
+    }
+
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+}

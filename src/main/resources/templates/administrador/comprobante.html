@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Comprobante </title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+       <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+
+        <div class="main-content"> 
+
+            <div th:if="${error}" class="alert alert-danger">
+                <p th:text="${error}">Error message</p>
+            </div>
+
+            <div th:if="${pagoPedido}" class="comprobante">
+                <h2>Generar Comprobante</h2>
+                <h3>Comprobante de Pago</h3>
+
+                <div>
+                    <p><strong>Detalle Pedido:</strong> <span th:text="${pagoPedido.detallePedido.producto.nombreProducto}">Nombre Producto</span></p>
+                    <p><strong>Total:</strong> S/ <span th:text="${#numbers.formatDecimal(pagoPedido.detallePedido.total, 0, 'COMMA', 2, 'POINT')}">0.00</span></p>
+                    <p><strong>Monto Pagado:</strong> S/ <span th:text="${#numbers.formatDecimal(pagoPedido.montoPagado, 0, 'COMMA', 2, 'POINT')}">0.00</span></p>
+                    <p><strong>Vuelto:</strong> S/ <span th:text="${#numbers.formatDecimal(pagoPedido.vuelto, 0, 'COMMA', 2, 'POINT')}">0.00</span></p>
+                </div>
+
+                <a th:href="@{/admin/generarComprobantePDF/{id}(id=${pagoPedido.id})}" 
+                   class="btn btn-primary">
+                    Generar Comprobante PDF
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

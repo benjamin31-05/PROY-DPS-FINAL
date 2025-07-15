@@ -1,0 +1,208 @@
+/* Estilos del footer */
+footer {
+    background-color: #f8f881; /* Color de fondo amarillo pastel claro */
+    color: #333; /* Color del texto */
+    border-top: 3px solid #f38c31; /* Borde superior rosa */
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
+    padding: 40px 0; /* Espaciado adicional */
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  footer:hover {
+    background-color: #f8f881; /* Color más claro al pasar el ratón */
+    transform: translateY(-2px); /* Sutil efecto de elevación */
+  }
+  
+  footer h5 {
+    font-size: 1.5rem; /* Tamaño del título del footer */
+    color: #f38c31; /* Color rosa fuerte */
+    margin-bottom: 20px; /* Espaciado inferior */
+  }
+  
+  footer a {
+    text-decoration: none; /* Quitar subrayado de enlaces */
+    transition: color 0.3s; /* Transición suave para el color */
+    color: #333; /* Color del texto */
+  }
+  
+  footer a:hover {
+    color: #f38c31; /* Color al pasar el ratón */
+  }
+  
+  /* Estilos para iconos de redes sociales */
+  .footer-icon {
+    font-size: 2rem; /* Tamaño más grande para los iconos */
+    margin: 0 15px; /* Espacio entre iconos */
+    color: #FF69B4; /* Color rosa fuerte */
+    transition: transform 0.3s; /* Transición suave */
+  }
+  
+  .footer-icon:hover {
+    transform: scale(1.2); /* Aumenta el tamaño al pasar el ratón */
+    color: #f38c31; /* Color al pasar el ratón */
+  }
+  
+  /* Estilo de enlaces útiles */
+  .useful-links a {
+    display: block; /* Para que los enlaces ocupen toda la línea */
+    margin-bottom: 10px; /* Espacio entre enlaces */
+  }
+  
+  /* Estilos para el libro de reclamaciones */
+  .reclamaciones {
+    text-align: center; /* Centrar el texto */
+    margin-top: 20px; /* Espacio superior */
+  }
+  
+  
+  /* Efecto de hover para los íconos de cuenta, carrito y favoritos */
+  .user-options a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: transform 0.3s, color 0.3s;
+  }
+  
+  .user-options img {
+    width: 20px;
+    transition: transform 0.3s, filter 0.3s;
+  }
+  
+  /* Efecto al pasar el cursor */
+  .user-options a:hover {
+    color: #FF6A88;
+    /* Cambia el color del texto */
+    transform: scale(1.1);
+    /* Agranda el enlace en su totalidad */
+  }
+  
+  .user-options a:hover img {
+    transform: scale(1.2);
+    /* Agranda solo el ícono */
+    filter: brightness(1.2);
+    /* Aumenta el brillo del ícono */
+  }
+  /* Estilo para el footer */
+  footer {
+    background-color: #f8f881; /* Fondo amarillo pastel */
+    color: #333;
+    padding: 1rem 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer-section {
+    flex: 1 1 200px;
+    margin: 0.5rem;
+  }
+  
+  .footer-section h3 {
+    color: #f38c31;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  
+  .footer-section p,
+  .footer-section a {
+    color: #333;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .footer-section a:hover {
+    color: #FF6A88; /* Cambia el color al pasar el cursor */
+  }
+  
+  /* Redes sociales en línea horizontal */
+  .social-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .social-media h3 {
+    color: #FF6A88;
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+  }
+  
+  .social-media a {
+    transition: transform 0.3s;
+  }
+  
+  .social-media a:hover {
+    transform: scale(1.2); /* Agranda el ícono al pasar el cursor */
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid #ddd;
+   
+    font-size: 0.8rem;
+    color: #777;
+    text-align: center;
+    margin-top: 1rem; /* Reducido de 2rem a 1rem */
+    padding-top: 0.5rem; /* Reducido de 1rem a 0.5rem */
+  }
+  
+  /* Responsividad */
+  @media (min-width: 768px) {
+    .footer-container {
+      justify-content: space-between;
+    }
+  }
+
+/* Responsive */
+@media (max-width: 991px) {
+    .footer {
+        padding: 10px;
+    }
+    
+    .footer-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .footer-section {
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .footer-section p,
+    .footer-section a {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .social-media {
+        flex-wrap: wrap;
+        text-align: center;
+        margin-top: 0.5rem; /* Reducido */
+    }
+
+    .social-media h3 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+}

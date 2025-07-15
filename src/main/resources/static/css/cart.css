@@ -1,0 +1,183 @@
+@import url('/css/header.css');
+@import url('/css/footer.css');
+@import url('/css/carrito.css');
+@import url('/css/favoritos.css');
+
+/* Colores pastel personalizados */
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Fondo claro */
+    color: #5d5c61;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #dc3545;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #6c757d;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.breadcrumb {
+    background-color: #f1f3f5;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.breadcrumb a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Card Styles */
+.card {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: #495057;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Table Styles */
+.table {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.table thead {
+    background-color: #e9ecef;
+    color: #495057;
+    font-weight: bold;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.table td, .table th {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.table .btn-danger {
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.table .btn-danger:hover {
+    background-color: #dc3545;
+    transform: scale(1.05);
+}
+
+/* Sidebar Styles */
+.col-lg-3 {
+    border-left: 1px solid #dee2e6;
+    padding-left: 20px;
+}
+
+.list-group-item {
+    font-size: 1.2rem;
+    color: #343a40;
+    text-align: center;
+    border: none;
+    background: transparent;
+}
+
+.list-group-item h5 {
+    color: #28a745;
+    font-weight: bold;
+    margin: 0;
+}
+
+.btn-dark {
+    background-color: #343a40;
+    color: white;
+    border: none;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+.btn-dark:hover {
+    background-color: #495057;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.9rem;
+    }
+
+    .table td, .table th {
+        font-size: 0.9rem;
+    }
+
+    .btn-dark, .btn-danger {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .col-lg-3 {
+        border-left: none;
+        padding-left: 0;
+        margin-top: 20px;
+    }
+}
+
+
+.cart-product-image {
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px; /* Opcional, para esquinas redondeadas */
+    border: 1px solid #ddd; /* Opcional, para un contorno sutil */
+}
+
+.product-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px; /* Opcional: Para bordes redondeados */
+}

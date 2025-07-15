@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Asuntos</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+      <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+
+
+        <!-- Contenido principal -->
+        <div class="main-content"> 
+            <div class="page-header">
+                <h1>ADMIN <small>Asuntos</small></h1>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Mensaje</th>
+                            <th>Asunto</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="contacto : ${contactos}">
+                            <td th:text="${contacto.id}"></td>
+                            <td th:text="${contacto.nombre}"></td>
+                            <td th:text="${contacto.email}"></td>
+                            <td th:text="${contacto.mensaje}"></td>
+
+                            <td th:text="${contacto.asunto != null ? contacto.asunto.description : '--'}"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn-edit" th:href="@{/productos1/responderAsunto/{id}(id=${contacto.id})}">Responder</a>
+                                    
+                                    <a class="btn-delete" th:href="@{/productos1/deleteAsunto/{id}(id=${contacto.id})}"
+                                       onclick="return confirm('¿Estás seguro de eliminar este asunto?')">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${contactos.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{/productos1/contacts(page=${contactos.number - 1})}">Anterior</a>
+                    </li>
+                    <li class="page-item" th:classappend="${contactos.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{/productos1/contacts(page=${contactos.number + 1})}">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div th:if="${#lists.isEmpty(contactos)}" class="alert-info">
+                No hay asuntos disponibles en este momento.
+            </div>
+
+        </div> 
+
+
+    </body>
+
+</html>

@@ -1,0 +1,287 @@
+@import url('/css/headerAdmin.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+/* Content Styles */
+.main-content {
+    margin-left: 280px;
+    padding: 30px;
+    transition: all 0.3s ease;
+    min-height: 100vh;
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.container.mt-5 {
+    margin-top: 3rem;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 2rem;
+    font-size: 32px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #FFB366, #FF9933);
+    border-radius: 2px;
+}
+
+.form-group {
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.form-control:focus {
+    border-color: #FFB366;
+    box-shadow: 0 0 15px rgba(255, 179, 102, 0.2);
+    outline: none;
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-label {
+    position: absolute;
+    left: 15px;
+    top: -12px;
+    background: #fff;
+    padding: 0 10px;
+    color: #666;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus+.form-label {
+    color: #FF9933;
+}
+
+/* Estilos base */
+.button-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+    width: 100%; /* Añadido */
+}
+
+.submit-btn {
+    background: linear-gradient(to right, #FFB366, #FF9933);
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 179, 102, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 179, 102, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.cancel-btn {
+    background: linear-gradient(to right, #6c757d, #495057);
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.cancel-btn:hover {
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+
+/* Nuevos estilos para select e input file */
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper::after {
+    content: '▼';
+    font-size: 12px;
+    color: #666;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+select.form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 40px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.file-upload {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-upload-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: #fff;
+    border: 2px dashed #FFB366;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-upload-label:hover {
+    border-color: #FF9933;
+    background-color: rgba(255, 179, 102, 0.1);
+}
+
+.file-upload-label i {
+    font-size: 24px;
+    color: #FFB366;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.file-name {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-content {
+        margin-left: 220px;
+    }
+
+    .admin-title {
+        font-size: 24px;
+    }
+
+    .nav-button {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 70px;
+        padding: 15px 10px;
+    }
+
+    .main-content {
+        margin-left: 70px;
+        padding: 20px;
+    }
+
+    .admin-title {
+        font-size: 16px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        margin: 20px auto;
+    }
+
+    .nav-button {
+        padding: 12px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    .nav-button span {
+        display: none;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+    
+
+}
+
+/* Ajustes responsive para nuevos elementos */
+@media (max-width: 768px) {
+    .file-upload-label {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .file-upload-label {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Estilos responsivos */
+@media (max-width: 480px) {
+    .button-container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 20px !important;
+        width: 100% !important;
+    }
+
+    .submit-btn,
+    .cancel-btn {
+        width: 80% !important;
+        margin: 0 !important;
+        padding: 12px 20px !important;
+        display: block !important;
+        text-align: center !important;
+    }
+}

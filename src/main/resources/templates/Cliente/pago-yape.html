@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>PAGO CON YAPE</title>
+
+        <link th:href="@{/css/cart.css}" rel="stylesheet">
+        <link th:href="@{/css/favoritos.css}" rel="stylesheet">
+
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+        <!-- HEADER -->
+        <div th:include="cliente/template_header_footer.html::header" mb-3></div>
+
+        <div class="container">
+            <h2>Pago por Yape</h2>
+
+            <!-- Información del pedido -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Detalles del Pedido</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="dtpedido : ${cart}">
+                                <td th:text="${dtpedido.nombre}"></td>
+                                <td th:text="${dtpedido.precio}"></td>
+                                <td th:text="${dtpedido.cantidad}"></td>
+                                <td th:text="${dtpedido.total}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>Total del Pedido: <span th:text="${pedido.total}"></span></h5>
+                </div>
+            </div>
+
+            <!-- Imagen de Yape -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Código Yape</h5>
+                    <img src="imagenes/yape.jpg" alt="Código Yape" class="img-fluid">
+                    <p>Realiza el pago al número: 998-227-040</p>
+                </div>
+            </div>
+
+            <!-- Formulario para subir comprobante -->
+            <form th:action="@{/process-yape-payment}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="comprobante">Subir Comprobante de Pago</label>
+                    <input type="file" class="form-control" id="comprobante" name="comprobante" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+            </form>
+        </div>
+
+
+    </body>
+</html>

@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(145deg, #FFE4D6, #FFCEB4);
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-title {
+    color: #FF6A88;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 50px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.admin-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #FF9933;
+    border-radius: 2px;
+}
+
+.nav-button {
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    background: #FFB366;
+    border: none;
+    border-radius: 10px;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover {
+    background: #FF9933;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.nav-button:active {
+    transform: translateY(0);
+}
+
+.cerrar-sesion {
+    background: #FF8C66;
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 50px);
+}
+
+   /* Responsive Styles */
+   @media (max-width: 768px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-content {
+        margin-left: 220px;
+    }
+
+    .admin-title {
+        font-size: 24px;
+    }
+
+    .nav-button {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 70px;
+        padding: 15px 10px;
+    }
+
+    .main-content {
+        margin-left: 70px;
+        padding: 20px;
+    }
+
+    .admin-title {
+        font-size: 16px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        margin: 20px auto;
+    }
+
+    .nav-button {
+        padding: 12px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    .nav-button span {
+        display: none;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+}
+
+/* Ajustes responsive para nuevos elementos */
+@media (max-width: 768px) {
+    .file-upload-label {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .file-upload-label {
+        flex-direction: column;
+        text-align: center;
+    }
+}

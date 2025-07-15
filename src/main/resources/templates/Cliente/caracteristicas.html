@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ArteMístico - Producto</title>
+        <!-- Icono -->
+        <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
+
+        <link th:href="@{/css/header.css}" rel="stylesheet">
+        <link th:href="@{/css/footer.css}" rel="stylesheet">
+        <link th:href="@{/css/carrito.css}" rel="stylesheet">
+        <link th:href="@{/css/favoritos.css}" rel="stylesheet">
+
+        <style>
+            /* Estilo Global */
+            body {
+                font-family: 'Roboto', sans-serif;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Fondo degradado suave */
+                color: #212529;
+            }
+
+            /* Contenedor Principal */
+            .container {
+                display: flex;
+                gap: 20px;
+                background: white;
+                margin: 30px auto;
+                max-width: 1100px;
+                border-radius: 12px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                padding: 30px;
+                animation: fadeIn 0.5s ease-in-out;
+            }
+
+            /* Imagen del Producto */
+            .product-image {
+                flex: 0.5;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 12px;
+                overflow: hidden;
+                background: #f8f9fa;
+            }
+
+            .product-image img {
+                max-width: 100%;
+                height: auto;
+                border: 2px solid #dee2e6;
+                border-radius: 10px;
+                transition: transform 0.3s;
+            }
+
+            .product-image img:hover {
+                transform: scale(1.05);
+            }
+
+            /* Detalles del Producto */
+            .product-details {
+                flex: 1.5;
+                padding: 0 20px;
+            }
+
+            .product-details h2 {
+                font-size: 2rem;
+                font-weight: bold;
+                color: #343a40;
+                margin-bottom: 10px;
+            }
+
+            .product-details p {
+                margin: 15px 0;
+                font-size: 1rem;
+                color: #495057;
+                line-height: 1.6;
+            }
+
+            .product-details label {
+                font-weight: bold;
+                color: #495057;
+            }
+
+            .product-details select,
+            .product-details input[type="number"] {
+                width: 100%;
+                padding: 10px;
+                font-size: 1rem;
+                border: 1px solid #ced4da;
+                border-radius: 8px;
+                margin-top: 5px;
+                background: #fff;
+                transition: border-color 0.3s;
+            }
+
+            .product-details select:focus,
+            .product-details input[type="number"]:focus {
+                border-color: #007bff;
+                outline: none;
+                box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+            }
+
+            /* Botones */
+            .product-details button {
+                background: linear-gradient(135deg, #007bff, #0056b3);
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 8px;
+                font-size: 1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: inline-block;
+                margin-top: 20px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            }
+
+            .product-details button:hover {
+                background: linear-gradient(135deg, #0056b3, #003f7f);
+                transform: scale(1.05);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Mensajes de Stock */
+            .stock-info {
+                font-size: 0.9rem;
+                color: #6c757d;
+                margin: 15px 0;
+            }
+
+            .stock-info p {
+                margin: 5px 0;
+            }
+
+            .stock-message {
+                padding: 8px 12px;
+                border-radius: 6px;
+                background: #ffc107;
+                color: #212529;
+                display: inline-block;
+            }
+
+            /* Notificaciones */
+            .toast {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 6px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                animation: fadeIn 0.5s, fadeOut 0.5s 3.5s;
+            }
+
+            .toast-success {
+                background: #28a745;
+            }
+
+            .toast-error {
+                background: #dc3545;
+            }
+
+            /* Animaciones */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+            }
+
+
+
+        </style>
+    </head>
+    <body>
+
+        <!-- HEADER -->
+        <div th:include="cliente/template_header_footer.html::header" mb-3></div>
+
+        <div class="container">
+            <div class="product-image">
+                <img 
+                    th:src="${producto.imageUrl}" th:alt="${producto.nombreProducto}"
+                    style="width: 250px; height: auto;">
+            </div>
+
+            <!-- Formulario para enviar los detalles del producto -->
+            <form method="POST" th:action="@{/cart}" class="product-details">
+                <!-- Añadir justo después del contenedor del formulario -->
+                <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                    <span th:text="${errorMessage}"></span>
+                </div>
+
+                <input type="hidden" th:value="${producto.id}" name="id"> 
+
+                <h2 th:text="${producto.nombreProducto}"> </h2>
+
+                <p><strong>Descripción:</strong> <span th:text="${producto.descripcion}">
+                    </span></p>
+
+                <!-- Selector de Local -->
+                <div class="local-selection">
+                    <label for="local">Metodo Envio:</label>
+                    <select id="local" name="localId" required onchange="updateMaxQuantity()">
+                        <option th:each="local : ${locales}" 
+                                th:value="${local.id}" 
+                                th:text="${local.nombre}"
+                                th:data-stock="${local.id == 1 ? producto.stockOpenPlaza : producto.stockUDEP}">
+                        </option>
+                    </select>
+                </div>
+                <p </p>
+
+                <!-- Selector de Tamaño -->
+                <div class="size-selection">
+                    <label for="tamano">Tamaño:</label>
+                    <select id="tamano" name="tamanoId" required>
+                        <option th:each="precioTamano : ${producto.preciosPorTamano}" 
+                                th:value="${precioTamano.tamano.id}" 
+                                th:text="${precioTamano.tamano.nombre + ': S/ ' + precioTamano.precio}">
+                        </option>
+                    </select>
+                </div>
+                
+                  <p </p>
+                <!-- Mostrar Stock por Local
+                <div class="stock-info">
+                    <p>Stock Open Plaza: <span th:text="${producto.stockOpenPlaza}"></span> L</p>
+                    <p>Stock UDEP: <span th:text="${producto.stockUDEP}"></span> L</p>
+                </div>  -->
+
+                <!-- Selector de Cantidad -->
+                <div class="quantity">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" 
+                           min="1" max="1" value="1" required>
+                </div>
+
+                <button type="submit" class="btn btn-dark">Agregar al Carrito</button>
+            </form>
+        </div>
+
+        <script th:inline="javascript">
+            function updateMaxQuantity() {
+                var localSelect = document.getElementById('local');
+                var cantidadInput = document.getElementById('cantidad');
+
+                // Obtener el stock del local seleccionado
+                var selectedOption = localSelect.options[localSelect.selectedIndex];
+                var maxStock = selectedOption.getAttribute('data-stock');
+
+                // Actualizar el máximo del input de cantidad
+                cantidadInput.max = maxStock;
+
+                // Resetear el valor de cantidad al mínimo
+                cantidadInput.value = 1;
+            }
+
+            // Llamar a la función inicialmente para establecer el stock correcto
+            updateMaxQuantity();
+        </script>
+
+        <!-- Footer -->
+        <div th:include="cliente/template_header_footer.html::footer"></div>
+    </body>
+</html>
+

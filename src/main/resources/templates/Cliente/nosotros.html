@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BREEZE - Nosotros</title>
+       
+        <link th:href="@{/css/Nosotros.css}" rel="stylesheet">
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+     
+    </head>
+    <body>
+        <div th:include="cliente/template_header_footer.html::header"> </div>
+
+        <section class="about-us">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Sobre Nosotros</h2>
+                    <p>En <strong>BREEZE</strong>, nos dedicamos a la creación de cremoladas y helados artesanales desde hace más de 10 años. Nuestra pasión es endulzar tus momentos especiales con productos frescos y de la mejor calidad.</p>
+                    <p>Nuestro equipo trabaja con ingredientes seleccionados y recetas tradicionales, brindándote el auténtico sabor casero que te hará sentir como en casa.</p>
+                </div>
+                <div class="about-image-container">
+                    <img th:src="@{/imagenes/heladero.jpg}" alt="Pastelería De Jesús y María" class="about-image">
+                </div>
+            </div>
+
+            <div class="values">
+                <h2 class="values-title">Nuestros Valores</h2>
+                <p class="intro-text"><strong>Preparamos nuestros helados con mucho amor, dedicación y cuidado, para que los disfrutes con toda familia.</strong></p>
+                <p class="intro-description">Somos una empresa peruana que convierte momentos familiares en únicos y especiales, elaborando helados con ingredientes naturales y frescos, basados en recetas mejoradas al estilo casero y preparadas con mucho amor y dedicación.</p>
+
+                <div class="values-container">
+                    <div class="value-box">
+                        <img th:src="@{/imagenes/mision2.jpg}" alt="Misión" class="value-image">
+                        <h3 class="value-title">Nuestra Misión</h3>
+                        <p class="value-description">Crear experiencias dulces y memorables que hagan que cada momento sea especial, con productos de calidad y un sabor único.</p>
+                    </div>
+                    <div class="value-box">
+                        <img th:src="@{/imagenes/vision2.jpg}" alt="Visión" class="value-image">
+                        <h3 class="value-title">Nuestra Visión</h3>
+                        <p class="value-description">Convertirnos en la heladeria favorita de la región, reconocida por la calidad de nuestros productos y el amor en cada creación.</p>
+                    </div>
+                    <div class="value-box">
+                        <img th:src="@{/imagenes/valores.png}" alt="Qué Buscamos" class="value-image">
+                        <h3 class="value-title">Qué Buscamos como Empresa</h3>
+                        <p class="value-description">Fomentar un entorno que inspire creatividad y respeto, priorizando la satisfacción del cliente y la responsabilidad social.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="cliente/template_header_footer.html::footer"> </div>
+        
+         <script th:src="@{/js/carrito.js}"></script>
+           <script th:src="@{/js/favoritos.js}"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap Icons -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.js"></script>
+
+
+    </body>
+</html>

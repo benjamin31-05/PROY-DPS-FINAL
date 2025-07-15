@@ -1,0 +1,82 @@
+/* Estilo para el contenedor de detalles de contacto */
+.contact-info-container {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.contact-info-container h2 {
+    font-size: 22px;
+    color: #5c6bc0;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.contact-info strong {
+    color: #5c6bc0;
+}
+
+/* Estilo para el contenedor de formulario de respuesta */
+.response-form-container {
+    background-color: #f7f8fa;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.response-form-container h2 {
+    font-size: 22px;
+    color: #5c6bc0;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #d1d9e6;
+    background-color: #f7f8fa;
+    resize: vertical;
+    min-height: 150px;
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #5c6bc0;
+    background-color: #ffffff;
+}
+
+/* Estilo del botón */
+button[type="submit"] {
+    background-color: #5c6bc0;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #4a5fa1;
+}
+
+button[type="submit"]:active {
+    background-color: #3d4c8c;
+}

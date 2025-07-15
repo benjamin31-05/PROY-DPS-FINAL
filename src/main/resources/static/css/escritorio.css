@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('/css/header.css');
+@import url('/css/footer.css');
+@import url('/css/carrito.css');
+@import url('/css/favoritos.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.account-top-banner {
+    background-color: #E8E6D9;
+    padding: 0.5rem 2rem;
+    text-align: center;
+    position: relative;
+    margin-top: 30px;
+}
+
+.account-banner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.account-page-title {
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.5px;
+}
+
+.account-home-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.main-wrapper {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.welcome-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-img {
+    width: 44px;
+    height: 44px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23bbb"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
+}
+
+.welcome-info {
+    flex: 1;
+     min-width: 0;  /* Importante para que funcione el text-overflow */
+}
+
+.welcome-title {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+    font-weight: 700; /* Añadido negrita */
+}
+
+.welcome-user {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  /* Mostrará ... si el texto es muy largo */
+
+}
+
+.sidebar-menu {
+    list-style: none;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0.5rem 0; /* Añadido espaciado vertical */
+}
+
+.sidebar-menu li:last-child {
+    border-bottom: none;
+}
+
+/* Estilos para el formulario */
+.sidebar-menu form {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Nuevo estilo para los botones del menú */
+.menu-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    color: #666;
+    font-size: 0.9rem;
+    gap: 0.75rem;
+    font-weight: 700;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.menu-button:hover {
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.active .menu-button {
+    background-color: #f8f8f8;
+    color: #333;
+    font-weight: 700;
+}
+
+.menu-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.active .menu-icon,
+.menu-button:hover .menu-icon {
+    opacity: 0.8;
+}
+
+/* END SIDEBAR  */
+
+
+.main-content {
+    flex: 1;
+    max-width: 900px;
+}
+
+.info-text {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.info-text a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+/* Estilos para todos los formularios dentro del grid */
+.buttons-grid form {
+    margin: 0;
+    padding: 0;
+    display: contents; /* Hace que el form no afecte al grid */
+}
+
+.dashboard-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    min-height: 120px; /* Asegura altura mínima consistente */
+}
+
+.dashboard-button img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 1rem;
+    transition: filter 0.3s; /* Suave transición para el icono */
+}
+
+.dashboard-button:hover {
+    background-color: #FF7F50;
+    color: white;
+    transform: translateY(-2px); /* Efecto sutil de elevación */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra al hover */
+}
+
+.dashboard-button:hover img {
+    filter: brightness(0) invert(1); /* Hace que el icono se vuelva blanco */
+}
+
+
+.dashboard-button:hover .button-text {
+    color: white;
+}
+
+.button-icon {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.button-text {
+    color: #333;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .main-wrapper {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .buttons-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-button {
+        min-height: 100px; /* Altura reducida en móviles */
+    }
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    .main-wrapper {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .menu-button {
+        padding: 1.25rem;
+    }
+}
+
+/* Efecto de click */
+.menu-button:active {
+    background-color: #f0f0f0;
+}
+
+/* Efecto de click */
+.dashboard-button:active {
+    transform: translateY(0); /* Elimina la elevación al hacer click */
+    box-shadow: none;
+}

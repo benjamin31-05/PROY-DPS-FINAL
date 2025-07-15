@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>DETALLE - PEDIDO </title>
+
+
+        <link th:href="@{/css/header.css}" rel="stylesheet">
+        <link th:href="@{/css/footer.css}" rel="stylesheet">
+        <link th:href="@{/css/carrito.css}" rel="stylesheet">
+        <link th:href="@{/css/favoritos.css}" rel="stylesheet">
+        <link th:href="@{/css/detallesPedido.css}" rel="stylesheet">
+
+
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <!-- HEADER -->
+        <div th:include="cliente/template_header_footer.html::header" mb-3></div>
+
+        <!-- Page Content -->
+        <div class="container">
+            <!-- Page Heading/Breadcrumbs -->
+            <div class="account-top-banner">
+                <div class="account-banner-wrapper">
+                    <h1 class="account-page-title">Resumen - Pedido </h1>
+                    <a th:href="@{/cliente/home}" class="account-home-link">Inicio</a>
+                </div>
+            </div>
+
+            <!-- Blog Post -->
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    DATOS
+                                </h5>
+                                <h6>
+                                    <span class="texto-rojo">Nombre:</span> <span th:text="${usuario.nombre}"></span>
+                                </h6>
+                                <h6>
+                                    <span class="texto-rojo">Correo:</span> <span th:text="${usuario.email}"></span>
+                                </h6>
+                                <h6>
+                                    <span class="texto-rojo">Dirección:</span> <span th:text="${usuario.direccion}"></span>
+                                </h6>
+
+
+                                <h5 class="card-title">
+                                    PEDIDO
+                                </h5>
+                                <div class="alert alert-light" role="alert">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Producto</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">Local</th>
+                                                <th scope="col">Tamaño</th>
+                                                <th scope="col">Cantidad</th>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="dtpedido:${cart}">
+                                                <td th:text="${dtpedido.nombre}"></td>
+                                                <td th:text="${dtpedido.precio}"></td>
+                                                <td th:text="${dtpedido.local.nombre}"></td>
+                                                <td th:text="${dtpedido.tamano.nombre}"></td>
+                                                <td th:text="${dtpedido.cantidad}"></td>
+                                                <td th:text="${dtpedido.total}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-3">
+                            <div class="card-body">
+                                <h5 class="card-title">RESUMEN</h5>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <h5 th:text=" 'Total: ' + ${pedido.total} "></h5>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h6>Seleccione método de pago:</h6>
+                                        <div class="btn-group-vertical w-100">
+                                            <a th:href="@{/credit-card}" 
+                                               class="btn btn-primary mb-2">
+                                                Tarjeta de Crédito
+                                            </a>
+                                            <a th:href="@{/yape-payment}" class="btn btn-success mb-2">Yape</a>
+                                            <a href="#" 
+                                               class="btn btn-info mb-2">
+                                                Plin
+                                            </a>
+                                            <a th:href="@{/saveOrder}" 
+                                               class="btn btn-secondary">
+                                                Pago en Efectivo
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+
+
+        <!-- Footer -->
+        <div th:include="cliente/template_header_footer.html::footer"></div>
+
+
+    </body>
+
+</html>

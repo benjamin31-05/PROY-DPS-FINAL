@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Pedidos</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+
+
+        <!-- Contenido principal -->
+        <div class="main-content"> 
+
+            <div class="container">
+                <h2>Validar Pago</h2>
+
+                <!-- Detalles del Pedido -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Detalles del Pedido</h5>
+                        <p>Producto: <span th:text="${detalle.producto.nombreProducto}"></span></p>
+                        <p>Cantidad: <span th:text="${detalle.cantidad}"></span></p>
+                        <p>Total: <span th:text="${detalle.total}"></span></p>
+                    </div>
+                </div>
+
+                <!-- Comprobante de Pago -->
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5>Comprobante de Pago</h5>
+                        <img th:src="${pagoPedido.imagenComprobante}" alt="Comprobante" class="img-fluid">
+                    </div>
+                </div>
+
+                <!-- Acciones de Validación -->
+                <form th:action="@{/admin/validar-pago}" method="post">
+                    <input type="hidden" name="detalleId" th:value="${detalle.id}">
+                    <button type="submit" name="accion" value="aprobar" class="btn btn-success">Aprobar Pago</button>
+                    <button type="submit" name="accion" value="cancelar" class="btn btn-danger">Cancelar Pago</button>
+                </form>
+            </div>
+        </div>
+
+
+
+    </body>
+</html>

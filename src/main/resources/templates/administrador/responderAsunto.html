@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Responder Asunto</title>
+        <link th:href="@{/css/responderAsunto.css}" rel="stylesheet">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+       <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+    </head>
+    <body>
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+        <div class="main-content"> 
+            <div class="page-header">
+                <h1>ADMIN <small>Responder Asuntos</small></h1>
+            </div>
+
+            <!-- Mostrar los datos del contacto -->
+            <div class="contact-info-container">
+                <h2>Detalles del Contacto</h2>
+                <div class="contact-info">
+                    <p><strong>Nombre:</strong> <span th:text="${contacto.nombre}"></span></p>
+                    <p><strong>Email:</strong> <span th:text="${contacto.email}"></span></p>
+                    <p><strong>Asunto:</strong> <span th:text="${contacto.asunto != null ? contacto.asunto.description : 'No especificado'}"></span></p>
+                    <p><strong>Mensaje:</strong></p>
+                    <p th:text="${contacto.mensaje}"></p>
+                </div>
+            </div>
+
+            <!-- Formulario para responder -->
+            <div class="response-form-container">
+                <h2>Responder al Contacto</h2>
+                <form th:action="@{/productos1/responderAsunto/{id}(id=${contacto.id})}" method="post">
+                    <textarea name="respuesta" placeholder="Escribe tu respuesta..."></textarea>
+                    <button type="submit">Enviar Respuesta</button>
+                </form>
+            </div>
+
+
+    </body>
+</html>

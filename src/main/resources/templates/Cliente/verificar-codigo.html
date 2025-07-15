@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Verificación de Código</title>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+        
+         <link th:href="@{/css/validacion.css}" rel="stylesheet">
+
+    </head>
+    <body>
+        <div class="container-form animate-fade-in">
+            <form class="sign-up" method="POST" th:action="@{/verificar}">
+                <h2>Verificación de Correo</h2>
+
+                <!-- Mensajes de error -->
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+                <div class="container-input">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="text" name="codigo" placeholder="Ingrese código de verificación" required>
+                </div>
+
+                <button type="submit" class="button">VERIFICAR CÓDIGO</button>
+
+                <div class="additional-info">
+                    <p>Se ha enviado un código de verificación a su correo electrónico. 
+                        Por favor, revise su bandeja de entrada.</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Ionicons JS -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> 
+    </body>
+</html>

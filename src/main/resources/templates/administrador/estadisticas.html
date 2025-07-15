@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Estadisticas</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Customizado -->
+        <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+
+        <!-- Icono -->
+        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+
+        <!-- Incluir Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1>Estadísticas de Ventas por Local</h1>
+            </div>
+
+            <!-- Formulario de Filtro de Fechas -->
+            <form th:action="@{/admin/estadisticas}" method="get" class="mb-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Fecha Inicio</label>
+                        <input type="date" name="fechaInicio" class="form-control" 
+                               th:value="${#dates.format(fechaInicio, 'yyyy-MM-dd')}">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Fecha Fin</label>
+                        <input type="date" name="fechaFin" class="form-control"
+                               th:value="${#dates.format(fechaFin, 'yyyy-MM-dd')}">
+                    </div>
+                    <div class="col-md-4 align-self-end">
+                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Gráficas -->
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="ventasPorLocalChart"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="productosPorLocalChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script para generar gráficas -->
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            document.addEventListener('DOMContentLoaded', function () {
+                // Datos para gráfica de ventas
+                var locales = /*[[${locales}]]*/ [];
+                var ventas = /*[[${ventas}]]*/ [];
+                var cantidadProductos = /*[[${cantidadProductos}]]*/ [];
+
+                // Gráfica de Ventas por Local
+                var ctxVentas = document.getElementById('ventasPorLocalChart').getContext('2d');
+                new Chart(ctxVentas, {
+                    type: 'bar',
+                    data: {
+                        labels: locales,
+                        datasets: [{
+                                label: 'Ventas Totales (S/)',
+                                data: ventas,
+                                backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                            }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Ventas Totales por Local'
+                            }
+                        }
+                    }
+                });
+
+                // Gráfica de Productos Vendidos por Local
+                var ctxProductos = document.getElementById('productosPorLocalChart').getContext('2d');
+                new Chart(ctxProductos, {
+                    type: 'bar',
+                    data: {
+                        labels: locales,
+                        datasets: [{
+                                label: 'Cantidad de Productos Vendidos',
+                                data: cantidadProductos,
+                                backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                            }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Productos Vendidos por Local'
+                            }
+                        }
+                    }
+                });
+            });
+            /*]]>*/
+        </script>
+    </body>
+</html>
