@@ -192,6 +192,19 @@ body {
     box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
 }
 
+/* Nuevo estilo para el botón de "Ver Specs" */
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+    box-shadow: 0 2px 4px rgba(23, 162, 184, 0.3);
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #138496, #0c5460);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(23, 162, 184, 0.4);
+}
+
 .btn-outline-danger {
     background: transparent;
     color: #dc3545;
