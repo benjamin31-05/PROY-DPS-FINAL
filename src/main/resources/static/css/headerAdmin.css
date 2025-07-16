@@ -10,20 +10,32 @@ body {
 }
 
 /* Sidebar Styles */
+:root {
+    --color-primary-dark: #6A3F2B;
+    --color-primary-light: #F8F4ED;
+    --color-accent-gold: #A65B2E;
+    --color-accent-green: #7f8242;
+    --color-background-soft: #EDEAE4;
+    --color-card-background: #E9DCCF;
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Quicksand', sans-serif;
+}
+
 .sidebar {
     width: 280px;
     height: 100vh;
-    background: linear-gradient(145deg, #FFE4D6, #FFCEB4);
+    background: linear-gradient(145deg, var(--color-card-background), var(--color-primary-light));
     position: fixed;
     left: 0;
     top: 0;
     padding: 25px;
     transition: all 0.3s ease;
     box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-body);
 }
 
 .admin-title {
-    color: #FF6A88;
+    color: var(--color-accent-gold);
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 50px;
@@ -32,6 +44,7 @@ body {
     letter-spacing: 2px;
     position: relative;
     padding-bottom: 15px;
+    font-family: var(--font-heading);
 }
 
 .admin-title::after {
@@ -42,7 +55,7 @@ body {
     transform: translateX(-50%);
     width: 50px;
     height: 3px;
-    background: #FF9933;
+    background: var(--color-accent-gold);
     border-radius: 2px;
 }
 
@@ -50,10 +63,10 @@ body {
     width: 100%;
     padding: 15px 20px;
     margin-bottom: 20px;
-    background: #FFB366;
+    background: var(--color-accent-gold);
     border: none;
     border-radius: 10px;
-    color: #333;
+    color: var(--color-primary-light);
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -65,10 +78,11 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-body);
 }
 
 .nav-button:hover {
-    background: #FF9933;
+    background: var(--color-accent-green);
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
@@ -78,14 +92,15 @@ body {
 }
 
 .cerrar-sesion {
-    background: #FF8C66;
+    background: var(--color-accent-green);
     position: absolute;
     bottom: 20px;
     width: calc(100% - 50px);
+    color: white;
 }
 
-   /* Responsive Styles */
-   @media (max-width: 768px) {
+/* Responsive Styles */
+@media (max-width: 768px) {
     .sidebar {
         width: 220px;
     }
@@ -136,7 +151,6 @@ body {
     h2 {
         font-size: 24px;
     }
-
 }
 
 /* Ajustes responsive para nuevos elementos */
