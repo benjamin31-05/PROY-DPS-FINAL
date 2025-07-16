@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${accion == 'crear' ? 'Crear Especificaciones' : 'Editar Especificaciones'}"></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+        .form-section h4 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .product-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div th:include="administrador/template_header_footer.html::sidebarAdmin"></div>
+    
+    <main class="main-content">
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 th:text="${accion == 'crear' ? 'Crear Especificaciones del Producto' : 'Editar Especificaciones del Producto'}"></h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Información del producto -->
+                            <div class="product-info">
+                                <h5>Producto: <span th:text="${producto.nombreProducto}"></span></h5>
+                                <p class="mb-0" th:text="${producto.descripcion}"></p>
+                            </div>
+
+                            <!-- Mensajes de error/éxito -->
+                            <div th:if="${error}" class="alert alert-danger" role="alert">
+                                <span th:text="${error}"></span>
+                            </div>
+                            <div th:if="${success}" class="alert alert-success" role="alert">
+                                <span th:text="${success}"></span>
+                            </div>
+
+                            <!-- Formulario -->
+                            <form th:action="${accion == 'crear' ? '/productos1/especificaciones/create/' + producto.id : '/productos1/especificaciones/edit/' + producto.id}" 
+                                  method="post" th:object="${especificacion}">
+                                
+                                <!-- Sección: Especificaciones Técnicas -->
+                                <div class="form-section">
+                                    <h4>📏 Especificaciones Técnicas</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="materialPrincipal">Material Principal</label>
+                                                <input type="text" class="form-control" id="materialPrincipal" 
+                                                       th:field="*{materialPrincipal}" 
+                                                       placeholder="Ej: Arcilla de alta resistencia">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="acabado">Acabado</label>
+                                                <input type="text" class="form-control" id="acabado" 
+                                                       th:field="*{acabado}" 
+                                                       placeholder="Ej: Natural, sin barnizar por el alfarero">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="tecnicaElaboracion">Técnica de Elaboración</label>
+                                                <textarea class="form-control" id="tecnicaElaboracion" rows="3" 
+                                                          th:field="*{tecnicaElaboracion}" 
+                                                          placeholder="Describe el proceso artesanal de elaboración..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="altura">Altura</label>
+                                                <input type="text" class="form-control" id="altura" 
+                                                       th:field="*{altura}" 
+                                                       placeholder="Ej: 25 cm">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="diametroBoca">Diámetro Boca</label>
+                                                <input type="text" class="form-control" id="diametroBoca" 
+                                                       th:field="*{diametroBoca}" 
+                                                       placeholder="Ej: 16 cm">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="diametroSuperior">Diámetro Superior</label>
+                                                <input type="text" class="form-control" id="diametroSuperior" 
+                                                       th:field="*{diametroSuperior}" 
+                                                       placeholder="Ej: 8 cm">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="capacidad">Capacidad</label>
+                                                <input type="text" class="form-control" id="capacidad" 
+                                                       th:field="*{capacidad}" 
+                                                       placeholder="Ej: 15 litros">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="peso">Peso</label>
+                                                <input type="text" class="form-control" id="peso" 
+                                                       th:field="*{peso}" 
+                                                       placeholder="Ej: 900 gramos">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="codigoProducto">Código del Producto</label>
+                                                <input type="text" class="form-control" id="codigoProducto" 
+                                                       th:field="*{codigoProducto}" 
+                                                       placeholder="Ej: ARS004F">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="color">Color</label>
+                                                <textarea class="form-control" id="color" rows="2" 
+                                                          th:field="*{color}" 
+                                                          placeholder="Describe los colores y patrones naturales del producto..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sección: Historia y Origen -->
+                                <div class="form-section">
+                                    <h4>📖 Historia y Origen</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="regionProcedencia">Región de Procedencia</label>
+                                                <input type="text" class="form-control" id="regionProcedencia" 
+                                                       th:field="*{regionProcedencia}" 
+                                                       placeholder="Ej: Chulucanas, Piura, Perú">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="artesanoCreador">Artesano/Creador</label>
+                                                <input type="text" class="form-control" id="artesanoCreador" 
+                                                       th:field="*{artesanoCreador}" 
+                                                       placeholder="Nombre del artesano o taller">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="origen">Origen</label>
+                                                <textarea class="form-control" id="origen" rows="3" 
+                                                          th:field="*{origen}" 
+                                                          placeholder="Describe el origen geográfico y cultural del producto..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="historia">Historia</label>
+                                                <textarea class="form-control" id="historia" rows="4" 
+                                                          th:field="*{historia}" 
+                                                          placeholder="Cuenta la historia detrás de este producto artesanal..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="tradicionCultural">Tradición Cultural</label>
+                                                <textarea class="form-control" id="tradicionCultural" rows="3" 
+                                                          th:field="*{tradicionCultural}" 
+                                                          placeholder="Describe la tradición cultural asociada..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sección: Cuidados del Producto -->
+                                <div class="form-section">
+                                    <h4>🛡️ Cuidados del Producto</h4>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="cuidadosGenerales">Cuidados Generales</label>
+                                                <textarea class="form-control" id="cuidadosGenerales" rows="3" 
+                                                          th:field="*{cuidadosGenerales}" 
+                                                          placeholder="Instrucciones generales para el cuidado del producto..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="limpieza">Limpieza</label>
+                                                <textarea class="form-control" id="limpieza" rows="3" 
+                                                          th:field="*{limpieza}" 
+                                                          placeholder="Instrucciones específicas para la limpieza..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="almacenamiento">Almacenamiento</label>
+                                                <textarea class="form-control" id="almacenamiento" rows="3" 
+                                                          th:field="*{almacenamiento}" 
+                                                          placeholder="Recomendaciones para el almacenamiento..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="precauciones">Precauciones</label>
+                                                <textarea class="form-control" id="precauciones" rows="3" 
+                                                          th:field="*{precauciones}" 
+                                                          placeholder="Precauciones importantes a tener en cuenta..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="durabilidad">Durabilidad</label>
+                                                <textarea class="form-control" id="durabilidad" rows="3" 
+                                                          th:field="*{durabilidad}" 
+                                                          placeholder="Información sobre la durabilidad del producto..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Botones -->
+                                <div class="row mt-4">
+                                    <div class="col-md-12 text-center">
+                                        <button type="submit" class="btn btn-primary btn-lg me-3">
+                                            <i class="fas fa-save"></i>
+                                            <span th:text="${accion == 'crear' ? 'Crear Especificaciones' : 'Actualizar Especificaciones'}"></span>
+                                        </button>
+                                        <a href="/productos1/products" class="btn btn-secondary btn-lg">
+                                            <i class="fas fa-arrow-left"></i>
+                                            Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</body>
+</html>

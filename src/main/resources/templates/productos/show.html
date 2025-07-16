@@ -16,7 +16,7 @@
         <!-- CSS Customizado -->
         <link th:href="@{/css/verProductos.css}" rel="stylesheet">
 
-         <!-- Icono -->
+        <!-- Icono -->
         <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
 
     </head>
@@ -54,13 +54,33 @@
                             <td th:text="${producto.nombreProducto}"></td>
                             <td th:text="${producto.descripcion}"></td>
                             <td th:text="'S/' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}"></td>
-                             <td th:text="${producto.stockActual}"></td>
+                            <td th:text="${producto.stockActual}"></td>
                             <td th:text="${producto.subcategoria != null ? producto.subcategoria.nombre : '--'}"></td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn-edit" th:href="@{/productos1/edit/{id}(id=${producto.id})}">Editar</a>
                                     <a class="btn-delete" th:href="@{/productos1/delete/{id}(id=${producto.id})}"
                                        onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</a>
+                                    <!-- Botón para crear/editar especificaciones -->
+                                    <a th:if="${!producto.tieneEspecificaciones()}" 
+                                       th:href="@{/productos1/especificaciones/create/{id}(id=${producto.id})}" 
+                                       class="btn btn-sm btn-success" title="Crear especificaciones">
+                                        <i class="fas fa-plus"></i> Crear Specs
+                                    </a>
+
+                                    <a th:if="${producto.tieneEspecificaciones()}" 
+                                       th:href="@{/productos1/especificaciones/edit/{id}(id=${producto.id})}" 
+                                       class="btn btn-sm btn-primary" title="Editar especificaciones">
+                                        <i class="fas fa-edit"></i> Editar Specs
+                                    </a>
+
+                                    <!-- Botón para eliminar especificaciones -->
+                                    <a th:if="${producto.tieneEspecificaciones()}" 
+                                       th:href="@{/productos1/especificaciones/delete/{id}(id=${producto.id})}" 
+                                       class="btn btn-sm btn-outline-danger" title="Eliminar especificaciones"
+                                       onclick="return confirm('¿Estás seguro de eliminar las especificaciones?')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

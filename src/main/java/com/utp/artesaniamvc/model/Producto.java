@@ -39,6 +39,10 @@ public class Producto {
     // Nuevo campo para los tamaños de helado
     @OneToMany(mappedBy = "producto")
     private List<PrecioTamano> preciosPorTamano;
+    
+     // NUEVA RELACIÓN: Especificaciones del producto
+    @OneToOne(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private EspecificacionProducto especificacion;
 
     public Producto() {
     }
@@ -146,7 +150,21 @@ public class Producto {
     public void setPreciosPorTamano(List<PrecioTamano> preciosPorTamano) {
         this.preciosPorTamano = preciosPorTamano;
     }
+ 
+    public EspecificacionProducto getEspecificacion() {
+        return especificacion;
+    }
     
+    public void setEspecificacion(EspecificacionProducto especificacion) {
+        this.especificacion = especificacion;
+        if (especificacion != null) {
+            especificacion.setProducto(this);
+        }
+    }
     
-    
+    // Método helper para verificar si tiene especificaciones
+    public boolean tieneEspecificaciones() {
+        return especificacion != null;
+    }
+  
 }
