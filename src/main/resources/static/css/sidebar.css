@@ -79,6 +79,11 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
+.nav-button span {
+  display: inline;
+  margin-left: 8px;
+}
+
 .cerrar-sesion {
   background: var(--color-accent-green);
   position: absolute;
@@ -114,7 +119,7 @@
 /* RESPONSIVE - MÓVIL */
 @media (max-width: 480px) {
   .sidebar {
-    width: 220px;
+    width: 200px;
     transform: translateX(-100%);
   }
 
@@ -128,11 +133,11 @@
   }
 
   .admin-title {
-    font-size: 16px;
-    writing-mode: vertical-rl;
+    font-size: 1.2rem;
+    transform: none;
+    writing-mode: horizontal-tb;
     text-orientation: mixed;
-    transform: rotate(180deg);
-    margin: 20px auto;
+    margin: 10px auto;
   }
 
   .nav-button {
@@ -141,12 +146,11 @@
   }
 
   .nav-button span {
-    display: none;
+    display: inline;
+    margin-left: 6px;
   }
 
   .cerrar-sesion {
     width: calc(100% - 30px);
   }
 }
-
-
