@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Especificaciones - Artemístico</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/especificaciones-view.css">
+</head>
+<body>
+    <div th:include="administrador/template_header_footer.html::sidebarAdmin"></div>
+    
+    <main class="main-content">
+        <div class="page-header">
+            <h1>
+                <i class="fas fa-eye"></i>
+                Especificaciones del Producto
+            </h1>
+            <div class="header-actions">
+                <a th:href="@{/productos1/especificaciones/edit/{id}(id=${producto.id})}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-edit"></i> Editar Especificaciones
+                </a>
+                <a href="/productos1/products" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-arrow-left"></i> Volver a Productos
+                </a>
+            </div>
+        </div>
+
+        <!-- Información del producto -->
+        <div class="product-info-card">
+            <div class="product-header">
+                <h2>
+                    <i class="fas fa-box"></i>
+                    <span th:text="${producto.nombreProducto}"></span>
+                </h2>
+                <span class="product-id">ID: <span th:text="${producto.id}"></span></span>
+            </div>
+            <p class="product-description" th:text="${producto.descripcion}"></p>
+            <div class="product-details">
+                <span class="detail-item">
+                    <i class="fas fa-tag"></i>
+                    Precio: <strong th:text="'S/' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}"></strong>
+                </span>
+                <span class="detail-item">
+                    <i class="fas fa-warehouse"></i>
+                    Stock: <strong th:text="${producto.stockActual}"></strong>
+                </span>
+                <span class="detail-item">
+                    <i class="fas fa-layer-group"></i>
+                    Categoría: <strong th:text="${producto.subcategoria != null ? producto.subcategoria.nombre : 'Sin categoría'}"></strong>
+                </span>
+            </div>
+        </div>
+
+        <!-- Especificaciones -->
+        <div class="specifications-container">
+            <!-- Especificaciones Técnicas -->
+            <div class="spec-section">
+                <h3 class="spec-title">
+                    <i class="fas fa-ruler-combined"></i>
+                    Especificaciones Técnicas
+                </h3>
+                <div class="spec-grid">
+                    <div class="spec-item" th:if="${especificacion.materialPrincipal != null and !#strings.isEmpty(especificacion.materialPrincipal)}">
+                        <label>Material Principal:</label>
+                        <span th:text="${especificacion.materialPrincipal}"></span>
+                    </div>
+                    <div class="spec-item" th:if="${especificacion.acabado != null and !#strings.isEmpty(especificacion.acabado)}">
+                        <label>Acabado:</label>
+                        <span th:text="${especificacion.acabado}"></span>
+                    </div>
+                    <div class="spec-item" th:if="${especificacion.altura != null and !#strings.isEmpty(especificacion.altura)}">
+                        <label>Altura:</label>
+                        <span th:text="${especificacion.altura}"></span>
+                    </div>
+                    <div class="spec-item" th:if="${especificacion.diametroBoca != null and !#strings.isEmpty(especificacion.diametroBoca)}">
+                        <label>Diámetro Boca:</label>
+                        <span th:text="${especificacion.diametroBoca}"></span>
+                    </div>
+                    <div class="spec-item" th:if="${especificacion.diametroSuperior != null and !#strings.isEmpty(especificacion.diametroSuperior)}">
+                        <label>Diámetro Superior:</label>
+                        <span th:text="${especificacion.diametroSuperior}"></span>
+                    </div>
+                    <div class="spec-item" th:if="${especificacion.capacidad != null and !#strings.isEmpty(especificacion.capacidad)}">
+                        <label>Capacidad:</label>
+                        <span th:text="${especificacion.capacidad}"></span>
+                    </div>
+                    <div class="spec-item" th:if="${especificacion.peso != null and !#strings.isEmpty(especificacion.peso)}">
+                        <label>Peso:</label>
+                        <span th:text="${especificacion.peso}"></span>
+                    </div>
+                    <div class="spec-item" th:if="${especificacion.codigoProducto != null and !#strings.isEmpty(especificacion.codigoProducto)}">
+                        <label>Código del Producto:</label>
+                        <span th:text="${especificacion.codigoProducto}" class="code-highlight"></span>
+                    </div>
+                </div>
+                
+                <div class="spec-description" th:if="${especificacion.tecnicaElaboracion != null and !#strings.isEmpty(especificacion.tecnicaElaboracion)}">
+                    <label>Técnica de Elaboración:</label>
+                    <p th:text="${especificacion.tecnicaElaboracion}"></p>
+                </div>
+                
+                <div class="spec-description" th:if="${especificacion.color != null and !#strings.isEmpty(especificacion.color)}">
+                    <label>Color:</label>
+                    <p th:text="${especificacion.color}"></p>
+                </div>
+            </div>
+
+            <!-- Historia y Origen -->
+            <div class="spec-section">
+                <h3 class="spec-title">
+                    <i class="fas fa-globe-americas"></i>
+                    Historia y Origen
+                </h3>
+                <div class="spec-grid">
+                    <div class="spec-item" th:if="${especificacion.regionProcedencia != null and !#strings.isEmpty(especificacion.regionProcedencia)}">
+                        <label>Región de Procedencia:</label>
+                        <span th:text="${especificacion.regionProcedencia}"></span>
+                    </div>
+                    <div class="spec-item" th:if="${especificacion.artesanoCreador != null and !#strings.isEmpty(especificacion.artesanoCreador)}">
+                        <label>Artesano/Creador:</label>
+                        <span th:text="${especificacion.artesanoCreador}"></span>
+                    </div>
+                </div>
+                
+                <div class="spec-description" th:if="${especificacion.origen != null and !#strings.isEmpty(especificacion.origen)}">
+                    <label>Origen:</label>
+                    <p th:text="${especificacion.origen}"></p>
+                </div>
+                
+                <div class="spec-description" th:if="${especificacion.historia != null and !#strings.isEmpty(especificacion.historia)}">
+                    <label>Historia:</label>
+                    <p th:text="${especificacion.historia}"></p>
+                </div>
+                
+                <div class="spec-description" th:if="${especificacion.tradicionCultural != null and !#strings.isEmpty(especificacion.tradicionCultural)}">
+                    <label>Tradición Cultural:</label>
+                    <p th:text="${especificacion.tradicionCultural}"></p>
+                </div>
+            </div>
+
+            <!-- Cuidados del Producto -->
+            <div class="spec-section">
+                <h3 class="spec-title">
+                    <i class="fas fa-shield-alt"></i>
+                    Cuidados del Producto
+                </h3>
+                
+                <div class="spec-description" th:if="${especificacion.cuidadosGenerales != null and !#strings.isEmpty(especificacion.cuidadosGenerales)}">
+                    <label>Cuidados Generales:</label>
+                    <p th:text="${especificacion.cuidadosGenerales}"></p>
+                </div>
+                
+                <div class="care-grid">
+                    <div class="care-item" th:if="${especificacion.limpieza != null and !#strings.isEmpty(especificacion.limpieza)}">
+                        <h4><i class="fas fa-broom"></i> Limpieza</h4>
+                        <p th:text="${especificacion.limpieza}"></p>
+                    </div>
+                    
+                    <div class="care-item" th:if="${especificacion.almacenamiento != null and !#strings.isEmpty(especificacion.almacenamiento)}">
+                        <h4><i class="fas fa-archive"></i> Almacenamiento</h4>
+                        <p th:text="${especificacion.almacenamiento}"></p>
+                    </div>
+                    
+                    <div class="care-item" th:if="${especificacion.precauciones != null and !#strings.isEmpty(especificacion.precauciones)}">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Precauciones</h4>
+                        <p th:text="${especificacion.precauciones}"></p>
+                    </div>
+                    
+                    <div class="care-item" th:if="${especificacion.durabilidad != null and !#strings.isEmpty(especificacion.durabilidad)}">
+                        <h4><i class="fas fa-clock"></i> Durabilidad</h4>
+                        <p th:text="${especificacion.durabilidad}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="action-buttons">
+            <a th:href="@{/productos1/especificaciones/edit/{id}(id=${producto.id})}" class="btn btn-primary">
+                <i class="fas fa-edit"></i>
+                Editar Especificaciones
+            </a>
+            <a href="/productos1/products" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Volver a Productos
+            </a>
+        </div>
+    </main>
+</body>
+</html>

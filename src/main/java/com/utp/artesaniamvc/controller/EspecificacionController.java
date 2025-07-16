@@ -132,27 +132,27 @@ public class EspecificacionController {
     }
     
     // Ver especificaciones (solo lectura)
-//    @GetMapping("/view/{productoId}")
-//    public String verEspecificaciones(@PathVariable Integer productoId, Model model) {
-//        try {
-//            Producto producto = productoService.getProductoById(productoId);
-//            EspecificacionProducto especificacion = especificacionService.obtenerEspecificacionPorProducto(productoId);
-//            
-//            if (especificacion == null) {
-//                model.addAttribute("info", "Este producto no tiene especificaciones definidas");
-//                return "redirect:/productos1/especificaciones/create/" + productoId;
-//            }
-//            
-//            model.addAttribute("producto", producto);
-//            model.addAttribute("especificacion", especificacion);
-//            
-//            return "especificaciones/view";
-//            
-//        } catch (EntityNotFoundException e) {
-//            model.addAttribute("error", "Producto no encontrado");
-//            return "redirect:/productos1/products";
-//        }
-//    }
+    @GetMapping("/view/{productoId}")
+    public String verEspecificaciones(@PathVariable Integer productoId, Model model) {
+        try {
+            Producto producto = productoService.getProductoById(productoId);
+            EspecificacionProducto especificacion = especificacionService.obtenerEspecificacionPorProducto(productoId);
+            
+            if (especificacion == null) {
+                model.addAttribute("info", "Este producto no tiene especificaciones definidas");
+                return "redirect:/productos1/especificaciones/create/" + productoId;
+            }
+            
+            model.addAttribute("producto", producto);
+            model.addAttribute("especificacion", especificacion);
+            
+            return "productos/verEspecificaciones";
+            
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", "Producto no encontrado");
+            return "redirect:/productos1/products";
+        }
+    }
     
     // Eliminar especificaciones
     @GetMapping("/delete/{productoId}")
