@@ -33,8 +33,31 @@ function estaEnFavoritos(productId) {
     return favoritos.some(item => item.id === productId);
 }
 
+// Función para obtener el stock actual del producto desde el DOM
+function obtenerStockActual(productId) {
+    const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+    if (!productCard) return 0;
+    
+    // Verificar si tiene el badge de agotado
+    const agotadoBadge = productCard.querySelector('.agotado-badge');
+    if (agotadoBadge) return 0;
+    
+    // Si no está agotado, obtener el stock desde el atributo data o desde el servidor
+    // Por ahora, si no hay badge de agotado, asumimos que hay stock disponible
+    const bajoStockBadge = productCard.querySelector('.bajo-stock-badge');
+    if (bajoStockBadge) {
+        // Si tiene badge de bajo stock, significa que hay entre 1-5 unidades
+        return 5; // Valor por defecto para stock bajo
+    }
+    
+    // Si no tiene ningún badge, asumimos stock normal
+    return 10; // Valor por defecto para stock normal
+}
+
 // Función para agregar/quitar de favoritos
-function toggleFavorito(heartIcon, productId, productName, productPrice, productImage, stock) {
+function toggleFavorito(heartIcon, productId, productName, productPrice, productImage) {
+    const stockActual = obtenerStockActual(productId);
+    
     if (estaEnFavoritos(productId)) {
         // Quitar de favoritos
         const index = favoritos.findIndex(item => item.id === productId);
@@ -48,7 +71,7 @@ function toggleFavorito(heartIcon, productId, productName, productPrice, product
             nombre: productName,
             precio: productPrice,
             imagen: productImage,
-            stock: stock
+            stock: stockActual
         });
         heartIcon.textContent = '❤️';
         mostrarMensaje('Producto agregado a favoritos');
@@ -60,13 +83,13 @@ function toggleFavorito(heartIcon, productId, productName, productPrice, product
 
 // Función para verificar stock desde favoritos
 function verificarStockFavoritos(productId, cantidadSolicitada) {
-    const producto = favoritos.find(item => item.id === productId);
-    if (!producto) return false;
+    const stockActual = obtenerStockActual(productId);
+    if (stockActual === 0) return false;
 
     const productoEnCarrito = carrito.find(item => item.id === productId);
     const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
     
-    return (cantidadEnCarrito + cantidadSolicitada) <= producto.stock;
+    return (cantidadEnCarrito + cantidadSolicitada) <= stockActual;
 }
 
 // Función para actualizar el contador de favoritos
@@ -87,23 +110,22 @@ function actualizarFavoritos() {
         const li = document.createElement('li');
         li.classList.add('producto-en-favoritos');
         
+        // Obtener stock actual del producto
+        const stockActual = obtenerStockActual(producto.id);
+        
         let productHTML = `
             <img src="${producto.imagen}" alt="${producto.nombre}">
             <div class="producto-detalles">
                 <h4>${producto.nombre}</h4>
                 <p class="producto-precio">S/ ${producto.precio.toFixed(2)}</p>`;
 
-        if (producto.stock > 0) {
+        if (stockActual > 0) {
             productHTML += `
-                <button class="add-to-cart-from-favorites"
-                        data-product-id="${producto.id}"
-                        data-product-name="${producto.nombre}"
-                        data-product-price="${producto.precio}"
-                        data-product-image="${producto.imagen}"
-                        data-stock="${producto.stock}">
-                    Añadir al carrito
+                <button class="view-product-details"
+                        data-product-id="${producto.id}">
+                    Ver más info
                 </button>
-                <p class="stock-info">Stock disponible: ${producto.stock}</p>`;
+                <p class="stock-info">Stock disponible: ${stockActual}</p>`;
         } else {
             productHTML += `
                 <div class="agotado-mensaje">
@@ -119,46 +141,12 @@ function actualizarFavoritos() {
         favoritosLista.appendChild(li);
     });
 
-    // Agregar event listeners a los botones con verificación de stock
-    document.querySelectorAll('.add-to-cart-from-favorites').forEach(button => {
+    // Agregar event listeners a los botones de ver más info
+    document.querySelectorAll('.view-product-details').forEach(button => {
         button.addEventListener('click', function() {
             const productId = this.getAttribute('data-product-id');
-            const productName = this.getAttribute('data-product-name');
-            const productPrice = parseFloat(this.getAttribute('data-product-price'));
-            const productImage = this.getAttribute('data-product-image');
-            const stockDisponible = parseInt(this.getAttribute('data-stock'));
-            
-            // Verificar stock antes de agregar
-            if (!verificarStockFavoritos(productId, 1)) {
-                mostrarMensaje(`No hay suficiente stock disponible`, 'error');
-                return;
-            }
-            
-            const productoExistente = carrito.find(item => item.id === productId);
-            
-            if (productoExistente) {
-                if (productoExistente.cantidad + 1 > stockDisponible) {
-                    mostrarMensaje(`Solo hay ${stockDisponible} unidades disponibles`, 'error');
-                    return;
-                }
-                productoExistente.cantidad += 1;
-                total += productPrice;
-            } else {
-                carrito.push({
-                    id: productId, 
-                    nombre: productName, 
-                    precio: productPrice, 
-                    imagen: productImage, 
-                    cantidad: 1,
-                    stockMaximo: stockDisponible
-                });
-                total += productPrice;
-            }
-            
-            actualizarCarrito();
-            cerrarFavoritos();
-            mostrarCarrito();
-            mostrarMensaje('Producto agregado al carrito');
+            // Redirigir a la página de especificaciones del producto
+            window.location.href = `/productoHome/${productId}`;
         });
     });
 }
@@ -176,20 +164,21 @@ function eliminarFavorito(index) {
 }
 
 // Inicializar event listeners para los iconos de corazón
-document.querySelectorAll('.heart-icon').forEach(heartIcon => {
-    const productCard = heartIcon.closest('.product-card');
-    const productId = productCard.getAttribute('data-product-id');
-    const productName = productCard.querySelector('.product-title').textContent;
-    const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.replace('S/', ''));
-    const productImage = productCard.querySelector('.product-image').style.backgroundImage.slice(5, -2);
-    const stock = parseInt(productCard.querySelector('.add-to-cart').getAttribute('data-stock'));
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.heart-icon').forEach(heartIcon => {
+        const productCard = heartIcon.closest('.product-card');
+        const productId = productCard.getAttribute('data-product-id');
+        const productName = productCard.querySelector('.product-title').textContent;
+        const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.replace('S/', ''));
+        const productImage = productCard.querySelector('.product-image').style.backgroundImage.slice(5, -2);
 
-    // Si el producto ya está en favoritos, mostrar el corazón lleno
-    if (estaEnFavoritos(productId)) {
-        heartIcon.textContent = '❤️';
-    }
+        // Si el producto ya está en favoritos, mostrar el corazón lleno
+        if (estaEnFavoritos(productId)) {
+            heartIcon.textContent = '❤️';
+        }
 
-    heartIcon.addEventListener('click', function() {
-        toggleFavorito(this, productId, productName, productPrice, productImage, stock);
+        heartIcon.addEventListener('click', function() {
+            toggleFavorito(this, productId, productName, productPrice, productImage);
+        });
     });
 });

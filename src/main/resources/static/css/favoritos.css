@@ -164,6 +164,30 @@
     color: white;
 }
 
+/* Estilos para el botón "Ver más info" en favoritos */
+.view-product-details {
+    color: white;
+    background: linear-gradient(135deg, var(--color-accent-gold), var(--color-accent-green));
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    position: relative;
+    overflow: hidden;
+    min-width: 140px;
+}
+
+.view-product-details:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(166, 91, 46, 0.3);
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
