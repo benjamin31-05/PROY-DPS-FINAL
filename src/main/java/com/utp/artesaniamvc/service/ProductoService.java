@@ -27,6 +27,9 @@ public class ProductoService {
     private TamanoRepository tamanoRepository;
     @Autowired
     private PrecioTamanoRepository precioTamanoRepository;
+     // NUEVA DEPENDENCIA PARA ESPECIFICACIONES
+    @Autowired
+    private EspecificacionProductoRepository especificacionRepository;
 
     @Transactional
     public Producto saveProducto(Producto producto, Integer subcategoriaId) {
@@ -55,9 +58,54 @@ public class ProductoService {
         }
     }
 
+  // MÉTODO ACTUALIZADO para incluir especificaciones
     public Producto getProductoById(Integer id) {
-        return productoRepository.findById(id)
+        Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con id: " + id));
+        
+        // Cargar especificaciones si existen
+        EspecificacionProducto especificacion = especificacionRepository.findByProductoId(id).orElse(null);
+        producto.setEspecificacion(especificacion);
+        
+        return producto;
+    }
+    
+     // NUEVO MÉTODO para obtener todos los productos con información de especificaciones
+    public Page<Producto> getAllProductos(Pageable pageable) {
+        Page<Producto> productos = productoRepository.findAll(pageable);
+        
+        // Para cada producto, verificar si tiene especificaciones
+        productos.forEach(producto -> {
+            EspecificacionProducto especificacion = especificacionRepository
+                    .findByProductoId(producto.getId()).orElse(null);
+            producto.setEspecificacion(especificacion);
+        });
+        
+        return productos;
+    }
+    
+    // NUEVO MÉTODO para obtener productos con especificaciones completas
+    public List<Producto> getProductosConEspecificacionesCompletas() {
+        List<EspecificacionProducto> especificaciones = especificacionRepository.findProductosConHistoriaCompleta();
+        return especificaciones.stream()
+                .map(EspecificacionProducto::getProducto)
+                .collect(Collectors.toList());
+    }
+    
+    // NUEVO MÉTODO para buscar productos por características
+    public List<Producto> buscarProductosPorMaterial(String material) {
+        List<EspecificacionProducto> especificaciones = especificacionRepository.findByMaterialPrincipal(material);
+        return especificaciones.stream()
+                .map(EspecificacionProducto::getProducto)
+                .collect(Collectors.toList());
+    }
+    
+    // NUEVO MÉTODO para buscar productos por región
+    public List<Producto> buscarProductosPorRegion(String region) {
+        List<EspecificacionProducto> especificaciones = especificacionRepository.findByRegionProcedencia(region);
+        return especificaciones.stream()
+                .map(EspecificacionProducto::getProducto)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -98,7 +146,14 @@ public class ProductoService {
         return productoRepository.save(existingProducto);
     }
 
+    @Transactional
     public void deleteProducto(Integer id) {
+        // Eliminar especificaciones primero (si existen)
+        if (especificacionRepository.existsByProductoId(id)) {
+            especificacionRepository.deleteByProductoId(id);
+        }
+        
+        // Luego eliminar el producto
         productoRepository.deleteById(id);
     }
 
@@ -106,9 +161,7 @@ public class ProductoService {
         return productoRepository.findTop6ByOrderByCreatedAtDesc();
     }
 
-    public Page<Producto> getAllProductos(Pageable pageable) {
-        return productoRepository.findAllByOrderByCreatedAtDesc(pageable);
-    }
+
 
     public Page<Producto> getAllProductosDisponibles(Pageable pageable) {
         Page<Producto> allProductos = productoRepository.findAllByOrderByCreatedAtDesc(pageable);
@@ -184,5 +237,7 @@ public class ProductoService {
     public List<Producto> buscarProductos(String nombre) {
         return productoRepository.findByNombreContainingIgnoreCase(nombre);
     }
+    
+    
 
 }
