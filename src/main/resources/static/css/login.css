@@ -1,39 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-*{
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Quicksand:wght@300;400;500;700&display=swap');
+
+/* Variables de color de la plantilla ArteMístico */
+:root {
+    --color-primary-dark: #6A3F2B; /* Marrón oscuro, casi chocolate */
+    --color-primary-light: #F8F4ED; /* Blanco hueso suave */
+    --color-accent-gold: #A65B2E; /* Ocre cálido, como arcilla cocida */
+    --color-accent-green: #7f8242; /* Verde oliva profundo y terroso */
+    --color-background-soft: #EDEAE4; /* Beige muy claro, casi blanco */
+    --color-card-background: #E9DCCF; /* Beige rosado suave, con textura */
+    --color-red-danger: #D84315;
+    --color-red-danger-hover: #BF360C;
+    --color-success: #3ab397;
+
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Quicksand', sans-serif;
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
+    font-family: var(--font-body);
 }
-body{
+
+body {
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f0f4f3;
+    background-color: var(--color-background-soft);
 }
 
-.container{
+h2, h3 {
+    font-family: var(--font-heading);
+    color: var(--color-primary-dark);
+}
+
+.container {
     width: 800px;
     height: 500px;
     display: flex;
-    /* flex-direction: row; */
     position: relative;
-    background-color: white;
+    background-color: var(--color-primary-light);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgb(0,0,0,0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.container-form{
-    
+.container-form {
     width: 100%;
     overflow: hidden;
 }
 
-.container-form form{
-    
+.container-form form {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -42,65 +62,60 @@ body{
     transition: transform 0.5s ease-in;
 }
 
-.container-form h2{
+.container-form h2 {
     font-size: 30px;
     margin-bottom: 20px;
 }
 
-.social-networks{
+.social-networks {
     display: flex;
     gap: 12px;
     margin-bottom: 25px;
 }
 
-.social-networks ion-icon{
-    border: 1px solid #c9cccb;
+.social-networks i {
+    color: var(--color-primary-dark);
+    border: 1px solid var(--color-accent-gold);
     border-radius: 6px;
     padding: 8px;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
-/*boton de visualizacion de contraseña*/
 
+.social-networks i:hover {
+    background-color: var(--color-accent-gold);
+    color: var(--color-primary-light);
+}
 
 .container-input .fa {
     cursor: pointer;
 }
 
 .alert-success {
-    color: green;
-    background-color: #dff0d8;
-    border: 1px solid #d6e9c6;
+    color: var(--color-success);
+    background-color: #e6f7f2;
+    border: 1px solid var(--color-success);
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 4px;
 }
 
-.alert-danger {
-    color: red;
-    background-color: #f2dede;
-    border: 1px solid #ebccd1;
+.alert-danger, .alert-danger2 {
+    color: var(--color-red-danger);
+    background-color: #fcebeb;
+    border: 1px solid var(--color-red-danger);
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 4px;
 }
 
-.alert-danger2 {
-    color: red;
-    background-color: #f2dede;
-    border: 1px solid #ebccd1;
-    padding: 10px;
+.container-form span {
+    font-size: 14px;
     margin-bottom: 15px;
-    border-radius: 4px;
+    color: var(--color-primary-dark);
 }
 
-/*fin de boton de visualizacion*/
-
-.container-form span{
-    font-size: 12px;
-    margin-bottom: 15px;
-}
-
-.container-input{
+.container-input {
     width: 300px;
     height: 40px;
     margin-bottom: 10px;
@@ -109,25 +124,28 @@ body{
     align-items: center;
     gap: 8px;
     padding: 0 15px;
-    background-color: #eee;
+    background-color: var(--color-background-soft);
+    border: 1px solid var(--color-accent-gold);
+    border-radius: 5px;
 }
 
-.container-input input{
+.container-input input {
     border: none;
     outline: none;
     width: 100%;
     height: 100%;
     background-color: inherit;
+    color: var(--color-primary-dark);
 }
 
-.container-form a{
-    color: black;
+.container-form a {
+    color: var(--color-primary-dark);
     font-size: 14px;
     margin-bottom: 20px;
     margin-top: 5px;
 }
 
-.button{
+.button {
     width: 170px;
     height: 45px;
     font-size: 15px;
@@ -135,77 +153,85 @@ body{
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-    background-color: darksalmon; /*<----*/
+    background-color: var(--color-accent-gold);
     color: white;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: var(--color-primary-dark);
 }
 
 /* Animacion de formularios */
-.sign-up{
+.sign-up {
     transform: translateX(-100%);
-
 }
-.container.toggle .sign-in{
+
+.container.toggle .sign-in {
     transform: translateX(100%);
 }
 
-.container.toggle .sign-up{
+.container.toggle .sign-up {
     transform: translateX(0);
 }
 
 /* BIENVENIDA */
-.container-welcome{
+.container-welcome {
     position: absolute;
     width: 50%;
     height: 100%;
     display: flex;
     align-items: center;
-    transform:translateX(100%);
-    background-color: darksalmon; /*< CAMBIAR EL COLOR A UN TONO DE LA HELADERIA---*/
-    transition:transform 0.5s ease-in-out, border-radius 0.5s ease-in-out;
+    transform: translateX(100%);
+    background-color: var(--color-accent-gold);
+    transition: transform 0.5s ease-in-out, border-radius 0.5s ease-in-out;
     overflow: hidden;
     border-radius: 50% 0 0 50%;
 }
 
-.container.toggle .container-welcome{
+.container.toggle .container-welcome {
     transform: translateX(0);
     border-radius: 0 50% 50% 0;
-    background-color: rgb(239, 135, 100); /*< ACA TAMBIEN---*/
+    background-color: var(--color-accent-green);
 }
 
-.container-welcome .welcome{
+.container-welcome .welcome {
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
     padding: 0 50px;
-    color: white;
-    transition:transform 0.5s ease-in-out;
+    color: var(--color-primary-light);
+    transition: transform 0.5s ease-in-out;
 }
 
-.welcome-sign-in{
+.welcome-sign-in {
     transform: translateX(100%);
 }
 
-.container-welcome h3{
-    font-size: 45px;
+.container-welcome h3 {
+    font-size: 2.5rem;
+    color: var(--color-primary-light);
 }
 
-.container-welcome p{
-    font-size: 15px;
+.container-welcome p {
+    font-size: 1rem;
     text-align: center;
+    color: var(--color-primary-light);
 }
 
-.container-welcome .button{
+.container-welcome .button {
     border: 2px solid white;
     background-color: transparent;
+    color: white;
 }
 
-.container.toggle .welcome-sign-in{
+.container.toggle .welcome-sign-in {
     transform: translateX(0);
 }
 
-.container.toggle .welcome-sign-up{
+.container.toggle .welcome-sign-up {
     transform: translateX(-100%);
 }
 
@@ -223,7 +249,7 @@ body{
         height: 50%;
         transform: translateX(0);
         border-radius: 0;
-        background-color: #329d87;
+        background-color: var(--color-accent-gold);
     }
 
     .container-form {
@@ -250,7 +276,7 @@ body{
 @media (max-width: 480px) {
     .container {
         border-radius: 5px;
-        background: linear-gradient(135deg, #3ab397, #329d87);
+        background: linear-gradient(135deg, var(--color-background-soft), var(--color-background-soft));
     }
 
     .container-form h2 {
@@ -276,7 +302,7 @@ body{
         font-size: 14px;
     }
 
-    .social-networks ion-icon {
+    .social-networks i {
         padding: 6px;
     }
 }
