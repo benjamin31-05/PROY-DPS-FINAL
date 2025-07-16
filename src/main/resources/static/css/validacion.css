@@ -1,3 +1,19 @@
+/* Variables de color de la plantilla ArteMístico */
+:root {
+    --color-primary-dark: #6A3F2B; /* Marrón oscuro, casi chocolate */
+    --color-primary-light: #F8F4ED; /* Blanco hueso suave */
+    --color-accent-gold: #A65B2E; /* Ocre cálido, como arcilla cocida */
+    --color-accent-green: #7f8242; /* Verde oliva profundo y terroso */
+    --color-background-soft: #EDEAE4; /* Beige muy claro, casi blanco */
+    --color-card-background: #E9DCCF; /* Beige rosado suave, con textura */
+    --color-red-danger: #D84315;
+    --color-red-danger-hover: #BF360C;
+    --color-success: #3ab397;
+
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Quicksand', sans-serif;
+}
+
 /* Global Styles */
 body {
     margin: 0;
@@ -6,136 +22,154 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #ffe6cc, #ffcc99);
+    font-family: var(--font-body);
+    background: linear-gradient(135deg, var(--color-background-soft) 0%, var(--color-card-background) 100%);
     animation: background-color-animation 8s infinite alternate;
 }
 
 /* Form Container */
 .container-form {
-    background: #ffffff;
-    padding: 2.5rem;
+    background: var(--color-primary-light);
+    padding: 3rem;
     width: 100%;
-    max-width: 420px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
+    max-width: 450px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
     text-align: center;
     transform: scale(1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container-form:hover {
-    transform: scale(1.03); /* Efecto al pasar el ratÃģn */
+    transform: scale(1.02);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
 }
 
 /* Form Title */
 h2 {
-    color: #e9967a;
+    color: var(--color-primary-dark);
     margin-bottom: 1.5rem;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: bold;
+    font-family: var(--font-heading);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
 /* Input Styles */
 .container-input {
     position: relative;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
 }
 
-.container-input ion-icon {
+.container-input ion-icon,
+.container-input .fas {
     position: absolute;
     top: 50%;
     left: 15px;
     transform: translateY(-50%);
-    color: #ff6600;
-    font-size: 1.2rem;
+    color: var(--color-accent-gold);
+    font-size: 1.3rem;
 }
 
 .container-input input {
-    width: 80%;
-    padding: 0.8rem 1rem 0.8rem 3rem;
-    border: 2px solid #cd8657;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+    width: 90%;
+    padding: 0.9rem 1.2rem 0.9rem 3.5rem;
+    border: 2px solid var(--color-accent-gold);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    color: var(--color-primary-dark);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container-input input:focus {
-    border-color: #e65c00;
+    border-color: var(--color-primary-dark);
     outline: none;
+    box-shadow: 0 0 8px rgba(166, 91, 46, 0.4);
 }
 
 /* Button Styles */
 .button {
-    background: #e9967a;
-    color: #ffffff;
-    padding: 0.9rem 1.5rem;
+    background: var(--color-accent-gold);
+    color: var(--color-primary-light);
+    padding: 1rem 2rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .button:hover {
-    background: #e65c00;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: var(--color-primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Social Network Icons */
+.social-networks i {
+    color: var(--color-primary-dark);
+    border: 1px solid var(--color-accent-gold);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.social-networks i:hover {
+    background-color: var(--color-accent-gold);
+    color: var(--color-primary-light);
+    transform: scale(1.1);
 }
 
 /* Additional Info */
-.additional-info p {
-    font-size: 1rem;
-    color: #333333;
-    margin-top: 1.5rem;
-    line-height: 1.5;
+.container-form span {
+    color: var(--color-primary-dark);
+    font-size: 0.9rem;
+}
+
+.container-form a {
+    color: var(--color-primary-dark);
+    font-size: 0.9rem;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    transition: color 0.3s ease;
+}
+
+.container-form a:hover {
+    color: var(--color-accent-gold);
 }
 
 /* Error Message */
 .alert-danger {
-    color: red;
-    background-color: #f2dede;
-    border: 1px solid #ebccd1;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 4px;
+    color: var(--color-red-danger);
+    background-color: var(--color-card-background);
+    border: 1px solid var(--color-red-danger);
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.alert-danger2 {
+    color: var(--color-red-danger);
+    background-color: var(--color-card-background);
+    border: 1px solid var(--color-red-danger);
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
 /* Animations */
 @keyframes background-color-animation {
-    0% { background: #ffe6cc; }
-    100% { background: #ffdab9; }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
-}
-
-/* Animation Classes */
-.animate-fade-in {
-    animation: fade-in 1s ease-in-out;
-}
-
-.animate-bounce {
-    animation: bounce 2s infinite;
+    0% { background: linear-gradient(135deg, var(--color-background-soft), var(--color-card-background)); }
+    100% { background: linear-gradient(135deg, var(--color-card-background), var(--color-background-soft)); }
 }

@@ -3,31 +3,32 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>| Login - Heladeria |</title>
+        <title>ArteMístico | Iniciar Sesión</title>
         <link th:href="@{/css/login.css}" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-          <!-- Icono -->
+        
+        <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:wght@500;700&family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        
         <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
     </head>
     <body>
-        <!-- CONTENIDO PRINCIPAL -->
         <div class="container">
             <div class="container-form">
                 <form class="sign-in" method="post" th:action="@{/login}">
                     <h2>Iniciar Sesión</h2>
                     <div class="social-networks">
-                        <ion-icon name="logo-instagram"></ion-icon>
-                        <ion-icon name="logo-facebook"></ion-icon>
-                        <ion-icon name="logo-tiktok"></ion-icon>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-tiktok"></i>
                     </div>
-                    <span>Use su username y contraseña</span>
+                    <span>Use su correo electrónico y contraseña</span>
                     <div class="container-input">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="text" name="username" placeholder="username" required>
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="username" placeholder="Correo Electrónico" required>
                     </div>
                     <div class="container-input">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="password" name="password" placeholder="Password" required>
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="Contraseña" required>
                         <i class="fa fa-eye" id="togglePassword" aria-hidden="true"></i>
                     </div>
 
@@ -36,9 +37,8 @@
                     <p> </p>
                     </br>
 
-                    <!--<div th:if="${error}" th:text="${error}" class="error-message"></div>-->
                     <div th:if="${param.error}" 
-                         th:class="'alert alert-danger2'">
+                          th:class="'alert alert-danger2'">
                         Usuario o contraseña inválidos.
                     </div>
                 </form>
@@ -48,34 +48,31 @@
                 <form class="sign-up" method="POST" th:action="@{/registrar}">
                     <h2>Registrarse</h2>
                     <div class="social-networks">
-                        <ion-icon name="logo-instagram"></ion-icon>
-                        <ion-icon name="logo-facebook"></ion-icon>
-                        <ion-icon name="logo-tiktok"></ion-icon>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-tiktok"></i>
                     </div>
                     <span>Use su correo electrónico para registrarse</span>
 
-                    <!-- Mensajes de éxito y error -->
                     <div th:if="${registroExitoso}" class="alert alert-success" th:text="${registroExitoso}"></div>
                     <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
 
                     <div class="container-input">
-                        <ion-icon name="person-outline"></ion-icon>
+                        <i class="fas fa-user"></i>
                         <input type="text" name="nombre" placeholder="Nombre" required>
                     </div>
                     <div class="container-input">
-                        <ion-icon name="mail-outline"></ion-icon>
+                        <i class="fas fa-envelope"></i>
                         <input type="email" name="email" placeholder="Email" required>
                     </div>
                     <div class="container-input">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <i class="fas fa-lock"></i>
                         <input type="password" name="password" placeholder="Password" required>
                         <i class="fa fa-eye" id="togglePassword" aria-hidden="true"></i>
                     </div>
                     <button type="submit" class="button">REGISTRARSE</button>
-
                 </form>
-
             </div>
 
             <div class="container-welcome">
@@ -95,8 +92,5 @@
         </div>
 
         <script th:src="@{/js/login.js}"></script>
-        <!-- Ionicons JS -->
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> 
     </body>
 </html>
