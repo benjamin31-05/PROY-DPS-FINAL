@@ -1,0 +1,127 @@
+.tarjeta-container {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+  background-color: #F8F4ED;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  color: #6A3F2B;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Títulos */
+.tarjeta-container h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: #A65B2E;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Total */
+.tarjeta-container h4 {
+  font-size: 1.2rem;
+  color: #7f8242;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 20px;
+}
+
+/* Tabla de productos */
+.tarjeta-container .table {
+  width: 100%;
+  background-color: #E9DCCF;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  font-size: 0.95rem;
+}
+
+.tarjeta-container .table thead {
+  background-color: #A65B2E;
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.tarjeta-container .table th,
+.tarjeta-container .table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #d9c9b4;
+}
+
+.tarjeta-container .table tbody tr:hover {
+  background-color: rgba(106, 63, 43, 0.05);
+}
+
+/* Formulario de tarjeta */
+.tarjeta-container form {
+  background-color: #E9DCCF;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  margin-top: 20px;
+}
+
+.tarjeta-container label {
+  font-weight: 600;
+  color: #6A3F2B;
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 6px;
+}
+
+.tarjeta-container .form-control {
+  border-radius: 8px;
+  border: 1px solid #c4b49c;
+  padding: 10px;
+  background-color: #F8F4ED;
+  font-family: 'Quicksand', sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.tarjeta-container .form-control:focus {
+  border-color: #A65B2E;
+  box-shadow: 0 0 0 3px rgba(166, 91, 46, 0.2);
+}
+
+/* Botón */
+.tarjeta-container .btn-primary {
+  background-color: #A65B2E;
+  color: white;
+  border: none;
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: 'Quicksand', sans-serif;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.tarjeta-container .btn-primary:hover {
+  background-color: #8e4826;
+  transform: scale(1.03);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tarjeta-container {
+    padding: 20px 15px;
+  }
+
+  .tarjeta-container h2 {
+    font-size: 1.6rem;
+  }
+
+  .tarjeta-container .table th,
+  .tarjeta-container .table td {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+
+  .tarjeta-container .btn-primary {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}

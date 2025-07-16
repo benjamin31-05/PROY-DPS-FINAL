@@ -1,0 +1,152 @@
+/* Toggle button para móviles */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background-color: var(--color-accent-gold);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  z-index: 1001;
+  cursor: pointer;
+}
+
+/* Sidebar base */
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(145deg, var(--color-card-background), var(--color-primary-light));
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 25px;
+  transition: transform 0.3s ease, width 0.3s ease;
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-body);
+  z-index: 1000;
+}
+
+.admin-title {
+  color: var(--color-accent-gold);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 15px;
+  font-family: var(--font-heading);
+}
+
+.admin-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: var(--color-accent-gold);
+  border-radius: 2px;
+}
+
+.nav-button {
+  width: 100%;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  background: var(--color-accent-gold);
+  border: none;
+  border-radius: 10px;
+  color: var(--color-primary-light);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover {
+  background: var(--color-accent-green);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cerrar-sesion {
+  background: var(--color-accent-green);
+  position: absolute;
+  bottom: 20px;
+  width: calc(100% - 50px);
+  color: white;
+}
+
+/* RESPONSIVE - TABLET */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .main-content {
+    margin-left: 220px;
+  }
+
+  .admin-title {
+    font-size: 1.3rem;
+  }
+
+  .nav-button {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+}
+
+/* RESPONSIVE - MÓVIL */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 220px;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding-left: 15px;
+  }
+
+  .admin-title {
+    font-size: 16px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    margin: 20px auto;
+  }
+
+  .nav-button {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .nav-button span {
+    display: none;
+  }
+
+  .cerrar-sesion {
+    width: calc(100% - 30px);
+  }
+}
+
+
