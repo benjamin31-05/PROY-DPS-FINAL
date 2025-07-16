@@ -8,59 +8,64 @@
 }
 
 body {
-    background-color: #f8f9fa;
+    background-color: #f5f3f0;
 }
 
 /* Content Styles (Pagina - Productos) */
- .main-content {
+.main-content {
     margin-left: 280px;
     padding: 30px;
-    background-color: #fff;
+    background-color: #faf8f6;
     min-height: 100vh;
 }
 
 .page-header {
     margin-bottom: 2rem;
-    border-bottom: 3px solid #FF9933;
+    border-bottom: 3px solid #8B4513;
     padding-bottom: 1rem;
 }
 
 .page-header h1 {
-    color: #333;
+    color: #5D4037;
     font-size: 2rem;
+    font-weight: 600;
 }
 
 .page-header small {
-    color: #666;
+    color: #8D6E63;
     font-size: 1.2rem;
 }
 
 .btn-create {
-    background: #FFB366;
-    color: #333;
-    padding: 10px 20px;
+    background: linear-gradient(135deg, #D2691E, #CD853F);
+    color: #fff;
+    padding: 12px 24px;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.3);
 }
 
 .btn-create:hover {
-    background: #FF9933;
+    background: linear-gradient(135deg, #A0522D, #8B4513);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4);
 }
 
 /* Estilos para la tabla */
 .table-container {
     background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
     overflow: hidden;
     margin-bottom: 2rem;
+    border: 1px solid #e8e0d8;
 }
 
 .table {
@@ -69,43 +74,141 @@ body {
 }
 
 .table th {
-    background: #FFB366;
-    color: #333;
-    padding: 15px;
+    background: linear-gradient(135deg, #8B4513, #A0522D);
+    color: #fff;
+    padding: 16px;
     text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #eee;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0ebe6;
+    color: #5D4037;
+    font-size: 0.9rem;
 }
 
 .table tr:hover {
-    background-color: #fff5eb;
+    background-color: #f9f5f1;
+}
+
+.table tr:nth-child(even) {
+    background-color: #fdfcfb;
+}
+
+.table tr:nth-child(even):hover {
+    background-color: #f7f2ed;
 }
 
 /* Estilos para los botones de acción */
 .btn-group {
     display: flex;
-    gap: 5px;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .btn-edit {
-    background: #4CAF50;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
     color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
+    padding: 6px 12px;
+    border-radius: 6px;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.btn-edit:hover {
+    background: linear-gradient(135deg, #45a049, #388e3c);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(76, 175, 80, 0.4);
 }
 
 .btn-delete {
-    background: #f44336;
+    background: linear-gradient(135deg, #f44336, #d32f2f);
     color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
+    padding: 6px 12px;
+    border-radius: 6px;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(244, 67, 54, 0.3);
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #d32f2f, #c62828);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(244, 67, 54, 0.4);
+}
+
+/* Estilos mejorados para los botones de especificaciones */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-sm {
+    padding: 5px 8px;
+    font-size: 0.75rem;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(40, 167, 69, 0.4);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
+}
+
+.btn-outline-danger {
+    background: transparent;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    box-shadow: 0 1px 3px rgba(220, 53, 69, 0.2);
+}
+
+.btn-outline-danger:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
+}
+
+/* Iconos para los botones */
+.fas {
+    font-size: 0.7rem;
 }
 
 /* Estilos para la paginación */
@@ -114,53 +217,77 @@ body {
     list-style: none;
     padding: 0;
     justify-content: center;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .pagination .page-item {
-    margin: 0 5px;
+    margin: 0 4px;
 }
 
 .pagination .page-link {
-    background: #FFB366;
-    color: #333;
-    padding: 8px 16px;
-    border-radius: 4px;
+    background: linear-gradient(135deg, #D2691E, #CD853F);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 6px;
     text-decoration: none;
     transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(139, 69, 19, 0.3);
 }
 
 .pagination .page-link:hover {
-    background: #FF9933;
+    background: linear-gradient(135deg, #A0522D, #8B4513);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(139, 69, 19, 0.4);
 }
 
 .pagination .disabled .page-link {
-    background: #eee;
+    background: #e8e0d8;
+    color: #8D6E63;
     cursor: not-allowed;
+    box-shadow: none;
+}
+
+.pagination .disabled .page-link:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 /* Mensaje de no productos */
 .alert-info {
-    background: #e3f2fd;
-    color: #0d47a1;
-    padding: 15px;
+    background: linear-gradient(135deg, #f3e5ab, #f5e6a3);
+    color: #5D4037;
+    padding: 16px;
     border-radius: 8px;
     margin-top: 1rem;
+    border-left: 4px solid #D2691E;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
 }
 
- /* Responsive */
- @media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 768px) {
     .sidebar {
         width: 220px;
     }
-
+    
     .main-content {
         margin-left: 220px;
         padding: 20px;
     }
-
+    
     .table-container {
         overflow-x: auto;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .btn, .btn-sm {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -168,21 +295,33 @@ body {
     .sidebar {
         width: 70px;
     }
-
+    
     .main-content {
         margin-left: 70px;
         padding: 15px;
     }
-
+    
     .page-header h1 {
         font-size: 1.5rem;
     }
-
+    
+    .table th, .table td {
+        padding: 10px 8px;
+        font-size: 0.8rem;
+    }
+    
     .btn-group {
         flex-direction: column;
+        gap: 3px;
     }
-
+    
     .pagination {
         flex-wrap: wrap;
+        gap: 4px;
+    }
+    
+    .pagination .page-link {
+        padding: 8px 12px;
+        font-size: 0.85rem;
     }
 }

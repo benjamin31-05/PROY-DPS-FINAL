@@ -1,286 +1,676 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ArteMístico - Producto</title>
-        <!-- Icono -->
-        <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especificaciones del Producto</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        
+        @import url('/css/header.css');
+        @import url('/css/footer.css');
+        @import url('/css/search.css');
+        @import url('/css/carrito.css');
+        @import url('/css/favoritos.css');
+        
+        :root {
+            --color-primary-dark: #6A3F2B;
+            --color-primary-light: #F8F4ED;
+            --color-accent-gold: #A65B2E;
+            --color-accent-green: #7f8242;
+            --color-background-soft: #EDEAE4;
+            --color-card-background: #E9DCCF;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Quicksand', sans-serif;
+        }
 
-        <link th:href="@{/css/header.css}" rel="stylesheet">
-        <link th:href="@{/css/footer.css}" rel="stylesheet">
-        <link th:href="@{/css/carrito.css}" rel="stylesheet">
-        <link th:href="@{/css/favoritos.css}" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        <style>
-            /* Estilo Global */
-            body {
-                font-family: 'Roboto', sans-serif;
-                margin: 0;
-                padding: 0;
-                background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Fondo degradado suave */
-                color: #212529;
-            }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-background-soft);
+            color: var(--color-primary-dark);
+            line-height: 1.6;
+        }
 
-            /* Contenedor Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Sección del producto principal */
+        .product-main {
+            background: var(--color-primary-light);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(106, 63, 43, 0.1);
+        }
+
+        .product-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .product-image {
+            text-align: center;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .product-image img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(106, 63, 43, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1rem 0;
+        }
+
+        .product-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .product-subtitle {
+            font-size: 1.2rem;
+            color: var(--color-accent-gold);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .product-code {
+            background: var(--color-card-background);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--color-primary-dark);
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        /* Formulario de compra */
+        .purchase-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(106, 63, 43, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-primary-dark);
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--color-background-soft);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-accent-gold);
+        }
+
+        .btn-add-cart {
+            width: 100%;
+            background: var(--color-accent-gold);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 63, 43, 0.3);
+        }
+
+        /* Sección de pestañas */
+        .tabs-container {
+            background: var(--color-primary-light);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(106, 63, 43, 0.1);
+        }
+
+        .tab-buttons {
+            display: flex;
+            background: var(--color-card-background);
+            border-bottom: 2px solid var(--color-accent-gold);
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 1.5rem 2rem;
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-button:hover {
+            background: var(--color-background-soft);
+        }
+
+        .tab-button.active {
+            background: var(--color-accent-gold);
+            color: white;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--color-accent-gold);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Contenido de las pestañas */
+        .description-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--color-primary-dark);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .spec-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(106, 63, 43, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .spec-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--color-accent-gold);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .spec-value {
+            color: var(--color-primary-dark);
+            font-size: 1rem;
+        }
+
+        .history-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(106, 63, 43, 0.1);
+        }
+
+        .history-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-primary-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .history-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--color-primary-dark);
+            text-align: justify;
+        }
+
+        .care-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .care-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(106, 63, 43, 0.1);
+        }
+
+        .care-icon {
+            font-size: 2rem;
+            color: var(--color-accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .care-title {
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .care-description {
+            color: var(--color-primary-dark);
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
             .container {
-                display: flex;
-                gap: 20px;
-                background: white;
-                margin: 30px auto;
-                max-width: 1100px;
-                border-radius: 12px;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-                padding: 30px;
-                animation: fadeIn 0.5s ease-in-out;
+                padding: 1rem;
             }
 
-            /* Imagen del Producto */
+            .product-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
             .product-image {
-                flex: 0.5;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 12px;
-                overflow: hidden;
-                background: #f8f9fa;
+                position: static;
             }
 
-            .product-image img {
-                max-width: 100%;
-                height: auto;
-                border: 2px solid #dee2e6;
-                border-radius: 10px;
-                transition: transform 0.3s;
-            }
-
-            .product-image img:hover {
-                transform: scale(1.05);
-            }
-
-            /* Detalles del Producto */
-            .product-details {
-                flex: 1.5;
-                padding: 0 20px;
-            }
-
-            .product-details h2 {
+            .product-title {
                 font-size: 2rem;
-                font-weight: bold;
-                color: #343a40;
-                margin-bottom: 10px;
             }
 
-            .product-details p {
-                margin: 15px 0;
-                font-size: 1rem;
-                color: #495057;
-                line-height: 1.6;
+            .tab-buttons {
+                flex-direction: column;
             }
 
-            .product-details label {
-                font-weight: bold;
-                color: #495057;
+            .tab-button {
+                padding: 1rem;
             }
 
-            .product-details select,
-            .product-details input[type="number"] {
-                width: 100%;
-                padding: 10px;
-                font-size: 1rem;
-                border: 1px solid #ced4da;
-                border-radius: 8px;
-                margin-top: 5px;
-                background: #fff;
-                transition: border-color 0.3s;
+            .specs-grid {
+                grid-template-columns: 1fr;
             }
+        }
 
-            .product-details select:focus,
-            .product-details input[type="number"]:focus {
-                border-color: #007bff;
-                outline: none;
-                box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
-            }
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
 
-            /* Botones */
-            .product-details button {
-                background: linear-gradient(135deg, #007bff, #0056b3);
-                color: white;
-                padding: 12px 20px;
-                border: none;
-                border-radius: 8px;
-                font-size: 1rem;
-                font-weight: bold;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                display: inline-block;
-                margin-top: 20px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            }
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div th:include="cliente/template_header_footer.html::header"></div>
 
-            .product-details button:hover {
-                background: linear-gradient(135deg, #0056b3, #003f7f);
-                transform: scale(1.05);
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            }
+    <div class="container">
+        <!-- Sección principal del producto -->
+        <div class="product-main">
+            <div class="product-content">
+                <!-- Imagen del producto -->
+                <div class="product-image">
+                    <img th:src="${producto.imageUrl}" th:alt="${producto.nombreProducto}">
+                </div>
 
-            /* Mensajes de Stock */
-            .stock-info {
-                font-size: 0.9rem;
-                color: #6c757d;
-                margin: 15px 0;
-            }
+                <!-- Información del producto -->
+                <div class="product-info">
+                    <h1 class="product-title" th:text="${producto.nombreProducto}">Vasija Tradicional</h1>
+                    <p class="product-subtitle" th:text="${producto.descripcion}">Increíble Vasija elaborada de cerámica</p>
+                    
+                    <div class="product-price">
+                        S/ <span th:text="${producto.precio}">85.00</span>
+                    </div>
 
-            .stock-info p {
-                margin: 5px 0;
-            }
+                    <!-- Código del producto (si existe) -->
+                    <div th:if="${producto.especificacion != null and producto.especificacion.codigoProducto != null}" 
+                         class="product-code">
+                        <i class="fas fa-barcode"></i> 
+                        Código: <span th:text="${producto.especificacion.codigoProducto}">ARS004F</span>
+                    </div>
 
-            .stock-message {
-                padding: 8px 12px;
-                border-radius: 6px;
-                background: #ffc107;
-                color: #212529;
-                display: inline-block;
-            }
+                    <!-- Formulario de compra -->
+                    <form method="POST" th:action="@{/cart}" class="purchase-form">
+                        <div th:if="${errorMessage}" class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span th:text="${errorMessage}"></span>
+                        </div>
 
-            /* Notificaciones */
-            .toast {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                padding: 1rem 1.5rem;
-                border-radius: 6px;
-                color: white;
-                font-weight: bold;
-                z-index: 1000;
-                animation: fadeIn 0.5s, fadeOut 0.5s 3.5s;
-            }
+                        <input type="hidden" th:value="${producto.id}" name="id">
 
-            .toast-success {
-                background: #28a745;
-            }
+                        <div class="form-group">
+                            <label for="local">
+                                <i class="fas fa-shipping-fast"></i> Método de Envío
+                            </label>
+                            <select id="local" name="localId" required onchange="updateMaxQuantity()">
+                                <option th:each="local : ${locales}" 
+                                        th:value="${local.id}" 
+                                        th:text="${local.nombre}"
+                                        th:data-stock="${local.id == 1 ? producto.stockOpenPlaza : producto.stockUDEP}">
+                                </option>
+                            </select>
+                        </div>
 
-            .toast-error {
-                background: #dc3545;
-            }
+                        <div class="form-group">
+                            <label for="tamano">
+                                <i class="fas fa-expand-arrows-alt"></i> Tamaño
+                            </label>
+                            <select id="tamano" name="tamanoId" required>
+                                <option th:each="precioTamano : ${producto.preciosPorTamano}" 
+                                        th:value="${precioTamano.tamano.id}" 
+                                        th:text="${precioTamano.tamano.nombre + ': S/ ' + precioTamano.precio}">
+                                </option>
+                            </select>
+                        </div>
 
-            /* Animaciones */
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+                        <div class="form-group">
+                            <label for="cantidad">
+                                <i class="fas fa-plus-minus"></i> Cantidad
+                            </label>
+                            <input type="number" id="cantidad" name="cantidad" 
+                                   min="1" max="1" value="1" required>
+                        </div>
 
-            @keyframes fadeOut {
-                from {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-                to {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-            }
-
-
-
-        </style>
-    </head>
-    <body>
-
-        <!-- HEADER -->
-        <div th:include="cliente/template_header_footer.html::header" mb-3></div>
-
-        <div class="container">
-            <div class="product-image">
-                <img 
-                    th:src="${producto.imageUrl}" th:alt="${producto.nombreProducto}"
-                    style="width: 250px; height: auto;">
+                        <button type="submit" class="btn-add-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            Agregar al Carrito
+                        </button>
+                    </form>
+                </div>
             </div>
-
-            <!-- Formulario para enviar los detalles del producto -->
-            <form method="POST" th:action="@{/cart}" class="product-details">
-                <!-- Añadir justo después del contenedor del formulario -->
-                <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-                    <span th:text="${errorMessage}"></span>
-                </div>
-
-                <input type="hidden" th:value="${producto.id}" name="id"> 
-
-                <h2 th:text="${producto.nombreProducto}"> </h2>
-
-                <p><strong>Descripción:</strong> <span th:text="${producto.descripcion}">
-                    </span></p>
-
-                <!-- Selector de Local -->
-                <div class="local-selection">
-                    <label for="local">Metodo Envio:</label>
-                    <select id="local" name="localId" required onchange="updateMaxQuantity()">
-                        <option th:each="local : ${locales}" 
-                                th:value="${local.id}" 
-                                th:text="${local.nombre}"
-                                th:data-stock="${local.id == 1 ? producto.stockOpenPlaza : producto.stockUDEP}">
-                        </option>
-                    </select>
-                </div>
-                <p </p>
-
-                <!-- Selector de Tamaño -->
-                <div class="size-selection">
-                    <label for="tamano">Tamaño:</label>
-                    <select id="tamano" name="tamanoId" required>
-                        <option th:each="precioTamano : ${producto.preciosPorTamano}" 
-                                th:value="${precioTamano.tamano.id}" 
-                                th:text="${precioTamano.tamano.nombre + ': S/ ' + precioTamano.precio}">
-                        </option>
-                    </select>
-                </div>
-                
-                  <p </p>
-                <!-- Mostrar Stock por Local
-                <div class="stock-info">
-                    <p>Stock Open Plaza: <span th:text="${producto.stockOpenPlaza}"></span> L</p>
-                    <p>Stock UDEP: <span th:text="${producto.stockUDEP}"></span> L</p>
-                </div>  -->
-
-                <!-- Selector de Cantidad -->
-                <div class="quantity">
-                    <label for="cantidad">Cantidad:</label>
-                    <input type="number" id="cantidad" name="cantidad" 
-                           min="1" max="1" value="1" required>
-                </div>
-
-                <button type="submit" class="btn btn-dark">Agregar al Carrito</button>
-            </form>
         </div>
 
-        <script th:inline="javascript">
-            function updateMaxQuantity() {
-                var localSelect = document.getElementById('local');
-                var cantidadInput = document.getElementById('cantidad');
+        <!-- Sección de pestañas -->
+        <div class="tabs-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="showTab(event, 'description')">
+                    <i class="fas fa-info-circle"></i> Descripción
+                </button>
+                <button class="tab-button" onclick="showTab(event, 'specifications')">
+                    <i class="fas fa-cog"></i> Especificaciones Técnicas
+                </button>
+                <button class="tab-button" onclick="showTab(event, 'history')">
+                    <i class="fas fa-history"></i> Historia y Origen
+                </button>
+                <button class="tab-button" onclick="showTab(event, 'care')">
+                    <i class="fas fa-shield-alt"></i> Cuidado del Producto
+                </button>
+            </div>
 
-                // Obtener el stock del local seleccionado
-                var selectedOption = localSelect.options[localSelect.selectedIndex];
-                var maxStock = selectedOption.getAttribute('data-stock');
+            <!-- Contenido de Descripción -->
+            <div id="description" class="tab-content active">
+                <div class="description-content">
+                    <p th:text="${producto.descripcion}">
+                        Increíble Vasija elaborada de cerámica con técnicas ancestrales que han sido transmitidas de generación en generación.
+                    </p>
+                </div>
+            </div>
 
-                // Actualizar el máximo del input de cantidad
+            <!-- Contenido de Especificaciones Técnicas -->
+            <div id="specifications" class="tab-content">
+                <div class="specs-grid" th:if="${producto.especificacion != null}">
+                    <div class="spec-item" th:if="${producto.especificacion.materialPrincipal != null}">
+                        <div class="spec-label">Material Principal</div>
+                        <div class="spec-value" th:text="${producto.especificacion.materialPrincipal}">Arcilla de alta resistencia</div>
+                    </div>
+                    
+                    <div class="spec-item" th:if="${producto.especificacion.acabado != null}">
+                        <div class="spec-label">Acabado</div>
+                        <div class="spec-value" th:text="${producto.especificacion.acabado}">Natural, sin barnizar</div>
+                    </div>
+                    
+                    <div class="spec-item" th:if="${producto.especificacion.altura != null}">
+                        <div class="spec-label">Altura</div>
+                        <div class="spec-value" th:text="${producto.especificacion.altura}">25 cm</div>
+                    </div>
+                    
+                    <div class="spec-item" th:if="${producto.especificacion.diametroBoca != null}">
+                        <div class="spec-label">Diámetro de Boca</div>
+                        <div class="spec-value" th:text="${producto.especificacion.diametroBoca}">16 cm</div>
+                    </div>
+                    
+                    <div class="spec-item" th:if="${producto.especificacion.diametroSuperior != null}">
+                        <div class="spec-label">Diámetro Superior</div>
+                        <div class="spec-value" th:text="${producto.especificacion.diametroSuperior}">8 cm</div>
+                    </div>
+                    
+                    <div class="spec-item" th:if="${producto.especificacion.capacidad != null}">
+                        <div class="spec-label">Capacidad</div>
+                        <div class="spec-value" th:text="${producto.especificacion.capacidad}">15 litros</div>
+                    </div>
+                    
+                    <div class="spec-item" th:if="${producto.especificacion.peso != null}">
+                        <div class="spec-label">Peso</div>
+                        <div class="spec-value" th:text="${producto.especificacion.peso}">900 gramos</div>
+                    </div>
+                    
+                    <div class="spec-item" th:if="${producto.especificacion.color != null}">
+                        <div class="spec-label">Color</div>
+                        <div class="spec-value" th:text="${producto.especificacion.color}">Terracota natural</div>
+                    </div>
+                    
+                    <div class="spec-item" style="grid-column: 1 / -1;" th:if="${producto.especificacion.tecnicaElaboracion != null}">
+                        <div class="spec-label">Técnica de Elaboración</div>
+                        <div class="spec-value" th:text="${producto.especificacion.tecnicaElaboracion}">Moldeado a mano con técnicas ancestrales</div>
+                    </div>
+                </div>
+                
+                <div th:if="${producto.especificacion == null}" class="description-content">
+                    <p>Las especificaciones técnicas para este producto aún no han sido definidas.</p>
+                </div>
+            </div>
+
+            <!-- Contenido de Historia y Origen -->
+            <div id="history" class="tab-content">
+                <div class="history-section" th:if="${producto.especificacion != null}">
+                    <h3 class="history-title">Historia y El Legado de la Cerámica</h3>
+                    
+                    <div th:if="${producto.especificacion.historia != null}" class="history-text">
+                        <p th:text="${producto.especificacion.historia}">
+                            El Jarro "Vasija del Sol" es un eco de la milenaria "Tradición alfarera de Chulucanas", un arte que se remonta a las culturas preincas como la Vicus (200 a.C. - 600 d.C.). Los alfareros de Chulucanas han perfeccionado por siglos la técnica del "paleteado" y "bruñido", que permite crear piezas de una finura y resistencia excepcionales sin usar torno.
+                        </p>
+                    </div>
+                    
+                    <div th:if="${producto.especificacion.origen != null}" class="history-text">
+                        <h4>Origen</h4>
+                        <p th:text="${producto.especificacion.origen}">
+                            Originario de Chulucanas, Piura, Perú, esta pieza representa la continuidad de una tradición milenaria.
+                        </p>
+                    </div>
+                    
+                    <div th:if="${producto.especificacion.tradicionCultural != null}" class="history-text">
+                        <h4>Tradición Cultural</h4>
+                        <p th:text="${producto.especificacion.tradicionCultural}">
+                            Cada pieza es testimonio de la herencia cultural de los pueblos del norte peruano.
+                        </p>
+                    </div>
+                    
+                    <div th:if="${producto.especificacion.regionProcedencia != null}" class="history-text">
+                        <h4>Región de Procedencia</h4>
+                        <p th:text="${producto.especificacion.regionProcedencia}">Chulucanas, Piura, Perú</p>
+                    </div>
+                    
+                    <div th:if="${producto.especificacion.artesanoCreador != null}" class="history-text">
+                        <h4>Artesano</h4>
+                        <p th:text="${producto.especificacion.artesanoCreador}">Maestro artesano local</p>
+                    </div>
+                </div>
+                
+                <div th:if="${producto.especificacion == null}" class="description-content">
+                    <p>La información sobre la historia y origen de este producto aún no ha sido definida.</p>
+                </div>
+            </div>
+
+            <!-- Contenido de Cuidado del Producto -->
+            <div id="care" class="tab-content">
+                <div class="care-grid" th:if="${producto.especificacion != null}">
+                    <div class="care-item" th:if="${producto.especificacion.cuidadosGenerales != null}">
+                        <div class="care-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <div class="care-title">Cuidados Generales</div>
+                        <div class="care-description" th:text="${producto.especificacion.cuidadosGenerales}">
+                            Manejar con cuidado, evitar golpes y cambios bruscos de temperatura.
+                        </div>
+                    </div>
+                    
+                    <div class="care-item" th:if="${producto.especificacion.limpieza != null}">
+                        <div class="care-icon">
+                            <i class="fas fa-spray-can"></i>
+                        </div>
+                        <div class="care-title">Limpieza</div>
+                        <div class="care-description" th:text="${producto.especificacion.limpieza}">
+                            Limpiar con agua tibia y jabón neutro. No usar productos abrasivos.
+                        </div>
+                    </div>
+                    
+                    <div class="care-item" th:if="${producto.especificacion.almacenamiento != null}">
+                        <div class="care-icon">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <div class="care-title">Almacenamiento</div>
+                        <div class="care-description" th:text="${producto.especificacion.almacenamiento}">
+                            Guardar en lugar seco y ventilado, evitar la humedad excesiva.
+                        </div>
+                    </div>
+                    
+                    <div class="care-item" th:if="${producto.especificacion.precauciones != null}">
+                        <div class="care-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="care-title">Precauciones</div>
+                        <div class="care-description" th:text="${producto.especificacion.precauciones}">
+                            Evitar exposición directa al sol por períodos prolongados.
+                        </div>
+                    </div>
+                    
+                    <div class="care-item" th:if="${producto.especificacion.durabilidad != null}">
+                        <div class="care-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="care-title">Durabilidad</div>
+                        <div class="care-description" th:text="${producto.especificacion.durabilidad}">
+                            Con el cuidado adecuado, puede durar generaciones.
+                        </div>
+                    </div>
+                </div>
+                
+                <div th:if="${producto.especificacion == null}" class="description-content">
+                    <p>La información sobre el cuidado de este producto aún no ha sido definida.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:include="cliente/template_header_footer.html::footer"></div>
+
+    <script>
+        function showTab(event, tabId) {
+            // Ocultar todos los contenidos de pestañas
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Desactivar todos los botones de pestañas
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Mostrar el contenido seleccionado
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function updateMaxQuantity() {
+            const localSelect = document.getElementById('local');
+            const cantidadInput = document.getElementById('cantidad');
+            
+            if (localSelect && cantidadInput) {
+                const selectedOption = localSelect.options[localSelect.selectedIndex];
+                const maxStock = selectedOption.getAttribute('data-stock');
+                
                 cantidadInput.max = maxStock;
-
-                // Resetear el valor de cantidad al mínimo
                 cantidadInput.value = 1;
             }
+        }
 
-            // Llamar a la función inicialmente para establecer el stock correcto
+        // Inicializar la cantidad máxima al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
             updateMaxQuantity();
-        </script>
-
-        <!-- Footer -->
-        <div th:include="cliente/template_header_footer.html::footer"></div>
-    </body>
+        });
+    </script>
+</body>
 </html>
-

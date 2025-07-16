@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class IndexController {
 
@@ -50,9 +49,12 @@ public class IndexController {
 
     @Autowired
     private DetallePedidoService detallePedidoService;
-    
-        @Autowired
+
+    @Autowired
     private LocalService localService;
+
+    @Autowired
+    private EspecificacionProductoService especificacionService;
 
     //Para almacenar los detalles del Pedido
     List<DetallePedido> detalles = new ArrayList<DetallePedido>();
@@ -170,10 +172,13 @@ public class IndexController {
         Producto producto = new Producto();
         Optional<Producto> productoOptional = productoService.get(id);
         producto = productoOptional.get();
-         // Explicitly add locales to the model
+        // Cargar especificaciones si existen
+        EspecificacionProducto especificacion = especificacionService.obtenerEspecificacionPorProducto(id);
+        producto.setEspecificacion(especificacion);
+        // Explicitly add locales to the model
         model.addAttribute("locales", localService.findAll());
         model.addAttribute("producto", producto);
-        
+
         return "cliente/caracteristicas";
     }
 }
