@@ -180,3 +180,174 @@
         width: 100%;
     }
 }
+:root {
+    --color-primary-dark: #6A3F2B;
+    --color-primary-light: #F8F4ED;
+    --color-accent-gold: #A65B2E;
+    --color-accent-green: #7f8242;
+    --color-background-soft: #EDEAE4;
+    --color-card-background: #E9DCCF;
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Quicksand', sans-serif;
+}
+
+/* General layout */
+body {
+    background-color: var(--color-background-soft);
+    font-family: var(--font-body);
+    color: var(--color-primary-dark);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Títulos */
+h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--color-accent-gold);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.card {
+    background-color: var(--color-card-background);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    border: none;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--color-primary-dark);
+}
+
+/* Tabla */
+.table {
+    background-color: var(--color-primary-light);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.95rem;
+}
+
+.table thead {
+    background-color: var(--color-accent-gold);
+    color: white;
+    font-weight: bold;
+}
+
+.table th, .table td {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(106, 63, 43, 0.05);
+}
+
+/* Total del pedido */
+.card-body h5 span {
+    color: var(--color-accent-green);
+    font-weight: bold;
+}
+
+/* Imagen Yape */
+.card img {
+    display: block;
+    max-width: 250px;
+    height: auto;
+    margin: 0 auto 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Texto de pago */
+.card p {
+    text-align: center;
+    font-size: 1.05rem;
+    color: var(--color-primary-dark);
+}
+
+/* Formulario */
+form {
+    background-color: var(--color-primary-light);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+label {
+    font-weight: bold;
+    color: var(--color-primary-dark);
+    margin-bottom: 10px;
+    display: block;
+}
+
+input[type="file"] {
+    background-color: #fff;
+    border: 1px solid #cbbfae;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Botón llamativo */
+.btn-primary {
+    background-color: var(--color-accent-gold);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: block;
+    margin: 20px auto 0;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: var(--font-body);
+}
+
+.btn-primary:hover {
+    background-color: #8b4824;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 10px;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .table th, .table td {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .card img {
+        max-width: 180px;
+    }
+}
