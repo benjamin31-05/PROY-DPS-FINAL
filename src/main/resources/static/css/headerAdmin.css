@@ -21,8 +21,6 @@ body {
     --font-body: 'Quicksand', sans-serif;
 }
 
-
-
 /* Ajustes responsive para nuevos elementos */
 @media (max-width: 768px) {
     .file-upload-label {

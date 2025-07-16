@@ -1,5 +1,17 @@
 @import url('/css/headerAdmin.css');
 
+/* Variables CSS */
+:root {
+    --color-primary-dark: #6A3F2B;
+    --color-primary-light: #F8F4ED;
+    --color-accent-gold: #A65B2E;
+    --color-accent-green: #7f8242;
+    --color-background-soft: #EDEAE4;
+    --color-card-background: #E9DCCF;
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Quicksand', sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,14 +21,117 @@
 
 body {
     background-color: #f5f3f0;
+    overflow-x: hidden;
 }
 
+/* ================== SIDEBAR STYLES ================== */
+/* Toggle button para móviles */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background-color: var(--color-accent-gold);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    border-radius: 6px;
+    z-index: 1001;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: var(--color-accent-green);
+}
+
+/* Sidebar base */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(145deg, var(--color-card-background), var(--color-primary-light));
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 25px;
+    transition: transform 0.3s ease, width 0.3s ease;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-body);
+    z-index: 1000;
+}
+
+.admin-title {
+    color: var(--color-accent-gold);
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 50px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 15px;
+    font-family: var(--font-heading);
+}
+
+.admin-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: var(--color-accent-gold);
+    border-radius: 2px;
+}
+
+.nav-button {
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    background: var(--color-accent-gold);
+    border: none;
+    border-radius: 10px;
+    color: var(--color-primary-light);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover {
+    background: var(--color-accent-green);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.nav-button span {
+    display: inline;
+    margin-left: 8px;
+}
+
+.cerrar-sesion {
+    background: var(--color-accent-green);
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 50px);
+    color: white;
+}
+
+/* ================== MAIN CONTENT STYLES ================== */
 /* Content Styles (Pagina - Productos) */
 .main-content {
     margin-left: 280px;
     padding: 30px;
     background-color: #faf8f6;
     min-height: 100vh;
+    transition: margin-left 0.3s ease;
 }
 
 .page-header {
@@ -58,7 +173,7 @@ body {
     box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4);
 }
 
-/* Estilos para la tabla */
+/* ================== TABLE STYLES ================== */
 .table-container {
     background: #fff;
     border-radius: 12px;
@@ -66,11 +181,13 @@ body {
     overflow: hidden;
     margin-bottom: 2rem;
     border: 1px solid #e8e0d8;
+    overflow-x: auto;
 }
 
 .table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 800px; /* Ancho mínimo para evitar compresión excesiva */
 }
 
 .table th {
@@ -82,6 +199,7 @@ body {
     font-size: 0.95rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .table td {
@@ -89,6 +207,7 @@ body {
     border-bottom: 1px solid #f0ebe6;
     color: #5D4037;
     font-size: 0.9rem;
+    vertical-align: middle;
 }
 
 .table tr:hover {
@@ -103,7 +222,7 @@ body {
     background-color: #f7f2ed;
 }
 
-/* Estilos para los botones de acción */
+/* ================== BUTTON STYLES ================== */
 .btn-group {
     display: flex;
     gap: 6px;
@@ -192,7 +311,6 @@ body {
     box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
 }
 
-/* Nuevo estilo para el botón de "Ver Specs" */
 .btn-info {
     background: linear-gradient(135deg, #17a2b8, #138496);
     color: white;
@@ -219,12 +337,11 @@ body {
     box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
 }
 
-/* Iconos para los botones */
 .fas {
     font-size: 0.7rem;
 }
 
-/* Estilos para la paginación */
+/* ================== PAGINATION STYLES ================== */
 .pagination {
     display: flex;
     list-style: none;
@@ -278,44 +395,71 @@ body {
     box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* ================== RESPONSIVE STYLES ================== */
+
+/* TABLETS (768px - 1024px) */
+@media screen and (max-width: 1024px) {
     .sidebar {
         width: 220px;
     }
     
     .main-content {
         margin-left: 220px;
-        padding: 20px;
+        padding: 25px;
     }
     
-    .table-container {
-        overflow-x: auto;
+    .table th, .table td {
+        padding: 12px 10px;
+        font-size: 0.85rem;
     }
     
     .btn-group {
-        flex-direction: column;
         gap: 4px;
     }
     
     .btn, .btn-sm {
-        width: 100%;
-        justify-content: center;
+        padding: 4px 8px;
+        font-size: 0.75rem;
     }
 }
 
-@media (max-width: 480px) {
+/* TABLETS PEQUEÑAS (768px y menores) */
+@media screen and (max-width: 768px) {
+    .sidebar-toggle {
+        display: block;
+    }
+    
     .sidebar {
-        width: 70px;
+        width: 250px;
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
     }
     
     .main-content {
-        margin-left: 70px;
-        padding: 15px;
+        margin-left: 0;
+        padding: 20px;
+        padding-top: 70px; /* Espacio para el botón toggle */
+    }
+    
+    .admin-title {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+    }
+    
+    .nav-button {
+        padding: 12px 15px;
+        font-size: 14px;
     }
     
     .page-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+    }
+    
+    .table {
+        min-width: 700px;
     }
     
     .table th, .table td {
@@ -326,15 +470,161 @@ body {
     .btn-group {
         flex-direction: column;
         gap: 3px;
+        width: 100%;
+    }
+    
+    .btn, .btn-sm, .btn-edit, .btn-delete {
+        width: 100%;
+        justify-content: center;
+        padding: 8px;
+        font-size: 0.75rem;
+    }
+}
+
+/* MÓVILES (480px y menores) */
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 240px;
+    }
+    
+    .main-content {
+        padding: 15px;
+        padding-top: 70px;
+    }
+    
+    .admin-title {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+    
+    .nav-button {
+        font-size: 13px;
+        padding: 10px 12px;
+        margin-bottom: 15px;
+    }
+    
+    .nav-button span {
+        display: inline;
+        margin-left: 6px;
+    }
+    
+    .cerrar-sesion {
+        width: calc(100% - 30px);
+        bottom: 15px;
+    }
+    
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .page-header small {
+        font-size: 1rem;
+    }
+    
+    .btn-create {
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+    
+    .table-container {
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    
+    .table {
+        min-width: 600px;
+    }
+    
+    .table th {
+        padding: 8px 6px;
+        font-size: 0.7rem;
+    }
+    
+    .table td {
+        padding: 8px 6px;
+        font-size: 0.75rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .btn, .btn-sm, .btn-edit, .btn-delete {
+        width: 100%;
+        padding: 6px;
+        font-size: 0.7rem;
+        text-align: center;
     }
     
     .pagination {
         flex-wrap: wrap;
         gap: 4px;
+        margin-top: 1rem;
     }
     
     .pagination .page-link {
         padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .alert-info {
+        padding: 12px;
         font-size: 0.85rem;
+    }
+}
+
+/* MÓVILES MUY PEQUEÑOS (360px y menores) */
+@media screen and (max-width: 360px) {
+    .sidebar {
+        width: 220px;
+    }
+    
+    .main-content {
+        padding: 10px;
+        padding-top: 65px;
+    }
+    
+    .table {
+        min-width: 500px;
+    }
+    
+    .table th, .table td {
+        padding: 6px 4px;
+        font-size: 0.7rem;
+    }
+    
+    .btn-group {
+        gap: 1px;
+    }
+    
+    .btn, .btn-sm, .btn-edit, .btn-delete {
+        padding: 5px;
+        font-size: 0.65rem;
+    }
+    
+    .pagination .page-link {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Overlay para cerrar sidebar en móviles */
+@media screen and (max-width: 768px) {
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+    
+    .sidebar.active + .sidebar-overlay {
+        display: block;
     }
 }

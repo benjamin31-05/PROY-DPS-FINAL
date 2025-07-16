@@ -153,4 +153,238 @@
   .cerrar-sesion {
     width: calc(100% - 30px);
   }
+  
+/* ================== RESPONSIVE STYLES ================== */
+
+/* TABLETS (768px - 1024px) */
+@media screen and (max-width: 1024px) {
+    .sidebar {
+        width: 220px;
+    }
+    
+    .main-content {
+        margin-left: 220px;
+        padding: 25px;
+    }
+    
+    .table th, .table td {
+        padding: 12px 10px;
+        font-size: 0.85rem;
+    }
+    
+    .btn-group {
+        gap: 4px;
+    }
+    
+    .btn, .btn-sm {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+/* TABLETS PEQUEÑAS (768px y menores) */
+@media screen and (max-width: 768px) {
+    .sidebar-toggle {
+        display: block;
+    }
+    
+    .sidebar {
+        width: 250px;
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+        padding-top: 70px; /* Espacio para el botón toggle */
+    }
+    
+    .admin-title {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+    }
+    
+    .nav-button {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .table {
+        min-width: 700px;
+    }
+    
+    .table th, .table td {
+        padding: 10px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 3px;
+        width: 100%;
+    }
+    
+    .btn, .btn-sm, .btn-edit, .btn-delete {
+        width: 100%;
+        justify-content: center;
+        padding: 8px;
+        font-size: 0.75rem;
+    }
+}
+
+/* MÓVILES (480px y menores) */
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 240px;
+    }
+    
+    .main-content {
+        padding: 15px;
+        padding-top: 70px;
+    }
+    
+    .admin-title {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+    
+    .nav-button {
+        font-size: 13px;
+        padding: 10px 12px;
+        margin-bottom: 15px;
+    }
+    
+    .nav-button span {
+        display: inline;
+        margin-left: 6px;
+    }
+    
+    .cerrar-sesion {
+        width: calc(100% - 30px);
+        bottom: 15px;
+    }
+    
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .page-header small {
+        font-size: 1rem;
+    }
+    
+    .btn-create {
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+    
+    .table-container {
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    
+    .table {
+        min-width: 600px;
+    }
+    
+    .table th {
+        padding: 8px 6px;
+        font-size: 0.7rem;
+    }
+    
+    .table td {
+        padding: 8px 6px;
+        font-size: 0.75rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .btn, .btn-sm, .btn-edit, .btn-delete {
+        width: 100%;
+        padding: 6px;
+        font-size: 0.7rem;
+        text-align: center;
+    }
+    
+    .pagination {
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 1rem;
+    }
+    
+    .pagination .page-link {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .alert-info {
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+}
+
+/* MÓVILES MUY PEQUEÑOS (360px y menores) */
+@media screen and (max-width: 360px) {
+    .sidebar {
+        width: 220px;
+    }
+    
+    .main-content {
+        padding: 10px;
+        padding-top: 65px;
+    }
+    
+    .table {
+        min-width: 500px;
+    }
+    
+    .table th, .table td {
+        padding: 6px 4px;
+        font-size: 0.7rem;
+    }
+    
+    .btn-group {
+        gap: 1px;
+    }
+    
+    .btn, .btn-sm, .btn-edit, .btn-delete {
+        padding: 5px;
+        font-size: 0.65rem;
+    }
+    
+    .pagination .page-link {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Overlay para cerrar sidebar en móviles */
+@media screen and (max-width: 768px) {
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+    
+    .sidebar.active + .sidebar-overlay {
+        display: block;
+    }
+}
 }

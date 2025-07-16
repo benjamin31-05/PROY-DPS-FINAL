@@ -2,7 +2,6 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -17,21 +16,229 @@
         <link th:href="@{/css/verProductos.css}" rel="stylesheet">
         <link th:href="@{/css/sidebar.css}" rel="stylesheet">
 
+        <!-- Font Awesome para iconos -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
         <!-- Icono -->
         <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
 
+        <style>
+            /* Estilos adicionales para la tabla responsive */
+            
+            /* Diseño de tarjetas para móviles */
+            .table-cards {
+                display: none;
+            }
+            
+            .product-card {
+                background: #fff;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(139, 69, 19, 0.1);
+                margin-bottom: 20px;
+                padding: 20px;
+                border: 1px solid #e8e0d8;
+                position: relative;
+            }
+            
+            .product-card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+                border-bottom: 2px solid #f0ebe6;
+            }
+            
+            .product-id {
+                background: linear-gradient(135deg, #8B4513, #A0522D);
+                color: white;
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: bold;
+            }
+            
+            .product-name {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #5D4037;
+                margin-bottom: 5px;
+            }
+            
+            .product-info {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .info-item {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .info-label {
+                font-size: 0.75rem;
+                color: #8D6E63;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+            
+            .info-value {
+                font-size: 0.9rem;
+                color: #5D4037;
+                font-weight: 500;
+            }
+            
+            .price-highlight {
+                color: #D2691E;
+                font-weight: bold;
+                font-size: 1rem;
+            }
+            
+            .stock-badge {
+                background: #e8f5e8;
+                color: #4CAF50;
+                padding: 2px 8px;
+                border-radius: 12px;
+                font-size: 0.8rem;
+                font-weight: 600;
+            }
+            
+            .description-full {
+                grid-column: 1 / -1;
+                margin-bottom: 10px;
+            }
+            
+            .card-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid #f0ebe6;
+            }
+            
+            .card-actions .btn,
+            .card-actions .btn-edit,
+            .card-actions .btn-delete {
+                flex: 1;
+                min-width: 80px;
+                justify-content: center;
+                font-size: 0.75rem;
+                padding: 8px 10px;
+            }
+            
+            /* Responsive behavior */
+            @media screen and (max-width: 768px) {
+                .main-content {
+                    padding: 15px 10px; /* Reducir padding lateral */
+                }
+                
+                .table-container {
+                    display: none;
+                }
+                
+                .table-cards {
+                    display: block;
+                    margin: 0 -5px; /* Compensar el padding reducido */
+                }
+                
+                .product-card {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+                
+                .product-info {
+                    grid-template-columns: 1fr;
+                    gap: 10px;
+                }
+                
+                .info-item {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 0;
+                }
+                
+                .info-label {
+                    margin-bottom: 0;
+                    flex: 1;
+                }
+                
+                .info-value {
+                    flex: 1;
+                    text-align: right;
+                }
+                
+                .card-actions {
+                    flex-direction: column;
+                    gap: 6px;
+                }
+                
+                .card-actions .btn,
+                .card-actions .btn-edit,
+                .card-actions .btn-delete {
+                    width: 100%;
+                    flex: none;
+                }
+            }
+            
+            @media screen and (max-width: 480px) {
+                .main-content {
+                    padding: 10px 5px; /* Aún menos padding para móviles muy pequeños */
+                    padding-top: 70px;
+                }
+                
+                .table-cards {
+                    margin: 0 -3px; /* Ajustar margen */
+                }
+                
+                .product-card {
+                    padding: 15px;
+                    margin-bottom: 15px;
+                    margin-left: 3px;
+                    margin-right: 3px;
+                }
+                
+                .product-card-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 10px;
+                }
+                
+                .product-name {
+                    font-size: 1rem;
+                }
+                
+                .info-item {
+                    padding: 6px 0;
+                }
+                
+                .info-label {
+                    font-size: 0.7rem;
+                }
+                
+                .info-value {
+                    font-size: 0.8rem;
+                }
+            }
+        </style>
     </head>
 
     <body>
-
         <!-- Botón para móviles -->
-        <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('active')">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
             ☰
         </button>
 
         <!-- Navigation -->
-        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"></div>
 
+        <!-- Overlay para cerrar sidebar en móviles -->
+        <div class="sidebar-overlay" onclick="closeSidebar()"></div>
 
         <!-- Contenido principal -->
         <div class="main-content"> 
@@ -39,8 +246,11 @@
                 <h1>ADMIN <small>Productos</small></h1>
             </div>
 
-            <a class="btn-create" th:href="@{/productos1/create}">Crear Producto</a>
+            <a class="btn-create" th:href="@{/productos1/create}">
+                <i class="fas fa-plus"></i> Crear Producto
+            </a>
 
+            <!-- Tabla para pantallas grandes -->
             <div class="table-container">
                 <table class="table">
                     <thead>
@@ -49,7 +259,7 @@
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Precio</th>
-                            <th>Stock Actual</th>
+                            <th>Stock</th>
                             <th>Subcategoría</th>
                             <th>Acciones</th>
                         </tr>
@@ -64,9 +274,13 @@
                             <td th:text="${producto.subcategoria != null ? producto.subcategoria.nombre : '--'}"></td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn-edit" th:href="@{/productos1/edit/{id}(id=${producto.id})}">Editar</a>
+                                    <a class="btn-edit" th:href="@{/productos1/edit/{id}(id=${producto.id})}">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
                                     <a class="btn-delete" th:href="@{/productos1/delete/{id}(id=${producto.id})}"
-                                       onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</a>
+                                       onclick="return confirm('¿Estás seguro de eliminar este producto?')">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </a>
 
                                     <!-- Botón para ver especificaciones -->
                                     <a th:if="${producto.tieneEspecificaciones()}" 
@@ -75,14 +289,14 @@
                                         <i class="fas fa-eye"></i> Ver Specs
                                     </a>
 
-                                    <!-- Botón para crear/editar especificaciones -->
+                                    <!-- Botón para crear especificaciones -->
                                     <a th:if="${!producto.tieneEspecificaciones()}" 
                                        th:href="@{/productos1/especificaciones/create/{id}(id=${producto.id})}" 
                                        class="btn btn-sm btn-success" title="Crear especificaciones">
                                         <i class="fas fa-plus"></i> Crear Specs
                                     </a>
 
-
+                                    <!-- Botón para editar especificaciones -->
                                     <a th:if="${producto.tieneEspecificaciones()}" 
                                        th:href="@{/productos1/especificaciones/edit/{id}(id=${producto.id})}" 
                                        class="btn btn-sm btn-primary" title="Editar especificaciones">
@@ -103,24 +317,149 @@
                 </table>
             </div>
 
+            <!-- Diseño de tarjetas para móviles -->
+            <div class="table-cards">
+                <div class="product-card" th:each="producto : ${productos}">
+                    <div class="product-card-header">
+                        <div>
+                            <div class="product-name" th:text="${producto.nombreProducto}"></div>
+                            <div class="product-id">ID: <span th:text="${producto.id}"></span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-info">
+                        <div class="info-item description-full">
+                            <span class="info-label">Descripción</span>
+                            <span class="info-value" th:text="${producto.descripcion}"></span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <span class="info-label">Precio</span>
+                            <span class="info-value price-highlight" th:text="'S/' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}"></span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <span class="info-label">Stock</span>
+                            <span class="info-value">
+                                <span class="stock-badge" th:text="${producto.stockActual}"></span>
+                            </span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <span class="info-label">Subcategoría</span>
+                            <span class="info-value" th:text="${producto.subcategoria != null ? producto.subcategoria.nombre : '--'}"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-actions">
+                        <a class="btn-edit" th:href="@{/productos1/edit/{id}(id=${producto.id})}">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a class="btn-delete" th:href="@{/productos1/delete/{id}(id=${producto.id})}"
+                           onclick="return confirm('¿Estás seguro de eliminar este producto?')">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+
+                        <!-- Botón para ver especificaciones -->
+                        <a th:if="${producto.tieneEspecificaciones()}" 
+                           th:href="@{/productos1/especificaciones/view/{id}(id=${producto.id})}" 
+                           class="btn btn-sm btn-info" title="Ver especificaciones">
+                            <i class="fas fa-eye"></i> Ver Specs
+                        </a>
+
+                        <!-- Botón para crear especificaciones -->
+                        <a th:if="${!producto.tieneEspecificaciones()}" 
+                           th:href="@{/productos1/especificaciones/create/{id}(id=${producto.id})}" 
+                           class="btn btn-sm btn-success" title="Crear especificaciones">
+                            <i class="fas fa-plus"></i> Crear Specs
+                        </a>
+
+                        <!-- Botón para editar especificaciones -->
+                        <a th:if="${producto.tieneEspecificaciones()}" 
+                           th:href="@{/productos1/especificaciones/edit/{id}(id=${producto.id})}" 
+                           class="btn btn-sm btn-primary" title="Editar especificaciones">
+                            <i class="fas fa-edit"></i> Editar Specs
+                        </a>
+
+                        <!-- Botón para eliminar especificaciones -->
+                        <a th:if="${producto.tieneEspecificaciones()}" 
+                           th:href="@{/productos1/especificaciones/delete/{id}(id=${producto.id})}" 
+                           class="btn btn-sm btn-outline-danger" title="Eliminar especificaciones"
+                           onclick="return confirm('¿Estás seguro de eliminar las especificaciones?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paginación -->
             <nav>
                 <ul class="pagination">
                     <li class="page-item" th:classappend="${productos.first} ? 'disabled'">
-                        <a class="page-link" th:href="@{/productos1/products(page=${productos.number - 1})}">Anterior</a>
+                        <a class="page-link" th:href="@{/productos1/products(page=${productos.number - 1})}">
+                            <i class="fas fa-chevron-left"></i> Anterior
+                        </a>
                     </li>
                     <li class="page-item" th:classappend="${productos.last} ? 'disabled'">
-                        <a class="page-link" th:href="@{/productos1/products(page=${productos.number + 1})}">Siguiente</a>
+                        <a class="page-link" th:href="@{/productos1/products(page=${productos.number + 1})}">
+                            Siguiente <i class="fas fa-chevron-right"></i>
+                        </a>
                     </li>
                 </ul>
             </nav>
 
+            <!-- Mensaje cuando no hay productos -->
             <div th:if="${#lists.isEmpty(productos)}" class="alert-info">
-                No hay productos disponibles en este momento.
+                <i class="fas fa-info-circle"></i> No hay productos disponibles en este momento.
             </div>
+        </div>
 
-        </div> 
+        <!-- JavaScript para funcionalidad responsiva -->
+        <script>
+            function toggleSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                const overlay = document.querySelector('.sidebar-overlay');
+                
+                sidebar.classList.toggle('active');
+                
+                if (sidebar.classList.contains('active')) {
+                    overlay.style.display = 'block';
+                } else {
+                    overlay.style.display = 'none';
+                }
+            }
 
+            function closeSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                const overlay = document.querySelector('.sidebar-overlay');
+                
+                sidebar.classList.remove('active');
+                overlay.style.display = 'none';
+            }
 
+            // Cerrar sidebar al hacer clic en un enlace (en móviles)
+            document.addEventListener('DOMContentLoaded', function() {
+                const sidebarLinks = document.querySelectorAll('.sidebar a');
+                
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (window.innerWidth <= 768) {
+                            closeSidebar();
+                        }
+                    });
+                });
+
+                // Cerrar sidebar al cambiar el tamaño de ventana
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        const sidebar = document.querySelector('.sidebar');
+                        const overlay = document.querySelector('.sidebar-overlay');
+                        
+                        sidebar.classList.remove('active');
+                        overlay.style.display = 'none';
+                    }
+                });
+            });
+        </script>
     </body>
-
 </html>
