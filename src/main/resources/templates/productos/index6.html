@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nuestros Productos</title>
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <!-- Icono -->
+        <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
+        <!-- CSS -->
+        <link th:href="@{/css/categorias1.css}" rel="stylesheet">
+        <link th:href="@{/css/carrito.css}" rel="stylesheet">
+        <link th:href="@{/css/favoritos.css}" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- HEADER -->
+        <div th:include="cliente/template_header_footer.html::header" mb-3> </div>
+
+        <div class="wrap">
+            <h1>Nuestros Productos</h1>
+
+            <!-- Div para filtros y ordenamiento -->
+            <div class="controls-wrapper">
+                <div class="filter-icon">
+                    <i class="fas fa-filter"></i>
+                </div>
+                <div class="sort-dropdown">
+                    <select id="sort-select">
+                        <option value="default">Ordenar por</option>
+                        <option value="price-asc">Precio: Menor a Mayor</option>
+                        <option value="price-desc">Precio: Mayor a Menor</option>
+                        <option value="name-asc">Nombre: A-Z</option>
+                        <option value="name-desc">Nombre: Z-A</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="store-wrapper">
+                <div class="category_list">
+                    <h3 class="category-title">Categorías</h3>
+                    <br />
+                    <a href="#" class="category_item" onclick="filterByCategory(1);return false"><i class="fas fa-chevron-right"></i> Cerámica </a>
+                    <div class="subcategory_list" id="pasteles_subcategories" th:if="${categoriaId == 1}" style="display: block">
+                        <a href="#" class="subcategory_item" th:each="subcategoria : ${subcategoriasDeCategoria}" 
+                           th:onclick="'filterBySubcategory(' + ${subcategoria.id} + ')'">
+                            <span th:text="${subcategoria.nombre}"></span>
+                        </a>
+                    </div>
+                    <a href="#" class="category_item" onclick="filterByCategory(2);return false"><i class="fas fa-chevron-right"></i> Joyería Artesanal </a>
+                    <div class="subcategory_list" id="pies_subcategories" th:if="${categoriaId == 2}" style="display: block">
+                        <a href="#" class="subcategory_item" th:each="subcategoria : ${subcategoriasDeCategoria}" 
+                           th:onclick="'filterBySubcategory(' + ${subcategoria.id} + ')'">
+                            <span th:text="${subcategoria.nombre}"></span>
+                        </a>
+                    </div>
+                    <a href="#" class="category_item" onclick="filterByCategory(3);return false"><i class="fas fa-chevron-right"></i> Paja Toquilla </a>
+                    <div class="subcategory_list" id="cheesecakes_subcategories" th:if="${categoriaId == 3}" style="display: block">
+                        <a href="#" class="subcategory_item" th:each="subcategoria : ${subcategoriasDeCategoria}" 
+                           th:onclick="'filterBySubcategory(' + ${subcategoria.id} + ')'">
+                            <span th:text="${subcategoria.nombre}"></span>
+                        </a>
+                    </div>
+                    <a href="#" class="category_item" onclick="filterByCategory(4);return false"><i class="fas fa-chevron-right"></i> Arte y Decoración </a>
+                    <div class="subcategory_list" id="otros_subcategories" th:if="${categoriaId == 4}" style="display: block">
+                        <a href="#" class="subcategory_item" th:each="subcategoria : ${subcategoriasDeCategoria}" 
+                           th:onclick="'filterBySubcategory(' + ${subcategoria.id} + ')'">
+                            <span th:text="${subcategoria.nombre}"></span>
+                        </a>
+                    </div>
+                </div>
+                
+                <section class="products-list">
+                    <div class="product-card" th:each="producto : ${productos.content}" th:data-product-id="${producto.id}"
+                         th:data-category="${producto.subcategoria.nombre}">
+                        <div class="product-image" th:style="'background-image: url(' + ${producto.imageUrl} + ');'">
+                            <div class="icon-container">
+                                <span class="heart-icon" title="Añadir a favoritos">🤍</span>
+                                <a th:href="@{/productoHome/{id}(id=${producto.id})}" class="eye-icon-link">
+                                    <span class="eye-icon" title="Ver detalles">👁️</span>
+                                </a>
+                            </div>
+                            <!-- Mensaje de agotado -->
+                            <div class="agotado-badge" 
+                                 th:if="${producto.stockActual != null && producto.stockActual == 0}">
+                                Agotado
+                            </div>
+                            <!-- Mensaje de stock bajo -->
+                            <div class="bajo-stock-badge" 
+                                 th:if="${producto.stockActual != null && producto.stockActual > 0 && producto.stockActual <= 5}">
+                                ¡Últimas unidades!
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title" th:text="${producto.nombreProducto}"></h3>
+                            <p class="product-price" th:text="'S/' + ${producto.precio}"></p>
+                            <!-- Formulario con método GET -->
+                            <form th:action="@{/productoHome/{id} (id=${producto.id})}" method="get" style="display: inline;">
+                                <button type="submit" class="add-to-cart">
+                                    Ver más info
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${productos.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{/index(page=${productos.number - 1})}">Anterior</a>
+                    </li>
+                    <li class="page-item" th:classappend="${productos.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{/index(page=${productos.number + 1})}">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Modal para filtros en pantallas pequeñas -->
+        <div id="category-filter-modal" class="category-modal">
+            <div class="category-modal-content">
+                <span class="category-close">&times;</span>
+                <div class="category_list_mobile">
+                    <h3 class="category-title">Categorías</h3>
+                    <br />
+                    
+                    <!-- Cerámica -->
+                    <div class="category-container">
+                        <div class="category_item_mobile">
+                            <span class="category-text" onclick="filterByCategoryModal(1)">Cerámica</span>
+                            <i class="fas fa-chevron-right chevron-icon" onclick="toggleSubcategoriesModal(this, 'pasteles_subcategories_mobile')"></i>
+                        </div>
+                        <div class="subcategory_list" id="pasteles_subcategories_mobile" style="display: none">
+                            <a href="#" class="subcategory_item" onclick="filterBySubcategoryModal(1)">Vasijas y Tazones</a>
+                            <a href="#" class="subcategory_item" onclick="filterBySubcategoryModal(2)">Platos Decorativos</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Joyería Artesanal -->
+                    <div class="category-container">
+                        <div class="category_item_mobile">
+                            <span class="category-text" onclick="filterByCategoryModal(2)">Joyería Artesanal</span>
+                            <i class="fas fa-chevron-right chevron-icon" onclick="toggleSubcategoriesModal(this, 'pies_subcategories_mobile')"></i>
+                        </div>
+                        <div class="subcategory_list" id="pies_subcategories_mobile" style="display: none">
+                            <a href="#" class="subcategory_item" onclick="filterBySubcategoryModal(3)">Collares y Pulseras</a>
+                            <a href="#" class="subcategory_item" onclick="filterBySubcategoryModal(4)">Anillos y Aretes</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Paja Toquilla -->
+                    <div class="category-container">
+                        <div class="category_item_mobile">
+                            <span class="category-text" onclick="filterByCategoryModal(3)">Paja Toquilla</span>
+                            <i class="fas fa-chevron-right chevron-icon" onclick="toggleSubcategoriesModal(this, 'cheesecakes_subcategories_mobile')"></i>
+                        </div>
+                        <div class="subcategory_list" id="cheesecakes_subcategories_mobile" style="display: none">
+                            <a href="#" class="subcategory_item" onclick="filterBySubcategoryModal(5)">Sombreros Tradicionales</a>
+                            <a href="#" class="subcategory_item" onclick="filterBySubcategoryModal(6)">Accesorios y Decoraciones</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Arte y Decoración -->
+                    <div class="category-container">
+                        <div class="category_item_mobile">
+                            <span class="category-text" onclick="filterByCategoryModal(4)">Arte y Decoración</span>
+                            <i class="fas fa-chevron-right chevron-icon" onclick="toggleSubcategoriesModal(this, 'otros_subcategories_mobile')"></i>
+                        </div>
+                        <div class="subcategory_list" id="otros_subcategories_mobile" style="display: none">
+                            <a href="#" class="subcategory_item" onclick="filterBySubcategoryModal(7)">Pinturas y Murales</a>
+                            <a href="#" class="subcategory_item" onclick="filterBySubcategoryModal(8)">Figuras Talladas</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL PARA LAS ESPECIFICACIONES -->
+        <div class="modal">
+            <span class="close-modal">&times;</span>
+            <iframe id="modal-content" src=""></iframe>
+        </div>
+        <div class="toast"></div>
+
+        <script th:inline="javascript">
+            // Función para obtener parámetros de la URL
+            function getUrlParameter(name) {
+                const params = new URLSearchParams(window.location.search);
+                return params.get(name);
+            }
+
+            // Función que se ejecuta cuando la página carga
+            function setActiveStates() {
+                const categoriaId = getUrlParameter('categoriaId');
+                const subcategoriaId = getUrlParameter('subcategoriaId');
+                
+                // Remover todas las clases activas primero
+                document.querySelectorAll('.category_item, .subcategory_item').forEach(item => {
+                    item.classList.remove('active-category', 'active-subcategory');
+                });
+                
+                // Si hay una subcategoría activa
+                if (subcategoriaId) {
+                    const subcategory = document.querySelector(`.subcategory_item[onclick*="filterBySubcategory(${subcategoriaId})"]`);
+                    if (subcategory) {
+                        subcategory.classList.add('active-subcategory');
+                    }
+                }
+                // Si solo hay una categoría activa
+                else if (categoriaId) {
+                    const category = document.querySelector(`.category_item[onclick*="filterByCategory(${categoriaId})"]`);
+                    if (category) {
+                        category.classList.add('active-category');
+                    }
+                }
+            }
+
+            // Función para filtrar por categoría (pantallas grandes)
+            function filterByCategory(categoriaId) {
+                // Ocultar todas las subcategorías primero
+                document.querySelectorAll('.subcategory_list').forEach(list => {
+                    if (list.id !== 'pasteles_subcategories_mobile' && 
+                        list.id !== 'pies_subcategories_mobile' && 
+                        list.id !== 'cheesecakes_subcategories_mobile' && 
+                        list.id !== 'otros_subcategories_mobile') {
+                        list.style.display = 'none';
+                    }
+                });
+                
+                // Mapeo de IDs de categoría a IDs de subcategorías
+                const categoryToSubcategoryMap = {
+                    1: 'pasteles_subcategories',
+                    2: 'pies_subcategories', 
+                    3: 'cheesecakes_subcategories',
+                    4: 'otros_subcategories'
+                };
+                
+                // Mostrar subcategorías de la categoría seleccionada
+                const subcategoryId = categoryToSubcategoryMap[categoriaId];
+                if (subcategoryId) {
+                    const subcategoriesList = document.getElementById(subcategoryId);
+                    if (subcategoriesList) {
+                        subcategoriesList.style.display = 'block';
+                    }
+                }
+                
+                // Limpiar estados activos
+                document.querySelectorAll('.category_item, .subcategory_item').forEach(item => {
+                    item.classList.remove('active-category', 'active-subcategory');
+                });
+                
+                // Marcar categoría como activa
+                const selectedCategory = document.querySelector(`.category_item[onclick*="filterByCategory(${categoriaId})"]`);
+                if (selectedCategory) {
+                    selectedCategory.classList.add('active-category');
+                }
+                
+                // Redirigir
+                window.location.href = '/index?categoriaId=' + categoriaId;
+            }
+
+            // Función para filtrar por subcategoría
+            function filterBySubcategory(subcategoryId) {
+                // Limpiar estados activos
+                document.querySelectorAll('.category_item, .subcategory_item').forEach(item => {
+                    item.classList.remove('active-category', 'active-subcategory');
+                });
+                
+                // Marcar subcategoría como activa
+                const selectedSubcategory = document.querySelector(`.subcategory_item[onclick*="filterBySubcategory(${subcategoryId})"]`);
+                if (selectedSubcategory) {
+                    selectedSubcategory.classList.add('active-subcategory');
+                }
+                
+                // Redirigir
+                window.location.href = '/index?subcategoriaId=' + subcategoryId;
+            }
+
+            // FUNCIONES PARA EL MODAL (PANTALLAS PEQUEÑAS)
+
+            // Función para abrir el modal
+            function openCategoryModal() {
+                document.getElementById('category-filter-modal').style.display = 'block';
+            }
+
+            // Función para cerrar el modal
+            function closeCategoryModal() {
+                document.getElementById('category-filter-modal').style.display = 'none';
+            }
+
+            // Función para mostrar/ocultar subcategorías en el modal
+            function toggleSubcategoriesModal(iconElement, subcategoryId) {
+                const subcategoryList = document.getElementById(subcategoryId);
+                
+                if (subcategoryList.style.display === 'none' || subcategoryList.style.display === '') {
+                    // Ocultar todas las otras subcategorías del modal
+                    document.querySelectorAll('#category-filter-modal .subcategory_list').forEach(list => {
+                        list.style.display = 'none';
+                    });
+                    
+                    // Resetear todos los iconos
+                    document.querySelectorAll('#category-filter-modal .chevron-icon').forEach(icon => {
+                        icon.style.transform = 'rotate(0deg)';
+                    });
+                    
+                    // Mostrar la subcategoría seleccionada
+                    subcategoryList.style.display = 'block';
+                    iconElement.style.transform = 'rotate(90deg)';
+                } else {
+                    // Ocultar la subcategoría
+                    subcategoryList.style.display = 'none';
+                    iconElement.style.transform = 'rotate(0deg)';
+                }
+            }
+
+            // Función para filtrar por categoría desde el modal
+            function filterByCategoryModal(categoriaId) {
+                closeCategoryModal();
+                window.location.href = '/index?categoriaId=' + categoriaId;
+            }
+
+            // Función para filtrar por subcategoría desde el modal
+            function filterBySubcategoryModal(subcategoryId) {
+                closeCategoryModal();
+                window.location.href = '/index?subcategoriaId=' + subcategoryId;
+            }
+
+            // Función para agregar al carrito
+            function addToCart(productId) {
+                fetch('/addCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `id=${productId}&cantidad=1`
+                })
+                .then(response => {
+                    window.location.href = '/cart';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+
+            // Cerrar modal al hacer clic fuera de él
+            window.onclick = function(event) {
+                const modal = document.getElementById('category-filter-modal');
+                if (event.target === modal) {
+                    closeCategoryModal();
+                }
+            }
+
+            // Ejecutar cuando la página carga
+            document.addEventListener('DOMContentLoaded', function() {
+                // Configurar el botón de cerrar modal
+                const closeBtn = document.querySelector('.category-close');
+                if (closeBtn) {
+                    closeBtn.onclick = closeCategoryModal;
+                }
+                
+                // Establecer estados activos al cargar la página
+                setActiveStates();
+            });
+        </script>
+
+        <!-- CSS adicional para el modal mejorado -->
+        <style>
+            .category-container {
+                margin-bottom: 10px;
+            }
+            
+            .category_item_mobile {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 16px;
+                border-radius: 8px;
+                transition: background-color 0.3s ease;
+                color: #333;
+                text-decoration: none;
+            }
+            
+            .category_item_mobile:hover {
+                background-color: #f0f0f0;
+            }
+            
+            .category-text {
+                flex: 1;
+                font-weight: 500;
+                cursor: pointer;
+                padding: 4px 0;
+            }
+            
+            .category-text:hover {
+                color: #007bff;
+            }
+            
+            .chevron-icon {
+                transition: transform 0.3s ease;
+                color: #666;
+                cursor: pointer;
+                padding: 4px;
+            }
+            
+            .chevron-icon:hover {
+                color: #333;
+            }
+            
+            .subcategory_list {
+                margin-left: 20px;
+                margin-top: 5px;
+            }
+            
+            .subcategory_item {
+                display: block;
+                padding: 8px 16px;
+                color: #666;
+                text-decoration: none;
+                border-radius: 6px;
+                transition: background-color 0.3s ease;
+                margin-bottom: 2px;
+            }
+            
+            .subcategory_item:hover {
+                background-color: #f5f5f5;
+                color: #333;
+            }
+        </style>
+
+        <!-- JS DE CATEGORIAS -->
+        <script th:src="@{/js/categorias.js}"></script>
+        <script th:src="@{/js/favoritos.js}"></script>
+
+        <!-- FOOTER -->
+        <div th:include="cliente/template_header_footer.html::footer"> </div>
+    </body>
+</html>

@@ -99,7 +99,7 @@ public class IndexController {
         model.addAttribute("subcategoriasDeCategoria", subcategoriasDeCategoria);
         model.addAttribute("categoriaId", categoriaId);
 
-        return "productos/index5";
+        return "productos/index6";
 
     }
 
