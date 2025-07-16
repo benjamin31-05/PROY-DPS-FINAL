@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Detalles del Pago - Open Plaza</title>
+        <title>Detalles del Pago </title>
 
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
         <!-- CSS Customizado -->
         <link th:href="@{/css/verProductos.css}" rel="stylesheet">
+        <link th:href="@{/css/sidebar.css}" rel="stylesheet">
 
         <!-- Icono -->
-        <link th:href="@{/imagenes/1.jpg}" rel="icon" type="image/x-icon">
+        <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
 
         <style>
             body {
@@ -107,6 +108,11 @@
         </style>
     </head>
     <body>
+        <!-- Botón para móviles -->
+        <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('active')">
+            ☰
+        </button>
+        
         <div th:replace="administrador/template_header_footer.html::sidebarAdmin"></div>
 
         <div class="main-content container">

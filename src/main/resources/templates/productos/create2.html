@@ -15,6 +15,7 @@
 
         <!-- CSS Customizado -->
         <link th:href="@{/css/crearProducto.css}" rel="stylesheet">
+        <link th:href="@{/css/sidebar.css}" rel="stylesheet">
 
          <!-- Icono -->
         <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
@@ -52,6 +53,11 @@
     </head>
 
     <body>
+        
+        <!-- Botón para móviles -->
+        <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('active')">
+            ☰
+        </button>
 
         <!-- Navigation -->
         <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${accion == 'crear' ? 'Crear Especificaciones' : 'Editar Especificaciones'}"></title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/sidebar.css}" rel="stylesheet">
+     <!-- Icono -->
+        <link th:href="@{/imagenes/logo.png}" rel="icon" type="image/x-icon">
     <style>
         @import url('/css/headerAdmin.css');
         
@@ -299,6 +302,12 @@
     </style>
 </head>
 <body>
+    
+    <!-- Botón para móviles -->
+        <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('active')">
+            ☰
+        </button>
+    
     <div th:include="administrador/template_header_footer.html::sidebarAdmin"></div>
     
     <main class="main-content">

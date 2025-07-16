@@ -16,100 +16,100 @@
 
     </head>
     <body>
-<!-- Botón para móviles -->
-<button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('active')">
-  ☰
-</button>
+        <!-- Botón para móviles -->
+        <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('active')">
+            ☰
+        </button>
 
-      <!-- Navigation -->
-<div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
+        <!-- Navigation -->
+        <div th:include="administrador/template_header_footer.html::sidebarAdmin"> </div>
 
-<!-- Contenido principal -->
-<div class="main-content">
-    <div class="metrics-container">
-        <div class="metric-card">
-            <div class="metric-value" th:text="${totalPedidos}">4</div>
-            <div class="metric-label">Pedidos</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-value" th:text="${totalClientes}">2</div>
-            <div class="metric-label">Clientes</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-value" th:text="${totalContactos}">0</div>
-            <div class="metric-label">Asuntos</div>
-        </div>
-         <div class="metric-card">
-            <div class="metric-value" th:text="${'S/ ' + #numbers.formatDecimal(totalIngresos, 1, 2, 'POINT')}">S/ 7,50</div>
-            <div class="metric-label">Ingreso</div>
-        </div>
-    </div>
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <div class="metrics-container">
+                <div class="metric-card">
+                    <div class="metric-value" th:text="${totalPedidos}">4</div>
+                    <div class="metric-label">Pedidos</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" th:text="${totalClientes}">2</div>
+                    <div class="metric-label">Clientes</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" th:text="${totalContactos}">0</div>
+                    <div class="metric-label">Asuntos</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" th:text="${'S/ ' + #numbers.formatDecimal(totalIngresos, 1, 2, 'POINT')}">S/ 7,50</div>
+                    <div class="metric-label">Ingreso</div>
+                </div>
+            </div>
 
-    <div class="tables-container">
-        <div class="table-section">
-            <div class="table-header">
-                <h2 class="table-title">Pedidos Recientes</h2>
-                <a th:href="@{/admin/allPedidos}" class="action-button">Ver Todos</a>
-            </div>
-            <div class="table-wrapper">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Número</th>
-                            <th>Cliente</th>
-                            <th>Precio Total</th>
-                            <th>Opción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="pedido : ${pedidosRecientes}">
-                            <td th:text="${pedido.numero}">0000000004</td>
-                            <td th:text="${pedido.usuario.nombre}">Martin</td>
-                            <td class="price-cell" th:text="${'S/ ' + #numbers.formatDecimal(pedido.total, 1, 2, 'POINT')}">S/ 4.00</td>
-                            <td>
-                                <a th:href="@{/admin/pedidos/detalle/{id}(id=${pedido.id})}" class="view-button">Ver</a>
-                            </td>
-                        </tr>
-                        <!-- Mensaje cuando no hay pedidos -->
-                        <tr th:if="${#lists.isEmpty(pedidosRecientes)}">
-                            <td colspan="4" class="empty-state">No hay pedidos recientes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            <div class="tables-container">
+                <div class="table-section">
+                    <div class="table-header">
+                        <h2 class="table-title">Pedidos Recientes</h2>
+                        <a th:href="@{/admin/allPedidos}" class="action-button">Ver Todos</a>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Cliente</th>
+                                    <th>Precio Total</th>
+                                    <th>Opción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="pedido : ${pedidosRecientes}">
+                                    <td th:text="${pedido.numero}">0000000004</td>
+                                    <td th:text="${pedido.usuario.nombre}">Martin</td>
+                                    <td class="price-cell" th:text="${'S/ ' + #numbers.formatDecimal(pedido.total, 1, 2, 'POINT')}">S/ 4.00</td>
+                                    <td>
+                                        <a th:href="@{/admin/pedidos/detalle/{id}(id=${pedido.id})}" class="view-button">Ver</a>
+                                    </td>
+                                </tr>
+                                <!-- Mensaje cuando no hay pedidos -->
+                                <tr th:if="${#lists.isEmpty(pedidosRecientes)}">
+                                    <td colspan="4" class="empty-state">No hay pedidos recientes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-        <div class="table-section">
-            <div class="table-header">
-                <h2 class="table-title">Clientes</h2>
-                <a th:href="@{/admin/usuarios}" class="action-button">Ver más</a>
-            </div>
-            <div class="table-wrapper">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Perfil</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="cliente : ${ultimosClientes}">
-                            <td>
-                                <div class="user-avatar">👤</div>
-                            </td>
-                            <td th:text="${cliente.nombre}">Benjamin</td>
-                            <td th:text="${cliente.email}">benjaminestebann31@gmail.com</td>
-                        </tr>
-                        <!-- Mensaje cuando no hay clientes -->
-                        <tr th:if="${#lists.isEmpty(ultimosClientes)}">
-                            <td colspan="3" class="empty-state">No hay clientes registrados</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-section">
+                    <div class="table-header">
+                        <h2 class="table-title">Clientes</h2>
+                        <a th:href="@{/admin/usuarios}" class="action-button">Ver más</a>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Perfil</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="cliente : ${ultimosClientes}">
+                                    <td>
+                                        <div class="user-avatar">👤</div>
+                                    </td>
+                                    <td th:text="${cliente.nombre}">Benjamin</td>
+                                    <td th:text="${cliente.email}">benjaminestebann31@gmail.com</td>
+                                </tr>
+                                <!-- Mensaje cuando no hay clientes -->
+                                <tr th:if="${#lists.isEmpty(ultimosClientes)}">
+                                    <td colspan="3" class="empty-state">No hay clientes registrados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     </body>
 </html>
